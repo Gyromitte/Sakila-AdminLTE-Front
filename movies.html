@@ -327,45 +327,128 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--CRUD SCRIPT-->
 <script>
-function fetchMovies() {
-      fetch('http://143.110.198.189/api/films')
-        .then(response => response.json())
-        .then(response => {
-          console.log(response); // Log the API response for debugging
-          const tbody = document.querySelector('#moviesTable tbody');
-          tbody.innerHTML = ''; // Clear existing rows
+  function fetchMovies() {
+        fetch('http://143.110.198.189/api/films')
+          .then(response => response.json())
+          .then(response => {
+            console.log(response); // Log the API response for debugging
+            const tbody = document.querySelector('#moviesTable tbody');
+            tbody.innerHTML = ''; // Clear existing rows
 
-          // Access the 'data' property of the response
-          if (Array.isArray(response.data)) {
-            response.data.forEach(movie => {
-              // Extract actors' names
-              const actors = movie.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
+            // Access the 'data' property of the response
+            if (Array.isArray(response.data)) {
+              response.data.forEach(movie => {
+                // Extract actors' names
+                const actors = movie.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
 
-              const row = `
-                <tr>
-                  <td>${movie.film_id}</td>
-                  <td>${movie.title}</td>
-                  <td>${movie.description}</td>
-                  <td>${movie.release_year}</td>
-                  <td>${actors}</td> <!-- Display actors -->
-                  <td>
-                    <button class="btn btn-sm btn-smaller edit-btn" data-id="${movie.film_id}">
-                      <i class="fas fa-pencil-alt text-light"></i> <!-- White pencil icon -->
-                    </button>
-                    <button class="btn btn-sm btn-smaller delete-btn" data-id="${movie.film_id}">
-                      <i class="fas fa-trash text-danger"></i> <!-- Red trash icon -->
-                    </button>
-                  </td>
-                </tr>
-              `;
-              tbody.insertAdjacentHTML('beforeend', row); // Add the row to the table
-            });
-          } else {
-            console.error('API response data is not an array:', response.data);
-          }
-        })
-        .catch(error => console.error('Error fetching movies:', error));
+                const row = `
+                  <tr>
+                    <td>${movie.film_id}</td>
+                    <td>${movie.title}</td>
+                    <td>${movie.description}</td>
+                    <td>${movie.release_year}</td>
+                    <td>${actors}</td> <!-- Display actors -->
+                    <td>
+                      <button class="btn btn-sm btn-smaller edit-btn" data-id="${movie.film_id}">
+                        <i class="fas fa-pencil-alt text-light"></i> <!-- White pencil icon -->
+                      </button>
+                      <button class="btn btn-sm btn-smaller delete-btn" data-id="${movie.film_id}">
+                        <i class="fas fa-trash text-danger"></i> <!-- Red trash icon -->
+                      </button>
+                    </td>
+                  </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row); // Add the row to the table
+              });
+            } else {
+              console.error('API response data is not an array:', response.data);
+            }
+          })
+          .catch(error => console.error('Error fetching movies:', error));
     }
+
+      document.addEventListener("DOMContentLoaded", () => {
+      fetchMovies();
+
+      // Delegate event listener to dynamically generated buttons
+      document.querySelector("#moviesTable tbody").addEventListener("click", (event) => {
+          const target = event.target.closest("button");
+
+          if (!target) return;
+
+          const filmId = target.dataset.id;
+
+          if (target.classList.contains("edit-btn")) {
+              openEditModal(filmId);
+          } else if (target.classList.contains("delete-btn")) {
+              openDeleteModal(filmId);
+          }
+      });
+
+      // Handle update movie
+      document.getElementById("updateMovie").addEventListener("click", updateMovie);
+
+      // Handle delete movie
+      document.getElementById("confirmDelete").addEventListener("click", deleteMovie);
+  });
+
+  // Function to open edit modal
+  function openEditModal(filmId) {
+      fetch(`http://143.110.198.189/api/films/${filmId}`)
+          .then(response => response.json())
+          .then(movie => {
+              document.getElementById("editFilmId").value = movie.film_id;
+              document.getElementById("editTitle").value = movie.title;
+              document.getElementById("editDescription").value = movie.description;
+              document.getElementById("editReleaseYear").value = movie.release_year;
+
+              $("#editMovieModal").modal("show");
+          })
+          .catch(error => console.error("Error fetching movie details:", error));
+  }
+
+  // Function to update movie
+  function updateMovie() {
+      const filmId = document.getElementById("editFilmId").value;
+      const updatedData = {
+          title: document.getElementById("editTitle").value,
+          description: document.getElementById("editDescription").value,
+          release_year: document.getElementById("editReleaseYear").value
+      };
+
+      fetch(`http://143.110.198.189/api/films/${filmId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData)
+      })
+      .then(response => response.json())
+      .then(() => {
+          $("#editMovieModal").modal("hide");
+          fetchMovies(); // Refresh table
+      })
+      .catch(error => console.error("Error updating movie:", error));
+  }
+
+  // Function to open delete modal
+  function openDeleteModal(filmId) {
+      document.getElementById("deleteFilmId").value = filmId;
+      $("#deleteMovieModal").modal("show");
+  }
+
+  // Function to delete movie
+  function deleteMovie() {
+      const filmId = document.getElementById("deleteFilmId").value;
+
+      fetch(`http://143.110.198.189/api/films/${filmId}`, {
+          method: "DELETE"
+      })
+      .then(() => {
+          $("#deleteMovieModal").modal("hide");
+          fetchMovies(); // Refresh table
+      })
+      .catch(error => console.error("Error deleting movie:", error));
+  }
+
 
     // Fetch movies when the page loads
     fetchMovies();  
