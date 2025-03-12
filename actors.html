@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
+<!-- 
+This is a starter template page.
+Use this page to start your new project from scratch.
+This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
@@ -20,12 +21,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
-    <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
       <li class="nav-item d-none d-sm-inline-block"><a href="index3.html" class="nav-link">Home</a></li>
     </ul>
-    <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <div class="navbar-search-block">
@@ -47,28 +46,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/favicon.ico" alt="Sakila Films Logo" class="brand-image" style="opacity:.8">
+      <img src="dist/img/favicon.ico" alt="Sakila Films Logo" class="brand-image" style="opacity: .8">
       <span class="brand-text font-weight-light">Sakila Films</span>
     </a>
-    <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image"><img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"></div>
         <div class="info"><a href="#" class="d-block">User Name</a></div>
       </div>
-      <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append"><button class="btn btn-sidebar"><i class="fas fa-search fa-fw"></i></button></div>
         </div>
       </div>
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">
           <li class="nav-item"><a href="starter.html" class="nav-link"><i class="nav-icon fas fa-home"></i><p>Home</p></a></li>
           <!--MOVIES-->
           <li class="nav-item menu"><a href="movies.html" class="nav-link"><i class="nav-icon fas fa-film"></i><p>Películas</p></a></li>
@@ -87,16 +81,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
       </nav>
     </div>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper -->
   <div class="content-wrapper">
     <!-- Content Header -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2"><div class="col-sm-6"><h1 class="m-0">Actores</h1></div><div class="col-sm-6"></div></div>
-      </div>
+      <div class="container-fluid"><div class="row mb-2">
+        <div class="col-sm-6"><h1 class="m-0">Actores</h1></div><div class="col-sm-6"></div>
+      </div></div>
     </div>
     <!-- Main content -->
     <div class="content">
@@ -108,28 +101,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addActorModal">Agregar Actor</button>
             </div>
             <div class="card-body">
-              <table id="actorsTable" class="table table-bordered table-striped">
+              <table id="actorsTable" class="table table-bordered table-striped table-smaller-text">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Última Actualización</th>
-                    <th>Acciones</th>
+                    <th style="width: 5%;">ID</th>
+                    <th style="width: 25%;">Nombre</th>
+                    <th style="width: 25%;">Apellido</th>
+                    <th style="width: 25%;">Última Actualización</th>
+                    <th style="width: 20%;">Acciones</th>
                   </tr>
                 </thead>
-                <tbody><!-- Aquí se cargarán los actores --></tbody>
+                <tbody><!-- Se llenará por AJAX --></tbody>
               </table>
-
               <!-- Paginación -->
               <div class="row mt-3">
                 <div class="col-12 d-flex justify-content-center">
-                  <button class="btn btn-dark mr-2" id="prevPage">Anterior</button>
-                  <div id="pageInfo" class="align-self-center" style="margin:0 10px;"></div>
-                  <button class="btn btn-dark ml-2" id="nextPage">Siguiente</button>
+                  <button class="btn btn-sm btn-dark mr-2" id="prevPage">Anterior</button>
+                  <div id="pageInfo" style="margin: 0 10px;" class="align-self-center"></div>
+                  <button class="btn btn-sm btn-dark ml-2" id="nextPage">Siguiente</button>
                 </div>
               </div>
-              <!-- /Fin paginación -->
+              <!-- Fin paginación -->
             </div>
           </div>
         </div></div>
@@ -138,211 +130,190 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Add Actor Modal -->
     <div class="modal fade" id="addActorModal" tabindex="-1" role="dialog" aria-labelledby="addActorModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="addActorModalLabel">Agregar Actor</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-          <div class="modal-body">
-            <form id="addActorForm">
-              <div class="form-group">
-                <label for="first_name">Nombre</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" required>
-              </div>
-              <div class="form-group">
-                <label for="last_name">Apellido</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" required>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button><button type="button" class="btn btn-primary" id="saveActor">Guardar</button></div>
+      <div class="modal-dialog" role="document"><div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addActorModalLabel">Agregar Actor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-      </div>
+        <div class="modal-body">
+          <form id="addActorForm">
+            <div class="form-group">
+              <label for="first_name">Nombre</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+              <label for="last_name">Apellido</label>
+              <input type="text" class="form-control" id="last_name" name="last_name" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="saveActor">Guardar</button>
+        </div>
+      </div></div>
     </div>
 
     <!-- Edit Actor Modal -->
     <div class="modal fade" id="editActorModal" tabindex="-1" role="dialog" aria-labelledby="editActorModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="editActorModalLabel">Editar Actor</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-          <div class="modal-body">
-            <form id="editActorForm">
-              <input type="hidden" id="editActorId" name="actor_id">
-              <div class="form-group">
-                <label for="editFirstName">Nombre</label>
-                <input type="text" class="form-control" id="editFirstName" name="first_name" required>
-              </div>
-              <div class="form-group">
-                <label for="editLastName">Apellido</label>
-                <input type="text" class="form-control" id="editLastName" name="last_name" required>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button><button type="button" class="btn btn-primary" id="updateActor">Actualizar</button></div>
+      <div class="modal-dialog" role="document"><div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editActorModalLabel">Editar Actor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-      </div>
+        <div class="modal-body">
+          <form id="editActorForm">
+            <input type="hidden" id="editActorId" name="actor_id">
+            <div class="form-group">
+              <label for="editFirstName">Nombre</label>
+              <input type="text" class="form-control" id="editFirstName" name="first_name" required>
+            </div>
+            <div class="form-group">
+              <label for="editLastName">Apellido</label>
+              <input type="text" class="form-control" id="editLastName" name="last_name" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="updateActor">Actualizar</button>
+        </div>
+      </div></div>
     </div>
 
     <!-- Delete Actor Modal -->
     <div class="modal fade" id="deleteActorModal" tabindex="-1" role="dialog" aria-labelledby="deleteActorModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header"><h5 class="modal-title" id="deleteActorModalLabel">Eliminar Actor</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
-          <div class="modal-body"><p>¿Estás seguro de eliminar este actor?</p><input type="hidden" id="deleteActorId"></div>
-          <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-danger" id="confirmDeleteActor">Eliminar</button></div>
+      <div class="modal-dialog" role="document"><div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteActorModalLabel">Eliminar Actor</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-      </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de eliminar este actor?</p>
+          <input type="hidden" id="deleteActorId">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteActor">Eliminar</button>
+        </div>
+      </div></div>
     </div>
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <div class="p-3"><h5>Title</h5><p>Sidebar content</p></div>
     </aside>
-    <!-- /.control-sidebar -->
   </div>
-  <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script>
   let currentPage = 1, lastPage = 1;
-
   function loadActors(){
     $.ajax({
       url: 'http://143.110.198.189/api/actors?page=' + currentPage,
       method: 'GET',
       success: function(data) {
-        currentPage = data.current_page; 
+        currentPage = data.current_page;
         lastPage = data.last_page;
         var actors = data.data, tbody = $('#actorsTable tbody');
         tbody.empty();
         $.each(actors, function(index, actor) {
-          var row =
-            '<tr>'+
-              '<td>'+actor.actor_id+'</td>'+
-              '<td>'+actor.first_name+'</td>'+
-              '<td>'+actor.last_name+'</td>'+
-              '<td>'+actor.last_update+'</td>'+
-              '<td>'+
-                '<button class="btn btn-warning btn-sm editActor" data-id="'+actor.actor_id+'">Editar</button> '+
-                '<button class="btn btn-danger btn-sm deleteActor" data-id="'+actor.actor_id+'">Eliminar</button>'+
-              '</td>'+
-            '</tr>';
+          var row = `
+            <tr>
+              <td>${actor.actor_id}</td>
+              <td>${actor.first_name}</td>
+              <td>${actor.last_name}</td>
+              <td>${actor.last_update}</td>
+              <td>
+                <button class="btn btn-sm btn-smaller editActor" data-id="${actor.actor_id}">
+                  <i class="fas fa-pencil-alt text-light"></i>
+                </button>
+                <button class="btn btn-sm btn-smaller deleteActor" data-id="${actor.actor_id}">
+                  <i class="fas fa-trash text-danger"></i>
+                </button>
+              </td>
+            </tr>`;
           tbody.append(row);
         });
         $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
       },
-      error: function(xhr, status, error) {
-        alert('Error al cargar actores: ' + error);
-      }
+      error: function(xhr, status, error) { alert('Error al cargar actores: ' + error); }
     });
   }
-
   $(document).ready(function(){
     loadActors();
-
-    // Botones paginación
-    $('#prevPage').click(function(){ 
-      if(currentPage>1){ currentPage--; loadActors(); }
-    });
-    $('#nextPage').click(function(){
-      if(currentPage<lastPage){ currentPage++; loadActors(); }
-    });
-
-    // Crear Actor (POST)
+    $('#prevPage').click(function(){ if(currentPage>1){currentPage--;loadActors();} });
+    $('#nextPage').click(function(){ if(currentPage<lastPage){currentPage++;loadActors();} });
     $('#saveActor').click(function(){
-      var formData = {
-        first_name: $('#first_name').val(),
-        last_name: $('#last_name').val()
-      };
+      var formData = {first_name: $('#first_name').val(), last_name: $('#last_name').val()};
       $.ajax({
         url: 'http://143.110.198.189/api/actors',
         method: 'POST',
         data: formData,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
-        headers: { 'Accept': 'application/json' },
-        success: function(data) {
+        headers: {'Accept':'application/json'},
+        success: function(data){
           $('#addActorModal').modal('hide');
           $('#addActorForm')[0].reset();
           loadActors();
         },
-        error: function(xhr, status, error) {
-          alert('Error al agregar actor: ' + error);
-        }
+        error: function(xhr, status, error){ alert('Error al agregar actor: ' + error); }
       });
     });
-
-    // Editar (GET)
-    $(document).on('click','.editActor',function(){
-      var actorId=$(this).data('id');
+    $(document).on('click','.editActor', function(){
+      var actorId = $(this).data('id');
       $.ajax({
-        url:'http://143.110.198.189/api/actors/'+actorId,
-        method:'GET',
-        success:function(data){
+        url: 'http://143.110.198.189/api/actors/'+actorId,
+        method: 'GET',
+        success: function(data){
           $('#editActorId').val(data.actor_id);
           $('#editFirstName').val(data.first_name);
           $('#editLastName').val(data.last_name);
           $('#editActorModal').modal('show');
         },
-        error:function(xhr,status,error){
-          alert('Error al cargar actor: '+error);
-        }
+        error: function(xhr, status, error){ alert('Error al cargar actor: ' + error); }
       });
     });
-
-    // Actualizar (PUT)
     $('#updateActor').click(function(){
-      var actorId=$('#editActorId').val();
-      var formData={
-        first_name:$('#editFirstName').val(),
-        last_name: $('#editLastName').val()
-      };
+      var actorId = $('#editActorId').val();
+      var formData = { first_name: $('#editFirstName').val(), last_name: $('#editLastName').val() };
       $.ajax({
-        url:'http://143.110.198.189/api/actors/'+actorId,
-        method:'PUT',
-        data:formData,
-        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType:'json',
-        headers:{ 'Accept':'application/json' },
-        success:function(data){
+        url: 'http://143.110.198.189/api/actors/'+actorId,
+        method: 'PUT',
+        data: formData,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: {'Accept':'application/json'},
+        success: function(data){
           $('#editActorModal').modal('hide');
           loadActors();
         },
-        error:function(xhr,status,error){
-          alert('Error al actualizar actor: '+error);
-        }
+        error: function(xhr, status, error){ alert('Error al actualizar actor: ' + error); }
       });
     });
-
-    // Eliminar (GET ID y abrir modal)
-    $(document).on('click','.deleteActor',function(){
-      var actorId=$(this).data('id');
-      $('#deleteActorId').val(actorId);
+    $(document).on('click','.deleteActor', function(){
+      $('#deleteActorId').val($(this).data('id'));
       $('#deleteActorModal').modal('show');
     });
-
-    // Confirmar eliminación (DELETE)
     $('#confirmDeleteActor').click(function(){
-      var actorId=$('#deleteActorId').val();
+      var actorId = $('#deleteActorId').val();
       $.ajax({
-        url:'http://143.110.198.189/api/actors/'+actorId,
-        method:'DELETE',
-        contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType:'json',
-        headers:{ 'Accept':'application/json' },
-        success:function(data){
+        url: 'http://143.110.198.189/api/actors/'+actorId,
+        method: 'DELETE',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: {'Accept':'application/json'},
+        success: function(data){
           $('#deleteActorModal').modal('hide');
           loadActors();
         },
-        error:function(xhr,status,error){
-          alert('Error al eliminar actor: '+error);
-        }
+        error: function(xhr, status, error){ alert('Error al eliminar actor: ' + error); }
       });
     });
   });
