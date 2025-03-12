@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/styles.css">
 </head>
 <body class="hold-transition sidebar-mini dark-mode">
 <div class="wrapper">
@@ -187,37 +188,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Movies</h3>
-                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>
-              </div>
-              <div class="card-body">
-                <table id="moviesTable" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Release Year</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- Movie rows will be populated here by JavaScript -->
-                  </tbody>
-                </table>
-              </div>
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Movies</h3>
+              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>
+            </div>
+            <div class="card-body">
+              <table id="moviesTable" class="table table-bordered table-striped table-smaller-text">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Release Year</th>
+                    <th>Actors</th> <!-- New column for actors -->
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Movie rows will be populated here by JavaScript -->
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
     <!-- Add Movie Modal -->
     <div class="modal fade" id="addMovieModal" tabindex="-1" role="dialog" aria-labelledby="addMovieModalLabel" aria-hidden="true">
@@ -325,40 +327,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!--CRUD SCRIPT-->
 <script>
-  function fetchMovies() {
-    fetch('http://143.110.198.189/api/films')
-      .then(response => response.json())
-      .then(response => {
-        console.log(response); // Log the API response for debugging
-        const tbody = document.querySelector('#moviesTable tbody');
-        tbody.innerHTML = ''; // Clear existing rows
+function fetchMovies() {
+      fetch('http://143.110.198.189/api/films')
+        .then(response => response.json())
+        .then(response => {
+          console.log(response); // Log the API response for debugging
+          const tbody = document.querySelector('#moviesTable tbody');
+          tbody.innerHTML = ''; // Clear existing rows
 
-        // Access the 'data' property of the response
-        if (Array.isArray(response.data)) {
-          response.data.forEach(movie => {
-            const row = `
-              <tr>
-                <td>${movie.film_id}</td>
-                <td>${movie.title}</td>
-                <td>${movie.description}</td>
-                <td>${movie.release_year}</td>
-                <td>
-                  <button class="btn btn-warning btn-sm edit-btn" data-id="${movie.film_id}">Edit</button>
-                  <button class="btn btn-danger btn-sm delete-btn" data-id="${movie.film_id}">Delete</button>
-                </td>
-              </tr>
-            `;
-            tbody.insertAdjacentHTML('beforeend', row); // Add the row to the table
-          });
-        } else {
-          console.error('API response data is not an array:', response.data);
-        }
-      })
-      .catch(error => console.error('Error fetching movies:', error));
-  }
+          // Access the 'data' property of the response
+          if (Array.isArray(response.data)) {
+            response.data.forEach(movie => {
+              // Extract actors' names
+              const actors = movie.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
 
-  // Fetch movies when the page loads
-  fetchMovies();
+              const row = `
+                <tr>
+                  <td>${movie.film_id}</td>
+                  <td>${movie.title}</td>
+                  <td>${movie.description}</td>
+                  <td>${movie.release_year}</td>
+                  <td>${actors}</td> <!-- Display actors -->
+                  <td>
+                    <button class="btn btn-sm btn-smaller edit-btn" data-id="${movie.film_id}">
+                      <i class="fas fa-pencil-alt text-light"></i> <!-- White pencil icon -->
+                    </button>
+                    <button class="btn btn-sm btn-smaller delete-btn" data-id="${movie.film_id}">
+                      <i class="fas fa-trash text-danger"></i> <!-- Red trash icon -->
+                    </button>
+                  </td>
+                </tr>
+              `;
+              tbody.insertAdjacentHTML('beforeend', row); // Add the row to the table
+            });
+          } else {
+            console.error('API response data is not an array:', response.data);
+          }
+        })
+        .catch(error => console.error('Error fetching movies:', error));
+    }
+
+    // Fetch movies when the page loads
+    fetchMovies();  
 </script>
 
 <!-- REQUIRED SCRIPTS -->
