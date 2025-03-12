@@ -4,276 +4,574 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico" />
 
-  <title>Sakila Films</title>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition sidebar-mini dark-mode">
-<div class="wrapper">
+    <title>Sakila Films</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css" />
+  </head>
+  <body class="hold-transition sidebar-mini dark-mode">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"
+              ><i class="fas fa-bars"></i
+            ></a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="index3.html" class="nav-link">Home</a>
+          </li>
+        </ul>
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-    </ul>
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Navbar Search -->
+          <li class="nav-item">
+            <div class="navbar-search-block">
+              <form class="form-inline">
+                <div class="input-group input-group-sm">
+                  <input
+                    class="form-control form-control-navbar"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button
+                      class="btn btn-navbar"
+                      type="button"
+                      data-widget="navbar-search"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </li>
+          </li>
 
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="dist/img/favicon.ico" alt="Sakila Films Logo" class="brand-image" style="opacity: .8">
-      <span class="brand-text font-weight-light">Sakila Films</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">User Name</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="starter.html" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>
-                Home
-              </p>
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+              <i class="fas fa-expand-arrows-alt"></i>
             </a>
           </li>
-          <!--MOVIES-->
-          <li class="nav-item menu">
-            <a href="movies.html" class="nav-link">
-              <i class="nav-icon fas fa-film"></i>
-              <p>Películas</p>
-            </a>
-          </li>
-
-          <!--ACTORS-->
-          <li class="nav-item">
-            <a href="actors.html" class="nav-link">
-              <i class="nav-icon fas fa-mask"></i>
-              <p>Actores</p>
-            </a>
-          </li>
-
-          <!--CLIENTS-->
-          <li class="nav-item">
-            <a href="clients.html" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Clientes</p>
-            </a>
-          </li>
-
-          <!--RENTALS-->
-          <li class="nav-item">
-            <a href="rentals.html" class="nav-link">
-              <i class="nav-icon fas fa-money-bill"></i>
-              <p>Rentas</p>
-            </a>
-          </li>
-
-          <!--INVENTORY-->
-          <li class="nav-item">
-            <a href="inventory.html" class="nav-link">
-              <i class="nav-icon fas fa-box"></i>
-              <p>Inventario</p>
-            </a>
-          </li>
-
-          <!--STAFF-->
-          <li class="nav-item">
-            <a href="staff.html" class="nav-link active">
-              <i class="nav-icon fas fa-people-arrows"></i>
-              <p>Staff</p>
-            </a>
-          </li>
-
-          <!--STORES-->
-          <li class="nav-item">
-            <a href="store.html" class="nav-link">
-              <i class="nav-icon fas fa-store"></i>
-              <p>Tiendas</p>
-            </a>
-          </li>
-
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+      <!-- /.navbar -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Home</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+          <img
+            src="dist/img/favicon.ico"
+            alt="Sakila Films Logo"
+            class="brand-image"
+            style="opacity: 0.8"
+          />
+          <span class="brand-text font-weight-light">Sakila Films</span>
+        </a>
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img
+                src="dist/img/user2-160x160.jpg"
+                class="img-circle elevation-2"
+                alt="User Image"
+              />
             </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
+            <div class="info">
+              <a href="#" class="d-block">User Name</a>
+            </div>
           </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
 
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+          <!-- SidebarSearch Form -->
+          <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+              <input
+                class="form-control form-control-sidebar"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>
               </div>
             </div>
           </div>
-          <!-- /.col-md-6 -->
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul
+              class="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+              <li class="nav-item">
+                <a href="starter.html" class="nav-link">
+                  <i class="nav-icon fas fa-home"></i>
+                  <p>Home</p>
+                </a>
+              </li>
+              <!--MOVIES-->
+              <li class="nav-item menu">
+                <a href="movies.html" class="nav-link">
+                  <i class="nav-icon fas fa-film"></i>
+                  <p>Películas</p>
+                </a>
+              </li>
+
+              <!--ACTORS-->
+              <li class="nav-item">
+                <a href="actors.html" class="nav-link">
+                  <i class="nav-icon fas fa-mask"></i>
+                  <p>Actores</p>
+                </a>
+              </li>
+
+              <!--CLIENTS-->
+              <li class="nav-item">
+                <a href="clients.html" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Clientes</p>
+                </a>
+              </li>
+
+              <!--RENTALS-->
+              <li class="nav-item">
+                <a href="rentals.html" class="nav-link">
+                  <i class="nav-icon fas fa-money-bill"></i>
+                  <p>Rentas</p>
+                </a>
+              </li>
+
+              <!--INVENTORY-->
+              <li class="nav-item">
+                <a href="inventory.html" class="nav-link">
+                  <i class="nav-icon fas fa-box"></i>
+                  <p>Inventario</p>
+                </a>
+              </li>
+
+              <!--STAFF-->
+              <li class="nav-item">
+                <a href="staff.html" class="nav-link active">
+                  <i class="nav-icon fas fa-people-arrows"></i>
+                  <p>Staff</p>
+                </a>
+              </li>
+
+              <!--STORES-->
+              <li class="nav-item">
+                <a href="store.html" class="nav-link">
+                  <i class="nav-icon fas fa-store"></i>
+                  <p>Tiendas</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Home</h1>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6"></div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Staff</h3>
+                    <button
+                      class="btn btn-success float-right"
+                      data-toggle="modal"
+                      data-target="#addStaffModal"
+                    >
+                      Add Staff
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th>Correo Electrónico</th>
+                          <th>Nombre de Usuario</th>
+                          <th>Última Actualización</th>
+                          <th>Imagen</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="staff-table-body">
+                        <!-- Datos del personal serán insertados aquí -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Modal para mostrar la imagen -->
+      <div
+        class="modal fade"
+        id="imageModal"
+        tabindex="-1"
+        aria-labelledby="imageModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imageModalLabel">Imagen del Staff</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <img id="staffImage" src="" alt="Staff Image" class="img-fluid" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para agregar/editar staff -->
+      <div
+        class="modal fade"
+        id="addStaffModal"
+        tabindex="-1"
+        aria-labelledby="addStaffModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addStaffModalLabel">
+                Crear/Editar Staff
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="create-staff-form">
+                <input type="hidden" id="staff_id" name="staff_id" />
+                <div class="form-group">
+                  <label for="first_name">Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="first_name"
+                    name="first_name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="last_name">Apellido</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="last_name"
+                    name="last_name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="address_id">ID de Dirección</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="address_id"
+                    name="address_id"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="picture">Imagen</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="picture"
+                    name="picture"
+                    accept="image/*"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Correo Electrónico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="store_id">ID de Tienda</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="store_id"
+                    name="store_id"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="active">Activo</label>
+                  <input type="checkbox" id="active" name="active" />
+                </div>
+                <div class="form-group">
+                  <label for="username">Nombre de Usuario</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    name="username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+          <h5>Title</h5>
+          <p>Sidebar content</p>
+        </div>
+      </aside>
+      <!-- /.control-sidebar -->
     </div>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+    <!-- ./wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
+    <!-- REQUIRED SCRIPTS -->
 
-</div>
-<!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
 
-<!-- REQUIRED SCRIPTS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://143.110.198.189/api/staff")
+          .then((response) => response.json())
+          .then((data) => {
+            const staffTableBody = document.getElementById("staff-table-body");
+            data.data.forEach((staff) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+            <td><button class="btn btn-link" onclick="editStaff(${
+              staff.staff_id
+            })">${staff.staff_id}</button></td>
+            <td>${staff.first_name}</td>
+            <td>${staff.last_name}</td>
+            <td>${staff.email}</td>
+            <td>${staff.username}</td>
+            <td>${staff.last_update}</td>
+            <td>
+              ${
+                staff.picture
+                  ? `<button class="btn btn-primary" onclick="showImage('data:image/png;base64,${staff.picture}')"><i class="fas fa-eye"></i></button>`
+                  : "No Image"
+              }
+            </td>
+            <td>
+              <button class="btn btn-danger" onclick="deleteStaff(${
+                staff.staff_id
+              })"><i class="fas fa-trash"></i></button>
+            </td>
+          `;
+              staffTableBody.appendChild(row);
+            });
+          })
+          .catch((error) => console.error("Error fetching staff data:", error));
 
-<!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-</body>
+        document
+          .getElementById("create-staff-form")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            data.active = formData.get("active") ? 1 : 0;
+
+            const pictureFile = formData.get("picture");
+            if (pictureFile) {
+              const reader = new FileReader();
+              reader.onloadend = function () {
+                data.picture = reader.result.split(",")[1];
+                saveStaff(data);
+              };
+              reader.readAsDataURL(pictureFile);
+            } else {
+              saveStaff(data);
+            }
+          });
+
+        function saveStaff(data) {
+          const staffId = data.staff_id;
+          const url = staffId
+            ? `http://143.110.198.189/api/staff/${staffId}`
+            : "http://143.110.198.189/api/staff/";
+          const method = staffId ? "PUT" : "POST";
+
+          fetch(url, {
+            method: method,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              alert("Staff guardado exitosamente");
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error guardando staff:", error);
+              alert("Error guardando staff: " + error.message);
+            });
+        }
+      });
+
+      function showImage(imageUrl) {
+        document.getElementById("staffImage").src = imageUrl;
+        $("#imageModal").modal("show");
+      }
+
+      function editStaff(staffId) {
+        fetch(`http://143.110.198.189/api/staff/${staffId}`)
+          .then((response) => response.json())
+          .then((staff) => {
+            document.getElementById("staff_id").value = staff.staff_id;
+            document.getElementById("first_name").value = staff.first_name;
+            document.getElementById("last_name").value = staff.last_name;
+            document.getElementById("address_id").value = staff.address_id;
+            document.getElementById("email").value = staff.email;
+            document.getElementById("store_id").value = staff.store_id;
+            document.getElementById("active").checked = staff.active;
+            document.getElementById("username").value = staff.username;
+            document.getElementById("password").value = ""; // No se muestra la contraseña actual
+            $("#addStaffModal").modal("show");
+          })
+          .catch((error) => {
+            console.error("Error fetching staff data:", error);
+            alert("Error fetching staff data: " + error.message);
+          });
+      }
+
+      function deleteStaff(staffId) {
+        if (
+          confirm(
+            "¿Estás seguro de que deseas eliminar este miembro del staff?"
+          )
+        ) {
+          fetch(`http://143.110.198.189/api/staff/${staffId}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then((text) => {
+                  throw new Error(text);
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              alert("Staff eliminado exitosamente");
+              location.reload();
+            })
+            .catch((error) => {
+              console.error("Error eliminando staff:", error);
+              alert("Error eliminando staff: " + error.message);
+            });
+        }
+      }
+    </script>
+  </body>
 </html>
