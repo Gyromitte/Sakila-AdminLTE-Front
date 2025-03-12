@@ -178,7 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Home</h1>
+            <h1 class="m-0">Clientes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           </div><!-- /.col -->
@@ -188,69 +188,157 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
+     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
+          <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="m-0">Featured</h5>
+                <h3 class="card-title">Clientes</h3>
+                <button class="btn btn-primary float-right" data-toggle="modal", data-target="#addCustomerModal">Agregar cliente</button>
+                <!--Aqui va el boton-->
               </div>
               <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <table class="table table-bordered table-striped" id="customersTable">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Tienda</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Correo</th>
+                      <th>Dirección</th>
+                      <th>Activo</th>
+                      <th>Fecha de Creación</th>
+                      <th>Fecha de actualización</th>
+                      <th>AAcciones</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
             </div>
           </div>
-          <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
+     </div>
+    
+    <!-- Add Customer Modal -->
+    <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCustomerModalLabel">Agregar Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addCustomerForm">
+              <div class="form-group">
+                <label for="addStoreId">Tienda</label>
+                <input type="text" class="form-control" id="addStoreId" name="store_id" required>
+              </div>
+              <div class="form-group">
+                <label for="addFirstName">Nombre</label>
+                <input type="text" class="form-control" id="addFirstName" name="first_name" required>
+              </div>
+              <div class="form-group">
+                <label for="addLastName">Apellido</label>
+                <input type="text" class="form-control" id="addLastName" name="last_name" required>
+              </div>
+              <div class="form-group">
+                <label for="addEmail">Email</label>
+                <input type="email" class="form-control" id="addEmail" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="addAddressId">Direccion</label>
+                <input type="number" class="form-control" id="addAddressId" name="address_id" required>
+              </div>
+              <div class="form-group">
+                <label for="addActive">Activo</label>
+                <input type="number" class="form-control" id="addActive" name="active" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="saveCustomer">Guardar</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.content -->
+
+    <!-- Edit Customer Modal -->
+    <div class="modal fade" id="editCustomerModal" tabindex="-1" role="dialog" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editCustomerModalLabel">Editar Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="updateCustomerId">
+            <form id="editCustomerForm">
+              <input type="hidden" id="editCustomerId" name="customer_id">
+              <div class="form-group">
+                <label for="addStoreId">Tienda</label>
+                <input type="text" class="form-control" id="addStoreId" name="store_id" required>
+              </div>
+              <div class="form-group">
+                <label for="addFirstName">Nombre</label>
+                <input type="text" class="form-control" id="addFirstName" name="first_name" required>
+              </div>
+              <div class="form-group">
+                <label for="addLastName">Apellido</label>
+                <input type="text" class="form-control" id="addLastName" name="last_name" required>
+              </div>
+              <div class="form-group">
+                <label for="addEmail">Email</label>
+                <input type="email" class="form-control" id="addEmail" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="addAddressId">Dirección</label>
+                <input type="number" class="form-control" id="addAddressId" name="address_id" required>
+              </div>
+              <div class="form-group">
+                <label for="addActive">Activo</label>
+                <input type="number" class="form-control" id="addActive" name="active" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="updateCustomer">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Customer Modal -->
+    <div class="modal fade" id="deleteCustomerModal" tabindex="-1" role="dialog" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteCustomerModalLabel">Eliminar Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro de eliminar este cliente?</p>
+            <input type="hidden" id="deleteCustomerId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -275,5 +363,136 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+
+<!-- SCRIPT PARA CONSUMIR LA API Y MANEJAR LOS MODALES -->
+<script>
+  // Función para obtener los clientes de la API y generar las filas en la tabla
+  function fetchCustomers(){
+    fetch("http://143.110.198.189/api/customers")
+      .then(response => {
+        if(!response.ok){
+          throw new Error("Error en la respuesta de la API");
+        }
+        return response.json();
+      })
+      .then(response => {
+        // Seleccionamos el tbody de la tabla
+        const tbody = document.getElementById("customersTable");
+        //tbody.innerHTML = "";  // Limpiamos el contenido previo
+        if(Array.isArray(response.data)){
+          response.data.forEach(customer => {
+            const row = `
+              <tr>
+                <td>${customer.customer_id}</td>
+                <td>${customer.store_id}</td>
+                <td>${customer.first_name}</td>
+                <td>${customer.last_name}</td>
+                <td>${customer.email}</td>
+                <td>${customer.address_id}</td>
+                <td>${customer.active}</td>
+                <td>${customer.create_date}</td>
+                <td>${customer.last_update}</td>
+                <td>
+                  <button class="btn btn-sm btn-smaller edit-btn"
+                          data-id="${customer.customer_id}"
+                          data-firstname="${customer.first_name}"
+                          data-lastname="${customer.last_name}"
+                          data-email="${customer.email}">
+                    <i class="fas fa-pencil-alt text-light"></i>
+                  </button>
+                  <button class="btn btn-sm btn-smaller delete-btn" data-id="${customer.customer_id}">
+                    <i class="fas fa-trash text-danger"></i>
+                  </button>
+                </td>
+              </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+          });
+        } else {
+          console.error('La respuesta de la API no es un arreglo:', response.data);
+        }
+      })
+      .catch(error => console.error('Error fetching customers:', error));
+  }
+
+  // Delegamos eventos para botones generados dinámicamente
+
+  // Al hacer click en el botón de eliminar, se abre el modal de eliminación
+  $(document).on("click", ".delete-btn", function(){
+    var customerId = $(this).data("id");
+    $("#deleteCustomerId").val(customerId);
+    $("#deleteCustomerModal").modal("show");
+  });
+
+  // Al hacer click en el botón de editar, se abre el modal de edición y se llenan los campos
+  $(document).on("click", ".edit-btn", function(){
+    var customerId = $(this).data("id");
+    var firstName  = $(this).data("firstname");
+    var lastName   = $(this).data("lastname");
+    var email      = $(this).data("email");
+    $("#editCustomerId").val(customerId);
+    $("#editFirstName").val(firstName);
+    $("#editLastName").val(lastName);
+    $("#editEmail").val(email);
+    $("#editCustomerModal").modal("show");
+  });
+
+  // Evento para confirmar eliminación
+  $("#confirmDeleteCustomer").on("click", function(){
+    var customerId = $("#deleteCustomerId").val();
+    console.log("Eliminar cliente con id:", customerId);
+    // Llamada a la API para eliminar (método DELETE)
+    fetch(`http://143.110.198.189/api/customers/delete_customer/${customerId}`, { method: 'POST' })
+      .then(console.log("User deleted successfully"))
+      .catch(error => console.error("Error at deleting user"));
+    $("#deleteCustomerModal").modal("hide");
+  });
+
+  // Evento para actualizar cliente
+  $("#updateCustomer").on("click", function(){
+    var customerId = $("#editCustomerId").val();
+    var storeId = $("#addStoreId").val();
+    var firstName = $("#addFirstName").val();
+    var lastName  = $("#addLastName").val();
+    var email     = $("#addEmail").val();
+    var addressId = $("#addAddressId").val();
+    var active    = $("#addActive").val();
+    console.log("Agregar cliente:", "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
+    // Llamada a la API para actualizar (método PUT o PATCH)
+    fetch(`http://143.110.198.189/api/customers/${customerId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ store_id: storeId, first_name: firstName, last_name: lastName, email: email, address_id: addressId, active: active })
+    })
+      .then(console.log("Customer updated successfully"))
+      .catch(error => console.error("Error at updating customer:", error));
+    $("#editCustomerModal").modal("hide");
+  });
+
+  // Evento para agregar un nuevo cliente
+  $("#saveCustomer").on("click", function(){
+    var storeId = $("#addStoreId").val();
+    var firstName = $("#addFirstName").val();
+    var lastName  = $("#addLastName").val();
+    var email     = $("#addEmail").val();
+    var addressId = $("#addAddressId").val();
+    var active    = $("#addActive").val();
+    console.log("Agregar cliente:", "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
+    // Llamada a la API para agregar (método POST)
+    fetch("http://143.110.198.189/api/customers", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ store_id: storeId, first_name: firstName, last_name: lastName, email: email, address_id: addressId, active: active })
+    })
+    .then(console.log("Added customer successfully"))
+    .catch(error => console.error("Error at creating new customer:", error));
+    $("#addCustomerModal").modal("hide");
+  });
+
+  // Cargamos los clientes cuando el documento está listo
+  $(document).ready(function(){
+    fetchCustomers();
+  });
+</script>
 </body>
 </html>
