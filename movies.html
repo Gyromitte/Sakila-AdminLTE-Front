@@ -323,6 +323,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+<!--CRUD SCRIPT-->
+<script>
+  function fetchMovies() {
+    fetch('http://143.110.198.189/api/films')
+      .then(response => response.json())
+      .then(response => {
+        console.log(response); // Log the API response for debugging
+        const tbody = document.querySelector('#moviesTable tbody');
+        tbody.innerHTML = ''; // Clear existing rows
+
+        // Access the 'data' property of the response
+        if (Array.isArray(response.data)) {
+          response.data.forEach(movie => {
+            const row = `
+              <tr>
+                <td>${movie.film_id}</td>
+                <td>${movie.title}</td>
+                <td>${movie.description}</td>
+                <td>${movie.release_year}</td>
+                <td>
+                  <button class="btn btn-warning btn-sm edit-btn" data-id="${movie.film_id}">Edit</button>
+                  <button class="btn btn-danger btn-sm delete-btn" data-id="${movie.film_id}">Delete</button>
+                </td>
+              </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row); // Add the row to the table
+          });
+        } else {
+          console.error('API response data is not an array:', response.data);
+        }
+      })
+      .catch(error => console.error('Error fetching movies:', error));
+  }
+
+  // Fetch movies when the page loads
+  fetchMovies();
+</script>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
