@@ -372,10 +372,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                           <td>${categoriesList}</td>
                           <td>${film.rating}</td>
                           <td>
-                            <button class="btn btn-sm btn-smaller editActor" data-id="${film.film_id}">
+                            <button class="btn btn-sm btn-smaller editFilm" data-id="${film.film_id}">
                               <i class="fas fa-pencil-alt text-light"></i>
                             </button>
-                            <button class="btn btn-sm btn-smaller deleteActor" data-id="${film.film_id}">
+                            <button class="btn btn-sm btn-smaller deleteFilm" data-id="${film.film_id}">
                               <i class="fas fa-trash text-danger"></i>
                             </button>
                         </td>
@@ -392,111 +392,113 @@ scratch. This page gets rid of all links and provides the needed markup only.
   }
 
   $(document).ready(function () {
-      loadFilms();
+    loadFilms();
 
-      $('#prevPage').click(function () {
-          if (currentPage > 1) {
-              currentPage--;
-              loadFilms();
-          }
-      });
+    $('#prevPage').click(function () {
+        if (currentPage > 1) {
+            currentPage--;
+            loadFilms();
+        }
+    });
 
-      $('#nextPage').click(function () {
-          if (currentPage < lastPage) {
-              currentPage++;
-              loadFilms();
-          }
-      });
+    $('#nextPage').click(function () {
+        if (currentPage < lastPage) {
+            currentPage++;
+            loadFilms();
+        }
+    });
 
-      $('#saveFilm').click(function () {
-          let formData = {
-              title: $('#title').val(),
-              description: $('#description').val(),
-              release_year: $('#release_year').val()
-          };
-          $.ajax({
-              url: 'http://143.110.198.189/api/films',
-              method: 'POST',
-              data: formData,
-              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-              dataType: 'json',
-              headers: { 'Accept': 'application/json' },
-              success: function (data) {
-                  $('#addFilmModal').modal('hide');
-                  $('#addFilmForm')[0].reset();
-                  loadFilms();
-              },
-              error: function (xhr, status, error) {
-                  alert('Error al agregar película: ' + error);
-              }
-          });
-      });
+    $('#saveFilm').click(function () {
+        let formData = {
+            title: $('#title').val(),
+            description: $('#description').val(),
+            release_year: $('#release_year').val()
+        };
+        $.ajax({
+            url: 'http://143.110.198.189/api/films',
+            method: 'POST',
+            data: formData,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'json',
+            headers: { 'Accept': 'application/json' },
+            success: function (data) {
+                $('#addFilmModal').modal('hide');
+                $('#addFilmForm')[0].reset();
+                loadFilms();
+            },
+            error: function (xhr, status, error) {
+                alert('Error al agregar película: ' + error);
+            }
+        });
+    });
 
-      $(document).on('click', '.editFilm', function () {
-          let filmId = $(this).data('id');
-          $.ajax({
-              url: `http://143.110.198.189/api/films/${filmId}`,
-              method: 'GET',
-              success: function (data) {
-                  $('#editFilmId').val(data.film_id);
-                  $('#editTitle').val(data.title);
-                  $('#editDescription').val(data.description);
-                  $('#editReleaseYear').val(data.release_year);
-                  $('#editFilmModal').modal('show');
-              },
-              error: function (xhr, status, error) {
-                  alert('Error al cargar película: ' + error);
-              }
-          });
-      });
+    $(document).on('click', '.editFilm', function () {
+        console.log('Edit button clicked'); // Debugging
+        let filmId = $(this).data('id');
+        $.ajax({
+            url: `http://143.110.198.189/api/films/${filmId}`,
+            method: 'GET',
+            success: function (data) {
+                $('#editFilmId').val(data.film_id);
+                $('#editTitle').val(data.title);
+                $('#editDescription').val(data.description);
+                $('#editReleaseYear').val(data.release_year);
+                $('#editMovieModal').modal('show'); // Correct ID
+            },
+            error: function (xhr, status, error) {
+                alert('Error al cargar película: ' + error);
+            }
+        });
+    });
 
-      $('#updateFilm').click(function () {
-          let filmId = $('#editFilmId').val();
-          let formData = {
-              title: $('#editTitle').val(),
-              description: $('#editDescription').val(),
-              release_year: $('#editReleaseYear').val()
-          };
-          $.ajax({
-              url: `http://143.110.198.189/api/films/${filmId}`,
-              method: 'PUT',
-              data: formData,
-              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-              dataType: 'json',
-              headers: { 'Accept': 'application/json' },
-              success: function (data) {
-                  $('#editFilmModal').modal('hide');
-                  loadFilms();
-              },
-              error: function (xhr, status, error) {
-                  alert('Error al actualizar película: ' + error);
-              }
-          });
-      });
+    $('#updateMovie').click(function () {
+        let filmId = $('#editFilmId').val();
+        let formData = {
+            title: $('#editTitle').val(),
+            description: $('#editDescription').val(),
+            release_year: $('#editReleaseYear').val()
+        };
+        $.ajax({
+            url: `http://143.110.198.189/api/films/${filmId}`,
+            method: 'PUT',
+            data: formData,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'json',
+            headers: { 'Accept': 'application/json' },
+            success: function (data) {
+                $('#editMovieModal').modal('hide'); // Correct ID
+                loadFilms();
+            },
+            error: function (xhr, status, error) {
+                alert('Error al actualizar película: ' + error);
+            }
+        });
+    });
 
-      $(document).on('click', '.deleteFilm', function () {
-          $('#deleteFilmId').val($(this).data('id'));
-          $('#deleteFilmModal').modal('show');
-      });
+    $(document).on('click', '.deleteFilm', function () {
+        console.log('Delete button clicked'); // Debugging
+        $('#deleteFilmId').val($(this).data('id'));
+        $('#deleteMovieModal').modal('show'); // Correct ID
+    });
 
-      $('#confirmDeleteFilm').click(function () {
-          let filmId = $('#deleteFilmId').val();
-          $.ajax({
-              url: `http://143.110.198.189/api/films/${filmId}`,
-              method: 'DELETE',
-              contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-              dataType: 'json',
-              headers: { 'Accept': 'application/json' },
-              success: function (data) {
-                  $('#deleteFilmModal').modal('hide');
-                  loadFilms();
-              },
-              error: function (xhr, status, error) {
-                  alert('Error al eliminar película: ' + error);
-              }
-          });
-      });
-  });
+    $('#confirmDelete').click(function () { // Correct ID
+        let filmId = $('#deleteFilmId').val();
+        $.ajax({
+            url: `http://143.110.198.189/api/films/${filmId}`,
+            method: 'DELETE',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: 'json',
+            headers: { 'Accept': 'application/json' },
+            success: function (data) {
+                $('#deleteMovieModal').modal('hide'); // Correct ID
+                loadFilms();
+            },
+            error: function (xhr, status, error) {
+                alert('Error al eliminar película: ' + error);
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
