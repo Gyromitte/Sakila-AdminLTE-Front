@@ -269,7 +269,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <input type="number" class="form-control" id="length" name="length" required>
               </div>
               <div class="form-group">
-                <label for="replacement_cost">Costo de remplazot</label>
+                <label for="replacement_cost">Costo de remplazo</label>
                 <input type="text" class="form-control" id="replacement_cost" name="replacement_cost" required>
               </div>
               <div class="form-group">
@@ -428,123 +428,124 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   let currentPage = 1, lastPage = 1;
 
-    function loadFilms() {
-      $.ajax({
-          url: `http://143.110.198.189/api/films?page=${currentPage}`,
-          method: 'GET',
-          success: function (data) {
-              currentPage = data.current_page;
-              lastPage = data.last_page;
-              let tbody = $('#moviesTable tbody');
-              tbody.empty(); // Limpia la tabla antes de agregar nuevas filas
+  // Load films from the API
+  function loadFilms() {
+    $.ajax({
+      url: `http://143.110.198.189/api/films?page=${currentPage}`,
+      method: 'GET',
+      success: function (data) {
+        currentPage = data.current_page;
+        lastPage = data.last_page;
+        let tbody = $('#moviesTable tbody');
+        tbody.empty(); // Clear the table before adding new rows
 
-              data.data.forEach(film => {
-                  let actorsList = film.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
-                  let categoriesList = film.categories.map(category => category.name).join(', ');
+        data.data.forEach(film => {
+          let actorsList = film.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
+          let categoriesList = film.categories.map(category => category.name).join(', ');
 
-                  let row = `
-                      <tr>
-                          <td>${film.film_id}</td>
-                          <td>${film.title}</td>
-                          <td>${film.description}</td>
-                          <td>${film.release_year}</td>
-                          <td>${actorsList}</td>
-                          <td>${categoriesList}</td>
-                          <td>${film.rating}</td>
-                          <td>
-                            <button class="btn btn-sm btn-smaller editFilm" data-id="${film.film_id}">
-                              <i class="fas fa-pencil-alt text-light"></i>
-                            </button>
-                            <button class="btn btn-sm btn-smaller deleteFilm" data-id="${film.film_id}">
-                              <i class="fas fa-trash text-danger"></i>
-                            </button>
-                        </td>
-                      </tr>
-                  `;
-                  tbody.append(row);
-              });
-              $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
-          },
-          error: function (xhr, status, error) {
-              console.error('Error al cargar películas:', error);
-          }
-      });
+          let row = `
+            <tr>
+              <td>${film.film_id}</td>
+              <td>${film.title}</td>
+              <td>${film.description}</td>
+              <td>${film.release_year}</td>
+              <td>${actorsList}</td>
+              <td>${categoriesList}</td>
+              <td>${film.rating}</td>
+              <td>
+                <button class="btn btn-sm btn-smaller editFilm" data-id="${film.film_id}">
+                  <i class="fas fa-pencil-alt text-light"></i>
+                </button>
+                <button class="btn btn-sm btn-smaller deleteFilm" data-id="${film.film_id}">
+                  <i class="fas fa-trash text-danger"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+          tbody.append(row);
+        });
+        $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
+      },
+      error: function (xhr, status, error) {
+        console.error('Error al cargar películas:', error);
+      }
+    });
   }
 
   $(document).ready(function () {
     loadFilms();
 
-        // Fetch languages when the modal is opened
-        $('#addMovieModal').on('show.bs.modal', function () {
-        fetchLanguages();
-        fetchCategories();
+    // Fetch languages and categories when the add movie modal is opened
+    $('#addMovieModal').on('show.bs.modal', function () {
+      fetchLanguages('#language_id'); // Populate languages in the add modal
+      fetchCategories('#category_id'); // Populate categories in the add modal
+    });
+
+    // Fetch languages and categories when the edit movie modal is opened
+    $('#editMovieModal').on('show.bs.modal', function () {
+      fetchLanguages('#editLanguageId'); // Populate languages in the edit modal
+      fetchCategories('#editCategoryId'); // Populate categories in the edit modal
     });
 
     // Function to fetch languages
-    function fetchLanguages() {
-        $.ajax({
-            url: 'http://143.110.198.189/api/languages',
-            method: 'GET',
-            success: function (data) {
-                populateLanguageDropdown(data.data);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching languages:', error);
-            }
-        });
+    function fetchLanguages(dropdownId) {
+      return $.ajax({
+        url: 'http://143.110.198.189/api/languages',
+        method: 'GET',
+        success: function (data) {
+          populateDropdown(dropdownId, data.data, 'language_id', 'name');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching languages:', error);
+        }
+      });
     }
 
     // Function to fetch categories
-    function fetchCategories(){
-      $.ajax({
+    function fetchCategories(dropdownId) {
+      return $.ajax({
         url: 'http://143.110.198.189/api/categories',
         method: 'GET',
         success: function (data) {
-          populateCategoryDropdown(data.data);
+          populateDropdown(dropdownId, data.data, 'category_id', 'name');
         },
         error: function (xhr, status, error) {
           console.error('Error fetching categories:', error);
         }
-      })
-    }
-
-    // Function to populate the dropdown
-    function populateLanguageDropdown(languages) {
-        let dropdown = $('#language_id');
-        dropdown.empty(); // Clear existing options
-        dropdown.append('<option value="">Select a language</option>'); // Add default option
-
-        // Add each language as an option
-        languages.forEach(function (language) {
-            dropdown.append(`<option value="${language.language_id}">${language.name}</option>`);
-        });
-    }
-
-    // Function to popupulate cateory dropdown
-    function populateCategoryDropdown(categories){
-      let dropdown = $('#category_id');
-      dropdown.empty(); // Clear existing categories
-      categories.forEach(function (category){
-          dropdown.append(`<option value="${category.category_id}">${category.name}</option>`)
       });
     }
 
+    // Function to populate the dropdown
+    function populateDropdown(dropdownId, data, valueField, textField) {
+      let dropdown = $(dropdownId);
+      dropdown.empty(); // Clear existing options
+      dropdown.append('<option value="">Select an option</option>'); // Add default option
+
+      // Add each item as an option
+      data.forEach(function (item) {
+        dropdown.append(`<option value="${item[valueField]}">${item[textField]}</option>`);
+      });
+    }
+
+    // Pagination: Previous page
     $('#prevPage').click(function () {
-        if (currentPage > 1) {
-            currentPage--;
-            loadFilms();
-        }
+      if (currentPage > 1) {
+        currentPage--;
+        loadFilms();
+      }
     });
 
+    // Pagination: Next page
     $('#nextPage').click(function () {
-        if (currentPage < lastPage) {
-            currentPage++;
-            loadFilms();
-        }
+      if (currentPage < lastPage) {
+        currentPage++;
+        loadFilms();
+      }
     });
 
+    // Save movie
     $('#saveMovie').click(function () {
-    let formData = {
+      let formData = {
         title: $('#title').val(),
         description: $('#description').val(),
         release_year: $('#release_year').val(),
@@ -555,11 +556,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         replacement_cost: $('#replacement_cost').val(),
         rating: $('#rating').val(),
         categories: [{ category_id: $('#category_id').val() }] // Correct format for categories
-    };
+      };
 
-    console.log('Form data:', formData); // Debugging
+      console.log('Form data:', formData); // Debugging
 
-    $.ajax({
+      $.ajax({
         url: 'http://143.110.198.189/api/films',
         method: 'POST',
         data: JSON.stringify(formData), // Convert to JSON string
@@ -567,144 +568,116 @@ scratch. This page gets rid of all links and provides the needed markup only.
         dataType: 'json',
         headers: { 'Accept': 'application/json' },
         success: function (data) {
-            console.log('Movie added successfully:', data); // Debugging
-            $('#addMovieModal').modal('hide');
-            $('#addMovieForm')[0].reset();
-            loadFilms();
+          console.log('Movie added successfully:', data); // Debugging
+          $('#addMovieModal').modal('hide');
+          $('#addMovieForm')[0].reset();
+          loadFilms();
         },
         error: function (xhr, status, error) {
-            console.log('Error response:', xhr.responseText); // Log the server's response
-            alert('Error al agregar película: ' + error);
+          console.log('Error response:', xhr.responseText); // Log the server's response
+          alert('Error al agregar película: ' + error);
         }
+      });
     });
-});
 
-$(document).on('click', '.editFilm', function () {
-    let filmId = $(this).data('id');
+    // Edit movie
+    $(document).on('click', '.editFilm', function () {
+      let filmId = $(this).data('id');
 
-    $.ajax({
+      $.ajax({
         url: `http://143.110.198.189/api/films/${filmId}`,
         method: 'GET',
         success: function (film) {
-            // Rellenar los campos del modal con la información de la película
-            $('#editFilmId').val(film.film_id);
-            $('#editTitle').val(film.title);
-            $('#editDescription').val(film.description);
-            $('#editReleaseYear').val(film.release_year);
-            $('#editRentalDuration').val(film.rental_duration);
-            $('#editRentalRate').val(film.rental_rate);
-            $('#editLength').val(film.length);
-            $('#editReplacementCost').val(film.replacement_cost);
-            $('#editRating').val(film.rating);
+          // Fill the edit modal with the film's data
+          $('#editFilmId').val(film.film_id);
+          $('#editTitle').val(film.title);
+          $('#editDescription').val(film.description);
+          $('#editReleaseYear').val(film.release_year);
+          $('#editRentalDuration').val(film.rental_duration);
+          $('#editRentalRate').val(film.rental_rate);
+          $('#editLength').val(film.length);
+          $('#editReplacementCost').val(film.replacement_cost);
+          $('#editRating').val(film.rating);
 
-            // Cargar idiomas y seleccionar el correcto
-            fetchLanguages().then(() => {
-                $('#editLanguageId').val(film.language_id);
-            });
+          // Populate languages and select the correct one
+          fetchLanguages('#editLanguageId').then(() => {
+            $('#editLanguageId').val(film.language_id);
+          });
 
-            // Cargar categorías y seleccionar la correcta
-            fetchCategories().then(() => {
-                $('#editCategoryId').val(film.category_id);
-            });
+          // Populate categories and select the correct one
+          fetchCategories('#editCategoryId').then(() => {
+            $('#editCategoryId').val(film.category_id);
+          });
 
-            // Mostrar el modal de edición
-            $('#editMovieModal').modal('show');
+          // Show the edit modal
+          $('#editMovieModal').modal('show');
         },
         error: function (xhr, status, error) {
-            console.error('Error al cargar película:', error);
+          console.error('Error al cargar película:', error);
         }
+      });
     });
-});
 
-// Función para obtener idiomas
-function fetchLanguages() {
-    return $.ajax({
-        url: 'http://143.110.198.189/api/languages',
-        method: 'GET',
-        success: function (data) {
-            let dropdown = $('#editLanguageId');
-            dropdown.empty();
-            dropdown.append('<option value="">Selecciona un lenguaje</option>');
-            data.data.forEach(language => {
-                dropdown.append(`<option value="${language.language_id}">${language.name}</option>`);
-            });
-        }
-    });
-}
-
-// Función para obtener categorías
-function fetchCategories() {
-    return $.ajax({
-        url: 'http://143.110.198.189/api/categories',
-        method: 'GET',
-        success: function (data) {
-            let dropdown = $('#editCategoryId');
-            dropdown.empty();
-            dropdown.append('<option value="">Selecciona una categoría</option>');
-            data.data.forEach(category => {
-                dropdown.append(`<option value="${category.category_id}">${category.name}</option>`);
-            });
-        }
-    });
-}
-
-
+    // Update movie
     $('#updateMovie').on('click', function () {
-        let filmId = $('#editFilmId').val();
+      let filmId = $('#editFilmId').val();
 
-        let updatedFilm = {
-            title: $('#editTitle').val(),
-            description: $('#editDescription').val(),
-            release_year: $('#editReleaseYear').val(),
-            rental_duration: $('#editRentalDuration').val(),
-            rental_rate: $('#editRentalRate').val(),
-            length: $('#editLength').val(),
-            replacement_cost: $('#editReplacementCost').val(),
-            rating: $('#editRating').val(),
-            language_id: $('#editLanguageId').val(),
-            category_id: $('#editCategoryId').val()
-        };
+      let updatedFilm = {
+        title: $('#editTitle').val(),
+        description: $('#editDescription').val(),
+        release_year: $('#editReleaseYear').val(),
+        rental_duration: $('#editRentalDuration').val(),
+        rental_rate: $('#editRentalRate').val(),
+        length: $('#editLength').val(),
+        replacement_cost: $('#editReplacementCost').val(),
+        rating: $('#editRating').val(),
+        language_id: $('#editLanguageId').val(),
+        category_id: $('#editCategoryId').val()
+      };
 
-        $.ajax({
-            url: `http://143.110.198.189/api/films/${filmId}`,
-            method: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(updatedFilm),
-            success: function () {
-                $('#editMovieModal').modal('hide'); // Cerrar modal
-                loadFilms(); // Recargar lista de películas
-            },
-            error: function (xhr, status, error) {
-                console.error('Error al actualizar película:', error);
-            }
-        });
+      console.log(updatedFilm);
+
+      $.ajax({
+        url: `http://143.110.198.189/api/films/${filmId}`,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(updatedFilm),
+        success: function () {
+          $('#editMovieModal').modal('hide'); // Close modal
+          loadFilms(); // Reload films
+        },
+        error: function (xhr, status, error) {
+          console.error('Error al actualizar película:', error);
+        }
+      });
     });
 
-
+    // Delete movie
     $(document).on('click', '.deleteFilm', function () {
-        console.log('Delete button clicked'); // Debugging
-        $('#deleteFilmId').val($(this).data('id'));
-        $('#deleteMovieModal').modal('show'); // Correct ID
+      console.log('Delete button clicked'); // Debugging
+      $('#deleteFilmId').val($(this).data('id'));
+      $('#deleteMovieModal').modal('show'); // Show delete modal
     });
 
-    $('#confirmDelete').click(function () { // Correct ID
-        let filmId = $('#deleteFilmId').val();
-        $.ajax({
-            url: `http://143.110.198.189/api/films/${filmId}`,
-            method: 'DELETE',
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            dataType: 'json',
-            headers: { 'Accept': 'application/json' },
-            success: function (data) {
-                $('#deleteMovieModal').modal('hide'); // Correct ID
-                loadFilms();
-            },
-            error: function (xhr, status, error) {
-                alert('Error al eliminar película: ' + error);
-            }
-        });
+    // Confirm delete
+    $('#confirmDelete').click(function () {
+      let filmId = $('#deleteFilmId').val();
+      $.ajax({
+        url: `http://143.110.198.189/api/films/${filmId}`,
+        method: 'DELETE',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: { 'Accept': 'application/json' },
+        success: function (data) {
+          $('#deleteMovieModal').modal('hide'); // Close modal
+          loadFilms(); // Reload films
+        },
+        error: function (xhr, status, error) {
+          alert('Error al eliminar película: ' + error);
+        }
+      });
     });
-});
+  });
 </script>
 </body>
 </html>
