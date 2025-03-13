@@ -333,6 +333,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <label for="editReleaseYear">Año de lanzamiento</label>
                 <input type="number" class="form-control" id="editReleaseYear" name="release_year" required>
               </div>
+              <div class="form-group">
+                <label for="editRentalDuration">Duración de renta (Días)</label>
+                <input type="number" class="form-control" id="editRentalDuration" name="rental_duration" required>
+              </div>
+              <div class="form-group">
+                <label for="editRentalRate">Ratio de renta (Porcentaje)</label>
+                <input type="text" class="form-control" id="editRentalRate" name="rental_rate" required>
+              </div>
+              <div class="form-group">
+                <label for="editLength">Duración (Minutos)</label>
+                <input type="number" class="form-control" id="editLength" name="length" required>
+              </div>
+              <div class="form-group">
+                <label for="editReplacementCost">Costo de reemplazo</label>
+                <input type="text" class="form-control" id="editReplacementCost" name="replacement_cost" required>
+              </div>
+              <div class="form-group">
+                <label for="editRating">Rating</label>
+                <select class="form-control" id="editRating" name="rating" required>
+                  <option value="G">G</option>
+                  <option value="PG">PG</option>
+                  <option value="PG-13">PG-13</option>
+                  <option value="R">R</option>
+                  <option value="NC-17">NC-17</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editLanguage">Lenguaje</label>
+                <select class="form-control" id="editLanguageId" name="language_id" required>
+                  <option value="">Selecciona un lenguaje</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editCategory">Categoría</label>
+                <select class="form-control" id="editCategoryId" name="category_id" required>
+                  <option value="">Selecciona una categoría</option>
+                </select>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -541,48 +579,107 @@ scratch. This page gets rid of all links and provides the needed markup only.
     });
 });
 
-    $(document).on('click', '.editFilm', function () {
-        console.log('Edit button clicked'); // Debugging
-        let filmId = $(this).data('id');
+$(document).on('click', '.editFilm', function () {
+    let filmId = $(this).data('id');
+
+    $.ajax({
+        url: `http://143.110.198.189/api/films/${filmId}`,
+        method: 'GET',
+        success: function (film) {
+            // Rellenar los campos del modal con la información de la película
+            $('#editFilmId').val(film.film_id);
+            $('#editTitle').val(film.title);
+            $('#editDescription').val(film.description);
+            $('#editReleaseYear').val(film.release_year);
+            $('#editRentalDuration').val(film.rental_duration);
+            $('#editRentalRate').val(film.rental_rate);
+            $('#editLength').val(film.length);
+            $('#editReplacementCost').val(film.replacement_cost);
+            $('#editRating').val(film.rating);
+
+            // Cargar idiomas y seleccionar el correcto
+            fetchLanguages().then(() => {
+                $('#editLanguageId').val(film.language_id);
+            });
+
+            // Cargar categorías y seleccionar la correcta
+            fetchCategories().then(() => {
+                $('#editCategoryId').val(film.category_id);
+            });
+
+            // Mostrar el modal de edición
+            $('#editMovieModal').modal('show');
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al cargar película:', error);
+        }
+    });
+});
+
+// Función para obtener idiomas
+function fetchLanguages() {
+    return $.ajax({
+        url: 'http://143.110.198.189/api/languages',
+        method: 'GET',
+        success: function (data) {
+            let dropdown = $('#editLanguageId');
+            dropdown.empty();
+            dropdown.append('<option value="">Selecciona un lenguaje</option>');
+            data.data.forEach(language => {
+                dropdown.append(`<option value="${language.language_id}">${language.name}</option>`);
+            });
+        }
+    });
+}
+
+// Función para obtener categorías
+function fetchCategories() {
+    return $.ajax({
+        url: 'http://143.110.198.189/api/categories',
+        method: 'GET',
+        success: function (data) {
+            let dropdown = $('#editCategoryId');
+            dropdown.empty();
+            dropdown.append('<option value="">Selecciona una categoría</option>');
+            data.data.forEach(category => {
+                dropdown.append(`<option value="${category.category_id}">${category.name}</option>`);
+            });
+        }
+    });
+}
+
+
+    $('#updateMovie').on('click', function () {
+        let filmId = $('#editFilmId').val();
+
+        let updatedFilm = {
+            title: $('#editTitle').val(),
+            description: $('#editDescription').val(),
+            release_year: $('#editReleaseYear').val(),
+            rental_duration: $('#editRentalDuration').val(),
+            rental_rate: $('#editRentalRate').val(),
+            length: $('#editLength').val(),
+            replacement_cost: $('#editReplacementCost').val(),
+            rating: $('#editRating').val(),
+            language_id: $('#editLanguageId').val(),
+            category_id: $('#editCategoryId').val()
+        };
+
         $.ajax({
             url: `http://143.110.198.189/api/films/${filmId}`,
-            method: 'GET',
-            success: function (data) {
-                $('#editFilmId').val(data.film_id);
-                $('#editTitle').val(data.title);
-                $('#editDescription').val(data.description);
-                $('#editReleaseYear').val(data.release_year);
-                $('#editMovieModal').modal('show'); // Correct ID
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedFilm),
+            success: function () {
+                $('#editMovieModal').modal('hide'); // Cerrar modal
+                loadFilms(); // Recargar lista de películas
             },
             error: function (xhr, status, error) {
-                alert('Error al cargar película: ' + error);
+                console.error('Error al actualizar película:', error);
             }
         });
     });
 
-    $('#updateMovie').click(function () {
-        let filmId = $('#editFilmId').val();
-        let formData = {
-            title: $('#editTitle').val(),
-            description: $('#editDescription').val(),
-            release_year: $('#editReleaseYear').val()
-        };
-        $.ajax({
-            url: `http://143.110.198.189/api/films/${filmId}`,
-            method: 'PUT',
-            data: formData,
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            dataType: 'json',
-            headers: { 'Accept': 'application/json' },
-            success: function (data) {
-                $('#editMovieModal').modal('hide'); // Correct ID
-                loadFilms();
-            },
-            error: function (xhr, status, error) {
-                alert('Error al actualizar película: ' + error);
-            }
-        });
-    });
 
     $(document).on('click', '.deleteFilm', function () {
         console.log('Delete button clicked'); // Debugging
