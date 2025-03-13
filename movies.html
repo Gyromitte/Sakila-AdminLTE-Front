@@ -618,39 +618,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
       });
     });
 
-    // Update movie
-    $('#updateMovie').on('click', function () {
-      let filmId = $('#editFilmId').val();
+  // Update movie
+  $('#updateMovie').on('click', function () {
+    let filmId = $('#editFilmId').val();
 
-      let updatedFilm = {
-        title: $('#editTitle').val(),
-        description: $('#editDescription').val(),
-        release_year: $('#editReleaseYear').val(),
-        rental_duration: $('#editRentalDuration').val(),
-        rental_rate: $('#editRentalRate').val(),
-        length: $('#editLength').val(),
-        replacement_cost: $('#editReplacementCost').val(),
-        rating: $('#editRating').val(),
-        language_id: $('#editLanguageId').val(),
-        category_id: $('#editCategoryId').val()
-      };
+    let updatedFilm = {
+      title: $('#editTitle').val(),
+      description: $('#editDescription').val(),
+      release_year: $('#editReleaseYear').val(),
+      rental_duration: $('#editRentalDuration').val(),
+      rental_rate: $('#editRentalRate').val(),
+      length: $('#editLength').val(),
+      replacement_cost: $('#editReplacementCost').val(),
+      rating: $('#editRating').val(),
+      language_id: $('#editLanguageId').val(),
+      categories: [{ category_id: $('#editCategoryId').val() }] // Correct format for categories
+    };
 
-      console.log(updatedFilm);
+    console.log('Updated film data:', updatedFilm); // Debugging
 
-      $.ajax({
-        url: `http://143.110.198.189/api/films/${filmId}`,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: JSON.stringify(updatedFilm),
-        success: function () {
-          $('#editMovieModal').modal('hide'); // Close modal
-          loadFilms(); // Reload films
-        },
-        error: function (xhr, status, error) {
-          console.error('Error al actualizar película:', error);
-        }
-      });
+    $.ajax({
+      url: `http://143.110.198.189/api/films/${filmId}`,
+      method: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(updatedFilm),
+      success: function () {
+        $('#editMovieModal').modal('hide'); // Close modal
+        loadFilms(); // Reload films
+      },
+      error: function (xhr, status, error) {
+        console.error('Error al actualizar película:', error);
+      }
     });
+  });
 
     // Delete movie
     $(document).on('click', '.deleteFilm', function () {
