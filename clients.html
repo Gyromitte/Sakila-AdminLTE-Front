@@ -211,10 +211,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <th>Activo</th>
                       <th>Fecha de Creación</th>
                       <th>Fecha de actualización</th>
-                      <th>AAcciones</th>
+                      <th>Acciones</th>
                     </tr>
                   </thead>
                 </table>
+              <!-- Paginación -->
+              <div class="row mt-3">
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-sm btn-dark mr-2" id="prevPage">Anterior</button>
+                    <div id="pageInfo" style="margin: 0 10px;" class="align-self-center"></div>
+                    <button class="btn btn-sm btn-dark ml-2" id="nextPage">Siguiente</button>
+                  </div>
+                </div>
+              <!-- Fin paginación -->
               </div>
             </div>
           </div>
@@ -279,7 +288,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </button>
           </div>
           <div class="modal-body">
-            <input type="hidden" id="updateCustomerId">
             <form id="editCustomerForm">
               <input type="hidden" id="editCustomerId" name="customer_id">
               <div class="form-group">
@@ -367,8 +375,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- SCRIPT PARA CONSUMIR LA API Y MANEJAR LOS MODALES -->
 <script>
   // Función para obtener los clientes de la API y generar las filas en la tabla
+  let currentPage = 1;
+  let lastPage = 1;
   function fetchCustomers(){
-    fetch("http://143.110.198.189/api/customers")
+    fetch("http://143.110.198.189/api/customers?page=" + currentPage)
       .then(response => {
         if(!response.ok){
           throw new Error("Error en la respuesta de la API");
@@ -376,8 +386,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
         return response.json();
       })
       .then(response => {
+        currentPage = response.current_page;
+        lastPage = response.last_page;
         // Seleccionamos el tbody de la tabla
         const tbody = document.getElementById("customersTable");
+        console.log(response)
+        console.log("Consumiendo información")
         tbody.innerHTML = "";  // Limpiamos el contenido previo
         if(Array.isArray(response.data)){
           response.data.forEach(customer => {
@@ -438,6 +452,7 @@ $(document).on("click", ".edit-btn", function(){
       // { customer_id: 1, store_id: 2, first_name: "Juan", last_name: "Pérez", email: "juan@mail.com", address_id: 10, active: 1, ... }
       
       // Llenamos los campos del modal de edición
+      $("#editCustomerId").val(data.customer_id);
       $("#editStoreId").val(data.store_id);
       $("#editFirstName").val(data.first_name);
       $("#editLastName").val(data.last_name);
@@ -455,6 +470,24 @@ $(document).on("click", ".edit-btn", function(){
   });
 });
 
+    $('#prevPage').click(function () {
+      console.log("Pagina anterior")
+        if (currentPage > 1) {
+            console.log("CurrentPage:", currentPage);
+            currentPage--;
+            fetchCustomers();
+        }
+    });
+
+    $('#nextPage').click(function () {
+      console.log("Siguiente pagina")
+        if (currentPage < lastPage) {
+          console.log("CurrentPage_L:", currentPage);
+          console.log("LastPage:", lastPage);
+            currentPage++;
+            fetchCustomers();
+        }
+    });
 
   // Evento para confirmar eliminación
   $("#confirmDeleteCustomer").on("click", function(){
@@ -476,7 +509,7 @@ $(document).on("click", ".edit-btn", function(){
     var email     = $("#editEmail").val();
     var addressId = $("#editAddressId").val();
     var active    = $("#editActive").val();
-    console.log("Agregar cliente:", "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
+    console.log("Actualizar cliente:", "CustomerId:", customerId, "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
     // Llamada a la API para actualizar (método PUT o PATCH)
     fetch(`http://143.110.198.189/api/customers/${customerId}`, {
       method: 'PUT',
