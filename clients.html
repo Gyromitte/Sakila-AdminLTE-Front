@@ -283,28 +283,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <form id="editCustomerForm">
               <input type="hidden" id="editCustomerId" name="customer_id">
               <div class="form-group">
-                <label for="addStoreId">Tienda</label>
-                <input type="text" class="form-control" id="addStoreId" name="store_id" required>
+                <label for="editStoreId">Tienda</label>
+                <input type="text" class="form-control" id="editStoreId" name="store_id" required>
               </div>
               <div class="form-group">
-                <label for="addFirstName">Nombre</label>
-                <input type="text" class="form-control" id="addFirstName" name="first_name" required>
+                <label for="editFirstName">Nombre</label>
+                <input type="text" class="form-control" id="editFirstName" name="first_name" required>
               </div>
               <div class="form-group">
-                <label for="addLastName">Apellido</label>
-                <input type="text" class="form-control" id="addLastName" name="last_name" required>
+                <label for="editLastName">Apellido</label>
+                <input type="text" class="form-control" id="editLastName" name="last_name" required>
               </div>
               <div class="form-group">
-                <label for="addEmail">Email</label>
-                <input type="email" class="form-control" id="addEmail" name="email" required>
+                <label for="editEmail">Email</label>
+                <input type="email" class="form-control" id="editEmail" name="email" required>
               </div>
               <div class="form-group">
-                <label for="addAddressId">Dirección</label>
-                <input type="number" class="form-control" id="addAddressId" name="address_id" required>
+                <label for="editAddressId">Dirección</label>
+                <input type="number" class="form-control" id="editAddressId" name="address_id" required>
               </div>
               <div class="form-group">
-                <label for="addActive">Activo</label>
-                <input type="number" class="form-control" id="addActive" name="active" required>
+                <label for="editActive">Activo</label>
+                <input type="number" class="form-control" id="editActive" name="active" required>
               </div>
             </form>
           </div>
@@ -378,7 +378,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       .then(response => {
         // Seleccionamos el tbody de la tabla
         const tbody = document.getElementById("customersTable");
-        //tbody.innerHTML = "";  // Limpiamos el contenido previo
+        tbody.innerHTML = "";  // Limpiamos el contenido previo
         if(Array.isArray(response.data)){
           response.data.forEach(customer => {
             const row = `
@@ -424,18 +424,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $("#deleteCustomerModal").modal("show");
   });
 
-  // Al hacer click en el botón de editar, se abre el modal de edición y se llenan los campos
-  $(document).on("click", ".edit-btn", function(){
-    var customerId = $(this).data("id");
-    var firstName  = $(this).data("firstname");
-    var lastName   = $(this).data("lastname");
-    var email      = $(this).data("email");
-    $("#editCustomerId").val(customerId);
-    $("#editFirstName").val(firstName);
-    $("#editLastName").val(lastName);
-    $("#editEmail").val(email);
-    $("#editCustomerModal").modal("show");
+// Al hacer click en el botón de editar, se obtiene la información del cliente mediante AJAX
+$(document).on("click", ".edit-btn", function(){
+  var customerId = $(this).data("id");
+  console.log(customerId)
+  
+  $.ajax({
+    url: "http://143.110.198.189/api/customers/" + customerId, // Ruta para obtener el cliente
+    method: "GET",
+    success: function(data) {
+      console.log(data.first_name)
+      // Suponemos que 'data' es un objeto con la información del cliente, por ejemplo:
+      // { customer_id: 1, store_id: 2, first_name: "Juan", last_name: "Pérez", email: "juan@mail.com", address_id: 10, active: 1, ... }
+      
+      // Llenamos los campos del modal de edición
+      $("#editStoreId").val(data.store_id);
+      $("#editFirstName").val(data.first_name);
+      $("#editLastName").val(data.last_name);
+      $("#editEmail").val(data.email);
+      $("#editAddressId").val(data.address_id);
+      $("#editActive").val(data.active);
+      
+      // Muestra el modal de edición
+      $("#editCustomerModal").modal("show");
+    },
+    error: function(xhr, status, error) {
+      console.error("Error al obtener los datos del cliente:", error);
+      alert("No se pudo obtener la información del cliente.");
+    }
   });
+});
+
 
   // Evento para confirmar eliminación
   $("#confirmDeleteCustomer").on("click", function(){
@@ -451,12 +470,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   // Evento para actualizar cliente
   $("#updateCustomer").on("click", function(){
     var customerId = $("#editCustomerId").val();
-    var storeId = $("#addStoreId").val();
-    var firstName = $("#addFirstName").val();
-    var lastName  = $("#addLastName").val();
-    var email     = $("#addEmail").val();
-    var addressId = $("#addAddressId").val();
-    var active    = $("#addActive").val();
+    var storeId = $("#editStoreId").val();
+    var firstName = $("#editFirstName").val();
+    var lastName  = $("#editLastName").val();
+    var email     = $("#editEmail").val();
+    var addressId = $("#editAddressId").val();
+    var active    = $("#editActive").val();
     console.log("Agregar cliente:", "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
     // Llamada a la API para actualizar (método PUT o PATCH)
     fetch(`http://143.110.198.189/api/customers/${customerId}`, {
