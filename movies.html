@@ -675,8 +675,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#confirmDelete').click(function () {
       let filmId = $('#deleteFilmId').val();
       $.ajax({
-        url: `http://143.110.198.189/api/films/${filmId}`,
-        method: 'DELETE',
+        url: `http://143.110.198.189/api/films/delete_film/${filmId}`,
+        method: 'POST',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         headers: { 'Accept': 'application/json' },
