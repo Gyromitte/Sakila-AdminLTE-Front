@@ -195,21 +195,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Movies</h3>
-              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addMovieModal">Add Movie</button>
+              <h3 class="card-title">Peliculas</h3>
+              <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addMovieModal">Agregar pelicula</button>
             </div>
             <div class="card-body">
               <table id="moviesTable" class="table table-bordered table-striped table-smaller-text">
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Release Year</th>
-                    <th>Actors</th> <!-- New column for actors -->
-                    <th>Categories</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Año de lanzamiento</th>
+                    <th>Actores</th> <!-- New column for actors -->
+                    <th>Categorias</th>
                     <th>Rating</th>
-                    <th>Actions</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -237,7 +237,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addMovieModalLabel">Add Movie</h5>
+            <h5 class="modal-title" id="addMovieModalLabel">Agregar Pelicula</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -245,31 +245,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <div class="modal-body">
             <form id="addMovieForm">
               <div class="form-group">
-                <label for="title">Title</label>
+                <label for="title">Titulo</label>
                 <input type="text" class="form-control" id="title" name="title" required>
               </div>
               <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Descripcion</label>
                 <textarea class="form-control" id="description" name="description" required></textarea>
               </div>
               <div class="form-group">
-                <label for="release_year">Release Year</label>
+                <label for="release_year">Año de lanzamiento</label>
                 <input type="number" class="form-control" id="release_year" name="release_year" required>
               </div>
               <div class="form-group">
-                <label for="rental_duration">Rental Duration</label>
+                <label for="rental_duration">Duracion de renta (Dias)</label>
                 <input type="number" class="form-control" id="rental_duration" name="rental_duration" required>
               </div>
               <div class="form-group">
-                <label for="rental_rate">Rental Rate</label>
+                <label for="rental_rate">Ratio de renta (Porcentaje exmp: 0.89)</label>
                 <input type="text" class="form-control" id="rental_rate" name="rental_rate" required>
               </div>
               <div class="form-group">
-                <label for="length">Length</label>
+                <label for="length">Duracion (En minutos)</label>
                 <input type="number" class="form-control" id="length" name="length" required>
               </div>
               <div class="form-group">
-                <label for="replacement_cost">Replacement Cost</label>
+                <label for="replacement_cost">Costo de remplazot</label>
                 <input type="text" class="form-control" id="replacement_cost" name="replacement_cost" required>
               </div>
               <div class="form-group">
@@ -284,15 +284,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
 
               <div class="form-group">
-                <label for="language">Language</label>
+                <label for="language">Lenguaje</label>
                   <select class="form-control" id="language_id" name="language_id" required>
-                    <option value="">Select a language</option>
+                    <option value="">Selecciona un lenguaje</option>
                     <!-- Languages will be populated here by JavaScript -->
                   </select>
               </div>
 
               <div class="form-group">
-                <label for="categories">Categories</label>
+                <label for="categories">Categorias</label>
                   <select class="form-control" id="category_id" name="category_id" required>
                     <option value="">Selecciona una categoria</option>
                   </select>
@@ -301,8 +301,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveMovie">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="saveMovie">Guardar</button>
           </div>
         </div>
       </div>
@@ -313,7 +313,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editMovieModalLabel">Edit Movie</h5>
+            <h5 class="modal-title" id="editMovieModalLabel">Editar película</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -322,22 +322,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <form id="editMovieForm">
               <input type="hidden" id="editFilmId" name="film_id">
               <div class="form-group">
-                <label for="editTitle">Title</label>
+                <label for="editTitle">Titulo</label>
                 <input type="text" class="form-control" id="editTitle" name="title" required>
               </div>
               <div class="form-group">
-                <label for="editDescription">Description</label>
+                <label for="editDescription">Descripcion</label>
                 <textarea class="form-control" id="editDescription" name="description" required></textarea>
               </div>
               <div class="form-group">
-                <label for="editReleaseYear">Release Year</label>
+                <label for="editReleaseYear">Año de lanzamiento</label>
                 <input type="number" class="form-control" id="editReleaseYear" name="release_year" required>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="updateMovie">Update</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="updateMovie">Actualizar</button>
           </div>
         </div>
       </div>
@@ -348,18 +348,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteMovieModalLabel">Delete Movie</h5>
+            <h5 class="modal-title" id="deleteMovieModalLabel">Borrar película</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to delete this movie?</p>
+            <p>Seguro de que quieres borrar esta película?</p>
             <input type="hidden" id="deleteFilmId">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Borrar</button>
           </div>
         </div>
       </div>
@@ -487,7 +487,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let dropdown = $('#category_id');
       dropdown.empty(); // Clear existing categories
       categories.forEach(function (category){
-          dropdown.append(`<option value="${category.language_id}">${category.name}</option>`)
+          dropdown.append(`<option value="${category.category_id}">${category.name}</option>`)
       });
     }
 
@@ -512,16 +512,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         release_year: $('#release_year').val(),
         language_id: $('#language_id').val(),
         rental_duration: $('#rental_duration').val(),
-        rental_rate: $('#rental_rate').val(), // Corrected selector
-        length: $('#length').val(), // Corrected selector
-        replacement_cost: $('#replacement_cost').val()
+        rental_rate: $('#rental_rate').val(),
+        length: $('#length').val(),
+        replacement_cost: $('#replacement_cost').val(),
+        rating: $('#rating').val(),
+        categories: [{ category_id: $('#category_id').val() }] // Correct format for categories
     };
+
     console.log('Form data:', formData); // Debugging
+
     $.ajax({
         url: 'http://143.110.198.189/api/films',
         method: 'POST',
-        data: formData,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        data: JSON.stringify(formData), // Convert to JSON string
+        contentType: 'application/json; charset=UTF-8', // Set content type to JSON
         dataType: 'json',
         headers: { 'Accept': 'application/json' },
         success: function (data) {
@@ -534,8 +538,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             console.log('Error response:', xhr.responseText); // Log the server's response
             alert('Error al agregar película: ' + error);
         }
-      });
-  });
+    });
+});
 
     $(document).on('click', '.editFilm', function () {
         console.log('Edit button clicked'); // Debugging
