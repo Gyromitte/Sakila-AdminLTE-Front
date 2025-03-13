@@ -222,6 +222,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <button class="btn btn-sm btn-dark mr-2" id="prevPage">Anterior</button>
                       <div id="pageInfo" style="margin: 0 10px;" class="align-self-center"></div>
                       <button class="btn btn-sm btn-dark ml-2" id="nextPage">Siguiente</button>
+                      <button class="btn btn-sm btn-dark ml-2" id="lastPage">Última Página</button>
                     </div>
                   </div>
                 <!-- Fin paginación -->
@@ -293,7 +294,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="form-group">
                 <label for="categories">Categorias</label>
-                  <select class="form-control" id="category_id" name="category_id" required>
+                  <select class="form-control" id="category_id" name="category_id">
                     <option value="">Selecciona una categoria</option>
                   </select>
               </div>
@@ -543,6 +544,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }
     });
 
+    // Go to last page
+    $('#lastPage').click(function () {
+      if (currentPage < lastPage) {
+        currentPage = lastPage; // Set currentPage to the last page
+        loadFilms(); // Load films for the last page
+      }
+    });
+
     // Save movie
     $('#saveMovie').click(function () {
       let formData = {
@@ -622,6 +631,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   $('#updateMovie').on('click', function () {
     let filmId = $('#editFilmId').val();
 
+    // Create the base updatedFilm object
     let updatedFilm = {
       title: $('#editTitle').val(),
       description: $('#editDescription').val(),
@@ -631,9 +641,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       length: $('#editLength').val(),
       replacement_cost: $('#editReplacementCost').val(),
       rating: $('#editRating').val(),
-      language_id: $('#editLanguageId').val(),
-      categories: [{ category_id: $('#editCategoryId').val() }] // Correct format for categories
+      language_id: $('#editLanguageId').val()
     };
+
+    // Add categories only if a new category is selected
+    let selectedCategoryId = $('#editCategoryId').val();
+    if (selectedCategoryId) {
+      updatedFilm.categories = [{ category_id: selectedCategoryId }];
+    }
 
     console.log('Updated film data:', updatedFilm); // Debugging
 
