@@ -307,7 +307,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="modal-body">
           <form id="editRentalForm">
-
+            <input type="hidden" id="editRentalId" name="editRentalId">
             <div class="form-group">
               <label for="editRentalDate">Fecha de Renta</label>
               <input type="date" class="form-control" id="editRentalDate" name="editRentalDate" required>
@@ -447,6 +447,221 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   $(document).ready(function () {
     loadRentals();
+
+    // Fetch customers, inventories and staff when the modals are opened
+    $('#addRentalModal').on('show.bs.modal', function() {
+      fetchCustomers('#client_id');
+      fetchInventories('#inventory_id');
+      fetchStaff('#staff_id');
+    });
+
+    $('#editRentalModal').on('show.bs.modal', function() {
+      fetchCustomers('#client_id');
+      fetchInventories('#inventory_id');
+      fetchStaff('#staff_id');
+    });
+
+    // Function to fecth customers
+    function fetchCustomers(dropdownId){
+      return $.ajax({
+        url: 'http://143.110.198.189/api/customers',
+        method: 'GET',
+        success: function (data) {
+          populateDropdown(dropdownId, data.data, 'customer_id', 'email');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching Customers', error);
+        }
+      });
+    }
+
+    function fetchInventories(dropdownId){
+      return $.ajax({
+        url: 'http://143.110.198.189/api/inventories',
+        method: 'GET',
+        success: function (data) {
+          populateDropdown(dropdownId, data.inventoriData.data, 'inventory_id', 'inventory_id');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching Inventories', error);
+        }
+      });
+    }
+
+    function fetchStaff(dropdownId){
+      return $.ajax({
+        url: 'http://143.110.198.189/api/staff',
+        method: 'GET',
+        success: function (data) {
+          populateDropdown(dropdownId, data.data, 'staff_id', 'first_name');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching Staff', error);
+        }
+      });
+    }
+
+    // Function to populate the dropdown
+    function populateDropdown(dropdownId, data, valueField, textField) {
+      let dropdown = $(dropdownId);
+      dropdown.empty(); // Clear existing options
+      dropdown.append('<option value="">Select an option</option>'); // Add default option
+
+      // Add each item as an option
+      data.forEach(function (item) {
+        dropdown.append(`<option value="${item[valueField]}">${item[textField]}</option>`);
+      });
+    }
+
+    // Pagination: previous page
+    $('#prevPage').click(function () {
+      if (currentPage > 1) {
+        currentPage--;
+        loadRentals();
+      }
+    });
+
+    // Pagination: Next page
+    $('#nextPage').click(function () {
+      if (currentPage < lastPage) {
+        currentPage++;
+        loadRentals();
+      }
+    });
+
+    // Go to last page
+    $('#lastPage').click(function () {
+      if (currentPage < lastPage) {
+        currentPage = lastPage; // Set currentPage to the last page
+        loadRentals(); // Load films for the last page
+      }
+    });
+
+    // Save Rental
+    $('#saveRental').on('click', function () {
+        let rentalData = {
+            rental_date: $('#rentalDate').val(),
+            customer_id: $('#client_id').val(),
+            inventory_id: $('#inventory_id').val(),
+            return_date: $('#rentalReturn').val(),
+            staff_id: $('#staff_id').val(),
+            last_update: $('#lastUpdate').val()
+        };
+
+        $.ajax({
+            url: 'http://143.110.198.189/api/rentals',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(rentalData),
+            success: function (response) {
+                $('#addRentalModal').modal('hide'); // Close the modal
+                $('#addRentalForm')[0].reset();
+                loadRentals(); // Refresh the rental list
+            },
+            error: function (xhr) {
+                console.log('Error response:', xhr.responseText);
+                alert('Error al guardar la renta: ' + xhr.responseText);
+            }
+        });
+    });
+
+    // Edit rental
+    $(document).on('click', '.editRental', function () {
+      let rentalId = $(this).data('id');
+
+      $.ajax({
+        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        method: 'GET',
+        success: function (rental) {
+          // Fill the edit modal with the rental's data
+          $('#editRentalId').val(rental.rental_id);
+          $('#editRentalDate').val(formatDate(rental.rental_date));
+          $('#editRentalReturn').val(formatDate(rental.return_date));
+          $('#editLastUpdate').val(formatDate(rental.last_update));
+          // Popualte clients and select the correct one
+          fetchCustomers('#edit_client_id').then(() => {
+            $('#edit_client_id').val(rental.customer_id);
+          });
+
+          fetchInventories('#edit_inventory_id').then(() => {
+            $('#edit_inventory_id').val(rental.inventory_id);
+          });
+
+          fetchStaff('#edit_staff_id').then(() => {
+            $('#edit_staff_id').val(rental.staff_id);
+          });
+
+          // Show the edit modal
+          $('#editRentalModal').modal('show');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error al cargar alquiler:', error);
+        }
+      });
+    });
+
+    // Helper function to format date to YYYY-MM-DD
+    function formatDate(dateString) {
+        let date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    }
+
+    // Update rental
+    $('#updateRental').on('click', function () {
+      let rentalId = $('#editRentalId').val();
+
+      // Create the base updatedRental object
+      let updatedRental = {
+        customer_id: $('#edit_client_id').val(),
+        rental_date: $('#editRentalDate').val(),
+        inventory_id: $('#edit_inventory_id').val(),
+        return_date: $('#editRentalReturn').val(),
+        last_update: $('#editLastUpdate').val(),
+        staff_id: $('#edit_staff_id').val()
+      };
+
+      console.log('Updated rental data:', updatedRental); // Debugging
+
+      $.ajax({
+        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(updatedRental),
+        success: function () {
+          $('#editRentalModal').modal('hide'); // Close modal
+          loadRentals(); // Reload rentals
+        },
+        error: function (xhr, status, error) {
+          console.error('Error al actualizar alquiler:', error);
+        }
+      });
+    });
+
+    // Delete rental
+    $(document).on('click', '.deleteRental', function () {
+      console.log('Delete button clicked'); // Debugging
+      $('#deleteRentalId').val($(this).data('id'));
+      $('#deleteRentalModal').modal('show'); // Show delete modal
+    });
+
+    // Confirm delete
+    $('#confirmDelete').on('click', function () {
+      let rentalId = $('#deleteRentalId').val();
+
+      $.ajax({
+        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        method: 'DELETE',
+        success: function () {
+          $('#deleteRentalModal').modal('hide'); // Close modal
+          loadRentals(); // Reload rentals
+        },
+        error: function (xhr, status, error) {
+          console.error('Error al eliminar alquiler:', error);
+        }
+      });
+    });
+
+
   });
 
 </script>
