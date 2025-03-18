@@ -192,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Rentas</h3>
-                <button class="btn btn-primary float-right" data-toggle="modal" data-targe="#addRentalModal">Agregar Renta</button>
+                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addRentalModal">Agregar Renta</button>
               </div>
               <div class="card-body">
                 <table id="rentalsTable" class="table table-bordered table-striped table-smaller-text">
@@ -202,7 +202,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <th>Fecha de Renta</th>
                       <th>Cliente</th>
                       <th>ID de inventario</th>
-                      <th>Cliente</th>
                       <th>Fecha de Devolución</th>
                       <th>Empleado</th>
                       <th>Última Actualización</th>
@@ -240,10 +239,144 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addRentalLabel">Agregar Renta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addRentalForm">
+
+            <div class="form-group">
+              <label for="rentalDate">Fecha de Renta</label>
+              <input type="date" class="form-control" id="rentalDate" name="rentalDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="client_id">Cliente</label>
+              <select class="form-control" id="client_id" name="client_id" required>
+                <option value="">Selecciona un cliente</option>
+                <!-- Clients will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inventory_id">Inventario</label>
+              <select class="form-control" id="inventory_id" name="inventory_id" required>
+                <option value="">Selecciona un inventario</option>
+                <!-- Inventories will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rentalReturn">Fecha de devolucion</label>
+              <input type="date" class="form-control" id="rentalReturn" name="rentalReturn" required>
+            </div>
+
+            <div class="form-group">
+              <label for="staff_id">Empleado</label>
+              <select class="form-control" id="staff_id" name="staff_id" required>
+                <option value="">Selecciona un empleado</option>
+                <!-- Staff will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="lastUpdate">Ultima actualizacion</label>
+              <input type="date" class="form-control" id="lastUpdate" name="lastUpdate" required>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="saveRental">Guardar</button>
         </div>
       </div>
     </div>
-   </div>
+  </div>
+
+  <!-- Edit Rental Modal -->
+  <div class="modal fade" id="editRentalModal" tabindex="-1" role="dialog" aria-labelledby="editRentalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editRentalModalLabel">Editar Renta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editRentalForm">
+
+            <div class="form-group">
+              <label for="editRentalDate">Fecha de Renta</label>
+              <input type="date" class="form-control" id="editRentalDate" name="editRentalDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="edit_client_id">Cliente</label>
+              <select class="form-control" id="edit_client_id" name="edit_client_id" required>
+                <option value="">Selecciona un cliente</option>
+                <!-- Clients will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="edit_inventory_id">Inventario</label>
+              <select class="form-control" id="edit_inventory_id" name="edit_inventory_id" required>
+                <option value="">Selecciona un inventario</option>
+                <!-- Inventories will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="editRentalReturn">Fecha de devolucion</label>
+              <input type="date" class="form-control" id="editRentalReturn" name="editRentalReturn" required>
+            </div>
+
+            <div class="form-group">
+              <label for="edit_staff_id">Empleado</label>
+              <select class="form-control" id="edit_staff_id" name="edit_staff_id" required>
+                <option value="">Selecciona un empleado</option>
+                <!-- Staff will be populated by JS-->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="editLastUpdate">Ultima actualizacion</label>
+              <input type="date" class="form-control" id="editLastUpdate" name="editLastUpdate" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="updateRental">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Rental Modal -->
+  <div class="modal fade" id="deleteRentalModal" tabindex="-1" role="dialog" aria-labelledby="deleteRentalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteRentalModalLabel">Borrar Renta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="modal-body">
+            <p>Seguro de que quieres borrar esta Renta?</p>
+            <input type="hidden" id="deleteRentalId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">Borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -266,5 +399,56 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- CRUD SCRIPT -->
+<script>
+  let currentPage = 1, lastPage =1;
+
+  // Load rentals from the API
+  function loadRentals() {
+    $.ajax({
+        url: `http://143.110.198.189/api/rentals?page=${currentPage}`,
+        method: 'GET',
+        success: function (data) {
+            currentPage = data.current_page;
+            lastPage = data.last_page;
+            let tbody = $('#rentalsTable tbody');
+            tbody.empty(); // Clear the table before adding new rows
+
+            data.data.forEach(rental => {
+                let row = `
+                    <tr>
+                        <td>${rental.rental_id}</td>
+                        <td>${rental.rental_date}</td>
+                        <td>${rental.customer_id}</td>
+                        <td>${rental.inventory_id}</td>
+                        <td>${rental.return_date || 'No devuelto'}</td>
+                        <td>${rental.staff_id}</td>
+                        <td>${rental.last_update}</td>
+                        <td>
+                            <button class="btn btn-sm btn-smaller editRental" data-id="${rental.rental_id}">
+                                <i class="fas fa-pencil-alt text-light"></i>
+                            </button>
+                            <button class="btn btn-sm btn-smaller deleteRental" data-id="${rental.rental_id}">
+                                <i class="fas fa-trash text-danger"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+
+            $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al cargar rentas:', error);
+        }
+    });
+  }
+
+  $(document).ready(function () {
+    loadRentals();
+  });
+
+</script>
 </body>
 </html>
