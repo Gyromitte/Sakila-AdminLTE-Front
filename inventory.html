@@ -376,7 +376,7 @@ This page gets rid of all links and provides the needed markup only.
           $('#editInventoryModal').modal('hide');
           loadInventory();
         },
-        error: function(xhr, status, error){ alert('Error al actualizar inventario: ' + error); }
+        error: function(xhr, status, error){ alert('Error al actualizar inventario: ID de tienda o de filme fuera del catálogo'); }
       });
     });
     $(document).on('click','.deleteInventory', function(){
