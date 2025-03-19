@@ -345,7 +345,7 @@ This page gets rid of all links and provides the needed markup only.
           $('#addInventoryForm')[0].reset();
           loadInventory();
         },
-        error: function(xhr, status, error){ alert('Error al agregar inventario: ' + error); }
+        error: function(xhr, status, error){ alert('Error al agregar inventario: ID de tienda o de filme fuera del catálogo'); }
       });
     });
     $(document).on('click','.editInventory', function(){
