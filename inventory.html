@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
+<!-- 
+This is a starter template page.
+Use this page to start your new project from scratch.
+This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico">
-
-  <title>Sakila Films</title>
+  <title>Sakila Inventario</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -20,19 +19,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition sidebar-mini dark-mode">
 <div class="wrapper">
-
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
-    <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+          <i class="fas fa-bars"></i>
+        </a>
       </li>
     </ul>
-
-    <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
       <li class="nav-item">
         <div class="navbar-search-block">
           <form class="form-inline">
@@ -50,7 +46,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </form>
         </div>
       </li>
-
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -62,15 +57,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="dist/img/favicon.ico" alt="Sakila Films Logo" class="brand-image" style="opacity: .8">
       <span class="brand-text font-weight-light">Sakila Films</span>
     </a>
-
-    <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -79,8 +70,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="d-block">User Name</a>
         </div>
       </div>
-
-      <!-- SidebarSearch Form -->
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -91,18 +80,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
         </div>
       </div>
-
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-itemn">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">
+          <li class="nav-item">
             <a href="starter.html" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
-              <p>
-                Home
-              </p>
+              <p>Home</p>
             </a>
           </li>
           <!--MOVIES-->
@@ -112,7 +95,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Películas</p>
             </a>
           </li>
-
           <!--ACTORS-->
           <li class="nav-item">
             <a href="actors.html" class="nav-link">
@@ -120,7 +102,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Actores</p>
             </a>
           </li>
-
           <!--CLIENTS-->
           <li class="nav-item">
             <a href="clients.html" class="nav-link">
@@ -128,7 +109,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Clientes</p>
             </a>
           </li>
-
           <!--RENTALS-->
           <li class="nav-item">
             <a href="rentals.html" class="nav-link">
@@ -136,7 +116,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Rentas</p>
             </a>
           </li>
-
           <!--INVENTORY-->
           <li class="nav-item">
             <a href="inventory.html" class="nav-link active">
@@ -144,7 +123,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Inventario</p>
             </a>
           </li>
-
           <!--STAFF-->
           <li class="nav-item">
             <a href="staff.html" class="nav-link">
@@ -152,7 +130,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Staff</p>
             </a>
           </li>
-
           <!--STORES-->
           <li class="nav-item">
             <a href="store.html" class="nav-link">
@@ -160,117 +137,268 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <p>Tiendas</p>
             </a>
           </li>
-
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Home</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          <div class="col-sm-6"><h1 class="m-0">Inventario</h1></div>
+          <div class="col-sm-6"></div>
+        </div>
+      </div>
     </div>
-    <!-- /.content-header -->
-
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
+          <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="m-0">Featured</h5>
+                <h3 class="card-title">Inventario</h3>
+                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addInventoryModal">Agregar Inventario</button>
               </div>
               <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <table id="inventoryTable" class="table table-bordered table-striped table-smaller-text">
+                  <thead>
+                    <tr>
+                      <th style="width: 5%;">ID</th>
+                      <th style="width: 25%;">Film ID</th>
+                      <th style="width: 25%;">Store ID</th>
+                      <th style="width: 25%;">Última Actualización</th>
+                      <th style="width: 20%;">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody><!-- Se llenará por AJAX --></tbody>
+                </table>
+                <!-- Paginación -->
+                <div class="row mt-3">
+                  <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-sm btn-dark mr-2" id="prevPage">Anterior</button>
+                    <div id="pageInfo" style="margin: 0 10px;" class="align-self-center"></div>
+                    <button class="btn btn-sm btn-dark ml-2" id="nextPage">Siguiente</button>
+                  </div>
+                </div>
+                <!-- Fin paginación -->
               </div>
             </div>
           </div>
-          <!-- /.col-md-6 -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
     </div>
-    <!-- /.content -->
+
+    <!-- Add Inventory Modal -->
+    <div class="modal fade" id="addInventoryModal" tabindex="-1" role="dialog" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addInventoryModalLabel">Agregar Inventario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addInventoryForm">
+              <div class="form-group">
+                <label for="film_id">Film ID</label>
+                <input type="number" class="form-control" id="film_id" name="film_id" required>
+              </div>
+              <div class="form-group">
+                <label for="store_id">Store ID</label>
+                <input type="number" class="form-control" id="store_id" name="store_id" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="saveInventory">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Inventory Modal -->
+    <div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editInventoryModalLabel">Editar Inventario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editInventoryForm">
+              <input type="hidden" id="editInventoryId" name="inventory_id">
+              <div class="form-group">
+                <label for="editFilmId">Film ID</label>
+                <input type="number" class="form-control" id="editFilmId" name="film_id" required>
+              </div>
+              <div class="form-group">
+                <label for="editStoreId">Store ID</label>
+                <input type="number" class="form-control" id="editStoreId" name="store_id" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" id="updateInventory">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Inventory Modal -->
+    <div class="modal fade" id="deleteInventoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteInventoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteInventoryModalLabel">Eliminar Inventario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro de eliminar este inventario?</p>
+            <input type="hidden" id="deleteInventoryId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteInventory">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <div class="p-3">
+        <h5>Title</h5>
+        <p>Sidebar content</p>
+      </div>
+    </aside>
   </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
-<!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script>
+  let currentPage = 1, lastPage = 1;
+  function loadInventory(){
+    $.ajax({
+      url: 'http://143.110.198.189/api/inventories?page=' + currentPage,
+      method: 'GET',
+      success: function(response) {
+        currentPage = response.inventoriData.current_page;
+        lastPage = response.inventoriData.last_page;
+        var inventory = response.inventoriData.data,
+            tbody = $('#inventoryTable tbody');
+        tbody.empty();
+        $.each(inventory, function(index, item) {
+          var row = `
+            <tr>
+              <td>${item.inventory_id}</td>
+              <td>${item.film_id}</td>
+              <td>${item.store_id}</td>
+              <td>${item.last_update}</td>
+              <td>
+                <button class="btn btn-sm btn-smaller editInventory" data-id="${item.inventory_id}">
+                  <i class="fas fa-pencil-alt text-light"></i>
+                </button>
+                <button class="btn btn-sm btn-smaller deleteInventory" data-id="${item.inventory_id}">
+                  <i class="fas fa-trash text-danger"></i>
+                </button>
+              </td>
+            </tr>`;
+          tbody.append(row);
+        });
+        $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
+      },
+      error: function(xhr, status, error) { 
+        alert('Error al cargar inventario: ' + error); 
+      }
+    });
+  }
+  $(document).ready(function(){
+    loadInventory();
+    $('#prevPage').click(function(){ if(currentPage>1){ currentPage--; loadInventory(); } });
+    $('#nextPage').click(function(){ if(currentPage<lastPage){ currentPage++; loadInventory(); } });
+    $('#saveInventory').click(function(){
+      var formData = { film_id: $('#film_id').val(), store_id: $('#store_id').val() };
+      $.ajax({
+        url: 'http://143.110.198.189/api/inventories',
+        method: 'POST',
+        data: formData,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: {'Accept':'application/json'},
+        success: function(data){
+          $('#addInventoryModal').modal('hide');
+          $('#addInventoryForm')[0].reset();
+          loadInventory();
+        },
+        error: function(xhr, status, error){ alert('Error al agregar inventario: ' + error); }
+      });
+    });
+    $(document).on('click','.editInventory', function(){
+      var inventoryId = $(this).data('id');
+      $.ajax({
+        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
+        method: 'GET',
+        success: function(data){
+          $('#editInventoryId').val(data.inventory_id);
+          $('#editFilmId').val(data.film_id);
+          $('#editStoreId').val(data.store_id);
+          $('#editInventoryModal').modal('show');
+        },
+        error: function(xhr, status, error){ alert('Error al cargar inventario: ' + error); }
+      });
+    });
+    $('#updateInventory').click(function(){
+      var inventoryId = $('#editInventoryId').val();
+      var formData = { film_id: $('#editFilmId').val(), store_id: $('#editStoreId').val() };
+      $.ajax({
+        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
+        method: 'PUT',
+        data: formData,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: {'Accept':'application/json'},
+        success: function(data){
+          $('#editInventoryModal').modal('hide');
+          loadInventory();
+        },
+        error: function(xhr, status, error){ alert('Error al actualizar inventario: ' + error); }
+      });
+    });
+    $(document).on('click','.deleteInventory', function(){
+      $('#deleteInventoryId').val($(this).data('id'));
+      $('#deleteInventoryModal').modal('show');
+    });
+    $('#confirmDeleteInventory').click(function(){
+      var inventoryId = $('#deleteInventoryId').val();
+      $.ajax({
+        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
+        method: 'DELETE',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        headers: {'Accept':'application/json'},
+        success: function(data){
+          $('#deleteInventoryModal').modal('hide');
+          loadInventory();
+        },
+        error: function(xhr, status, error){ alert('Error al eliminar inventario: ' + error); }
+      });
+    });
+  });
+</script>
 </body>
 </html>
