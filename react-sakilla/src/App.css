@@ -52,3 +52,38 @@ html, body, #root {
   overflow-y: auto;
   height: calc(100vh - 56px); /* Resta la altura del NavBar */
 }
+
+/* Transición suave para el sidebar */
+.collapsed-sidebar {
+  overflow: hidden;
+}
+
+/* Efecto hover para los items */
+.hover-bg-light:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tooltips para cuando está colapsado */
+.nav-link[title] {
+  position: relative;
+}
+
+.nav-link[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #343a40;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
+  margin-left: 10px;
+  z-index: 1000;
+}
+
+/* Ajuste para el contenido principal */
+.expanded-content {
+  margin-left: 80px;
+}

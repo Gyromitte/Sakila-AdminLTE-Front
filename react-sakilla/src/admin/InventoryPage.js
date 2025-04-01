@@ -11,7 +11,12 @@ const InventoryPage = () => {
     const [inventory, setInventory] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [lastPage, setLastPage] = useState(1);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     const location = useLocation();
+
+    const toggleSidebar = () => {
+        setSidebarCollapsed(!sidebarCollapsed);
+    };
 
     const loadInventory = async (page) => {
         try {
@@ -36,26 +41,19 @@ const InventoryPage = () => {
 
     return (
         <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
-            {/* NavBar Superior - altura fija */}
-            <NavBar style={{ height: "56px", flexShrink: 0 }} />
-
-            <div className="d-flex flex-grow-1" style={{ overflow: "hidden" }}>
-                {/* SideBar - ancho fijo */}
-                <SideBar
-                    currentPath={location.pathname}
-                    style={{
-                        width: "250px",
-                        flexShrink: 0,
-                        height: "calc(100vh - 56px)",
-                        overflowY: "auto"
-                    }}
+            {/* NavBar Superior */}
+            <NavBar onToggleSidebar={toggleSidebar} />
+            
+            <div className="d-flex flex-grow-1">
+                {/* SideBar Personalizado */}
+                <SideBar 
+                    currentPath={location.pathname} 
+                    collapsed={sidebarCollapsed}
                 />
+                
+                {/* Contenido Principal */}
+                <main className={`flex-grow-1 p-4 bg-light ${sidebarCollapsed ? 'expanded-content' : ''}`}>
 
-                {/* Contenido Principal - área flexible */}
-                <main className="flex-grow-1 p-4 bg-light main-content">
-                    <div className="container-fluid">
-                        {/* ... (tu contenido existente) */}
-                    </div>
                 </main>
             </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const SideBar = ({ currentPath }) => {
+const SideBar = ({ currentPath, collapsed }) => {
     const menuItems = [
         { path: "/movies", icon: "film", label: "Películas" },
         { path: "/actors", icon: "mask", label: "Actores" },
@@ -15,8 +15,12 @@ const SideBar = ({ currentPath }) => {
 
     return (
         <div 
-            className="d-flex flex-column p-3 bg-dark text-white" 
-            style={{ width: "250px", minHeight: "calc(100vh - 56px)" }}
+            className={`d-flex flex-column p-3 bg-dark text-white ${collapsed ? 'collapsed-sidebar' : ''}`}
+            style={{ 
+                width: collapsed ? "80px" : "250px", 
+                minHeight: "calc(100vh - 56px)",
+                transition: "width 0.3s ease"
+            }}
         >
             <ul className="nav nav-pills flex-column">
                 {menuItems.map((item) => (
@@ -24,9 +28,10 @@ const SideBar = ({ currentPath }) => {
                         <Link
                             to={item.path}
                             className={`nav-link ${currentPath === item.path ? "active bg-primary" : "text-white hover-bg-light"}`}
+                            title={collapsed ? item.label : ""}
                         >
-                            <i className={`fas fa-${item.icon} me-2`}></i>
-                            {item.label}
+                            <i className={`fas fa-${item.icon} ${collapsed ? 'fs-5 mx-auto' : 'me-2'}`}></i>
+                            {!collapsed && item.label}
                         </Link>
                     </li>
                 ))}
@@ -36,7 +41,12 @@ const SideBar = ({ currentPath }) => {
 };
 
 SideBar.propTypes = {
-    currentPath: PropTypes.string.isRequired
+    currentPath: PropTypes.string.isRequired,
+    collapsed: PropTypes.bool
+};
+
+SideBar.defaultProps = {
+    collapsed: false
 };
 
 export default SideBar;
