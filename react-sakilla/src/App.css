@@ -47,6 +47,16 @@ html, body, #root {
   height: 100%;
 }
 
+h1{
+  color: white;
+}
+
+.nav-img{
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+}
+
 /* Estilo para el contenido principal */
 .main-content {
   overflow-y: auto;
