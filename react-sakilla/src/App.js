@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import NavBar from "./admin/navbar";
+import InventoryPage from "./admin/InventoryPage";
+import 'bootstrap';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/InventoryPage" element={<NavBar />} />
+        <Route path="/InventoryPage" element={<InventoryPage />} />
       </Routes>
     </BrowserRouter>
   );
