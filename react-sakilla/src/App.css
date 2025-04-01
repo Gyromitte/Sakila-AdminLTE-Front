@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+/* styles.css o App.css */
+.hover-bg-light:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Asegura que el layout ocupe toda la altura */
+html, body, #root {
+  height: 100%;
+}
+
+/* Estilo para el contenido principal */
+.main-content {
+  overflow-y: auto;
+  height: calc(100vh - 56px); /* Resta la altura del NavBar */
+}
