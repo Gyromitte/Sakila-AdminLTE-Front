@@ -5,13 +5,14 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import InventoryPage from "./admin/InventoryPage";
 import 'bootstrap';
 import Login from "./Login";
+import AdminDashboard from "./admin/adminDashboard";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/InventoryPage" element={<InventoryPage />} />
+        <Route path="/AdminDashboard/*" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );

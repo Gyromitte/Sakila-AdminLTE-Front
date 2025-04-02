@@ -3,7 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import ReusableTable from "../ReusableTable";
+import ReusableTable from "../reusableTable";
 import NavBar from "../navbar";
 import SideBar from "./sideBar";
 
@@ -41,21 +41,7 @@ const InventoryPage = () => {
 
     return (
         <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
-            {/* NavBar Superior */}
-            <NavBar onToggleSidebar={toggleSidebar} />
-            
-            <div className="d-flex flex-grow-1">
-                {/* SideBar Personalizado */}
-                <SideBar 
-                    currentPath={location.pathname} 
-                    collapsed={sidebarCollapsed}
-                />
-                
-                {/* Contenido Principal */}
-                <main className={`flex-grow-1 p-4 bg-light ${sidebarCollapsed ? 'expanded-content' : ''}`}>
 
-                </main>
-            </div>
         </div>
     );
 };
