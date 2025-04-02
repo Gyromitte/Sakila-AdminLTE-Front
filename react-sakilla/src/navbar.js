@@ -37,7 +37,7 @@ const NavBar = ({ onToggleSidebar }) => {
             <img src={Favicon} alt="sakilla_logo" className="nav-img"></img>
 
             {/* Navbar Title */}
-            <h1 className="ml-2">Sakila</h1>
+            <h1 className="ml-2">Sakila Films</h1>
 
             <div className="d-flex ms-auto">
                 {/* FullScreen Button */}
