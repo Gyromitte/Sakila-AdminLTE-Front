@@ -14,12 +14,32 @@ const InventoryPage = () => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [newItem, setNewItem] = useState({
+        film_id: '',
+        store_id: ''
+    });
+
+    const handleCreate = async () => {
+        setIsProcessing(true);
+        try {
+            await axios.post('http://143.110.198.189/api/inventories', newItem);
+            loadInventory(currentPage);
+            setShowCreateModal(false);
+            setNewItem({ film_id: '', store_id: '' });
+        } catch (error) {
+            alert("Error al crear: " + error.message);
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
     const loadInventory = async (page) => {
         setLoading(true);
         setError(null);
         try {
             const response = await axios.get(`http://143.110.198.189/api/inventories?page=${page}`);
-            
+
             if (response.data.inventoriData && response.data.inventoriData.data) {
                 setInventory(response.data.inventoriData.data);
                 setLastPage(response.data.inventoriData.last_page);
@@ -48,16 +68,16 @@ const InventoryPage = () => {
     const headers = ["inventory_id", "film_id", "store_id", "Última actualización"];
 
     const actions = [
-        { 
-            label: "Editar", 
+        {
+            label: "Editar",
             onClick: (item) => {
                 console.log("Item seleccionado para editar:", item);
                 setSelectedItem(item);
                 setShowEditModal(true);
-            } 
+            }
         },
-        { 
-            label: "Eliminar", 
+        {
+            label: "Eliminar",
             onClick: (item) => {
                 console.log("Item seleccionado para eliminar:", item);
                 setSelectedItem(item);
@@ -68,8 +88,18 @@ const InventoryPage = () => {
 
     return (
         <div className="container-fluid">
-            <h2>Inventario</h2>
-            
+            <div className="d-flex justify-content-between mb-3">
+                <h2>Inventario</h2>
+
+                <button
+                    className="btn btn-success"
+                    onClick={() => setShowCreateModal(true)}
+                >
+                    <i className="fas fa-plus me-2"></i>Nuevo Registro
+                </button>
+            </div>
+
+
             {loading ? (
                 <div className="text-center my-5">
                     <div className="spinner-border" role="status">
@@ -87,7 +117,7 @@ const InventoryPage = () => {
                                 data={tableData}
                                 actions={actions}
                             />
-                            
+
                             {/* Paginación */}
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <div>
@@ -96,8 +126,8 @@ const InventoryPage = () => {
                                 <nav>
                                     <ul className="pagination">
                                         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                                            <button 
-                                                className="page-link" 
+                                            <button
+                                                className="page-link"
                                                 onClick={() => setCurrentPage(1)}
                                                 disabled={currentPage === 1}
                                             >
@@ -105,15 +135,15 @@ const InventoryPage = () => {
                                             </button>
                                         </li>
                                         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                                            <button 
-                                                className="page-link" 
+                                            <button
+                                                className="page-link"
                                                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                                                 disabled={currentPage === 1}
                                             >
                                                 Anterior
                                             </button>
                                         </li>
-                                        
+
                                         {Array.from({ length: Math.min(5, lastPage) }, (_, i) => {
                                             let pageNum;
                                             if (currentPage <= 3) {
@@ -123,13 +153,13 @@ const InventoryPage = () => {
                                             } else {
                                                 pageNum = currentPage - 2 + i;
                                             }
-                                            
+
                                             if (pageNum < 1 || pageNum > lastPage) return null;
-                                            
+
                                             return (
                                                 <li key={pageNum} className={`page-item ${currentPage === pageNum ? 'active' : ''}`}>
-                                                    <button 
-                                                        className="page-link" 
+                                                    <button
+                                                        className="page-link"
                                                         onClick={() => setCurrentPage(pageNum)}
                                                     >
                                                         {pageNum}
@@ -137,10 +167,10 @@ const InventoryPage = () => {
                                                 </li>
                                             );
                                         })}
-                                        
+
                                         <li className={`page-item ${currentPage === lastPage ? 'disabled' : ''}`}>
-                                            <button 
-                                                className="page-link" 
+                                            <button
+                                                className="page-link"
                                                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
                                                 disabled={currentPage === lastPage}
                                             >
@@ -148,8 +178,8 @@ const InventoryPage = () => {
                                             </button>
                                         </li>
                                         <li className={`page-item ${currentPage === lastPage ? 'disabled' : ''}`}>
-                                            <button 
-                                                className="page-link" 
+                                            <button
+                                                className="page-link"
                                                 onClick={() => setCurrentPage(lastPage)}
                                                 disabled={currentPage === lastPage}
                                             >
@@ -222,7 +252,7 @@ const InventoryPage = () => {
                                     type="number"
                                     className="form-control"
                                     value={selectedItem?.film_id || ''}
-                                    onChange={(e) => setSelectedItem({...selectedItem, film_id: e.target.value})}
+                                    onChange={(e) => setSelectedItem({ ...selectedItem, film_id: e.target.value })}
                                 />
                             </div>
                             <div className="mb-3">
@@ -231,7 +261,7 @@ const InventoryPage = () => {
                                     type="number"
                                     className="form-control"
                                     value={selectedItem?.store_id || ''}
-                                    onChange={(e) => setSelectedItem({...selectedItem, store_id: e.target.value})}
+                                    onChange={(e) => setSelectedItem({ ...selectedItem, store_id: e.target.value })}
                                 />
                             </div>
                         </div>
@@ -278,6 +308,50 @@ const InventoryPage = () => {
                     </div>
                 </div>
             )}
+
+            {/* Modal para Crear Nuevo Registro */}
+            <div className={`modal fade ${showCreateModal ? 'show' : ''}`} style={{ display: showCreateModal ? 'block' : 'none' }} tabIndex="-1">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Agregar Nuevo Item</h5>
+                            <button type="button" className="btn-close" onClick={() => setShowCreateModal(false)}></button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="mb-3">
+                                <label className="form-label">Film ID</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={newItem.film_id}
+                                    onChange={(e) => setNewItem({ ...newItem, film_id: e.target.value })}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Store ID</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={newItem.store_id}
+                                    onChange={(e) => setNewItem({ ...newItem, store_id: e.target.value })}
+                                />
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" onClick={() => setShowCreateModal(false)}>Cancelar</button>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={handleCreate}
+                                disabled={isProcessing || !newItem.film_id || !newItem.store_id}
+                            >
+                                {isProcessing ? 'Creando...' : 'Crear Item'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {showCreateModal && <div className="modal-backdrop fade show"></div>}
         </div>
     );
 };
