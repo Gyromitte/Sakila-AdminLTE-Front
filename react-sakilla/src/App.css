@@ -13,6 +13,19 @@
   }
 }
 
+.test_border{
+  border: 1px solid red;
+}
+
+.login-form{
+  width: 25% !important;
+  padding: 60px 30px 60px 30px ;
+  /*Esta cosa se maneja de Top, Right, Bottom y left*/
+  background-color: #eaecee;
+  border-radius: 5%;
+
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
