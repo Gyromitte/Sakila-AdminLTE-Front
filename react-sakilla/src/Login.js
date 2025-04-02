@@ -1,6 +1,5 @@
 import React from "react";
-import NavBar from "./navbar";
-import "./App.css";
+import NavBar from "./admin/navbar";
 
 function Login() {
     return (

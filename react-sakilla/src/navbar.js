@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Favicon from "./assets/favicon.ico";
+import "./App.css";
 
 const NavBar = ({ onToggleSidebar }) => {
     const [fullscreen, setFullscreen] = useState(false);
@@ -21,7 +23,7 @@ const NavBar = ({ onToggleSidebar }) => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-            {/* Botón para colapsar Sidebar - Siempre visible */}
+            {/* Burger Button */}
             <button
                 className="navbar-toggler d-block ms-3 me-2" // Agregamos márgenes
                 type="button"
@@ -31,9 +33,14 @@ const NavBar = ({ onToggleSidebar }) => {
                 <i className="fas fa-bars"></i>
             </button>
 
-            {/* Controles del lado derecho */}
+            {/* Sakilla Logo */}
+            <img src={Favicon} alt="sakilla_logo" className="nav-img"></img>
+
+            {/* Navbar Title */}
+            <h1 className="ml-2">Sakila</h1>
+
             <div className="d-flex ms-auto">
-                {/* Botón de pantalla completa */}
+                {/* FullScreen Button */}
                 <button
                     className="btn btn-link text-white"
                     onClick={toggleFullscreen}

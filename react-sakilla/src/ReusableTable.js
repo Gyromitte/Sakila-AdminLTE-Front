@@ -2,35 +2,40 @@ import React from "react";
 
 const ReusableTable = ({ headers, data, actions }) => {
   return (
-    <table className="table table-bordered table-striped">
-      <thead>
-        <tr>
-          {headers.map((header, index) => (
-            <th key={index}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, rowIndex) => (
-          <tr key={rowIndex}>
-            {Object.values(item).map((value, colIndex) => (
-              <td key={colIndex}>{value}</td>
+    <div className="table-responsive">
+      <table className="table table-bordered table-striped">
+        <thead className="table-dark">
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
             ))}
-            <td>
-              {actions.map((action, actionIndex) => (
-                <button
-                  key={actionIndex}
-                  className={`btn btn-sm ${action.label === "Eliminar" ? "btn-danger" : "btn-primary"} me-2`}
-                  onClick={() => action.onClick(item)}
-                >
-                  {action.label}
-                </button>
-              ))}
-            </td>
+            {actions && actions.length > 0 && <th>Acciones</th>}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {data.map((item, rowIndex) => (
+            <tr key={rowIndex}>
+              {headers.map((header, colIndex) => (
+                <td key={colIndex}>{item[header] || '-'}</td>
+              ))}
+              {actions && actions.length > 0 && (
+                <td>
+                  {actions.map((action, actionIndex) => (
+                    <button
+                      key={actionIndex}
+                      className={`btn btn-sm ${action.label === "Eliminar" ? "btn-danger" : "btn-primary"} me-2`}
+                      onClick={() => action.onClick(item)}
+                    >
+                      {action.label}
+                    </button>
+                  ))}
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

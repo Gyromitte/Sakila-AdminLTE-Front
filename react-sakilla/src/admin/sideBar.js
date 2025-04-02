@@ -8,7 +8,7 @@ const SideBar = ({ currentPath, collapsed }) => {
         { path: "/actors", icon: "mask", label: "Actores" },
         { path: "/clients", icon: "users", label: "Clientes" },
         { path: "/rentals", icon: "money-bill", label: "Rentas" },
-        { path: "/inventory", icon: "box", label: "Inventario" },
+        { path: "/AdminDashboard/inventory", icon: "box", label: "Inventario" },
         { path: "/staff", icon: "people-arrows", label: "Staff" },
         { path: "/store", icon: "store", label: "Tiendas" }
     ];
