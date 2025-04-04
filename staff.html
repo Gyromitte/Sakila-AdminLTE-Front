@@ -20,7 +20,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
   </head>
   <body class="hold-transition sidebar-mini dark-mode">
     <div class="wrapper">
@@ -188,14 +191,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <!--Cerrar sesión-->
               <li class="nav-item">
-                <button type="button" class="btn btn-secondary" id="backToHome">Cerrar sesión</button>
+                <button type="button" class="btn btn-secondary" id="backToHome">
+                  Cerrar sesión
+                </button>
               </li>
 
-              <div id="loading" style="display: none; position: fixed; top: 50%; left: 50%;">
+              <div
+                id="loading"
+                style="display: none; position: fixed; top: 50%; left: 50%"
+              >
                 <div class="spinner-border text-info" role="status">
                   <span class="visually-hidden"></span>
                 </div>
-            </div>
+              </div>
             </ul>
           </nav>
           <!-- /.sidebar-menu -->
@@ -435,25 +443,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
     <script>
-      document.getElementById("backToHome").addEventListener("click", function(){
-        // Mostrar la animación de carga
-        const loadingSpinner = document.getElementById('loading');
-        const access_token = localStorage.getItem('jwtToken');
-        loadingSpinner.style.display = 'block';
-        toastr.success("Sesión cerrada con exito!");
-        fetch("http://127.0.0.1:8000/api/auth/logout",{
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${access_token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        setTimeout(function(){
-            window.location.href = 'index.html';
-        }, 600);
-      });
+      document
+        .getElementById("backToHome")
+        .addEventListener("click", function () {
+          // Mostrar la animación de carga
+          const loadingSpinner = document.getElementById("loading");
+          const access_token = localStorage.getItem("jwtToken");
+          loadingSpinner.style.display = "block";
+          toastr.success("Sesión cerrada con exito!");
+          fetch("https://renewing-hog-perfect.ngrok-free.app/api/auth/logout", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          });
+          setTimeout(function () {
+            window.location.href = "index.html";
+          }, 600);
+        });
 
       document.addEventListener("DOMContentLoaded", function () {
         fetch("http://143.110.198.189/api/staff")

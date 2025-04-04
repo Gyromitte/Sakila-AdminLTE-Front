@@ -40,10 +40,15 @@
                         <div class="mt-3 text-center w-80">
                             <button type="button" class="btn btn-secondary w-100" id="backToHome">Regresar a inicio</button>
                         </div>
+
+                        <div class="mt-3 text-center w-80">
+                            <a href="recover_password_step1.html" class="btn btn-link w-100">¿Olvidaste tu contraseña?</a>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
+
         <!-- jQuery -->
         <script src="plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
@@ -84,21 +89,36 @@
                 const loadingSpinner = document.getElementById('loading');
                 loadingSpinner.style.display = 'block';
 
-                fetch('http://127.0.0.1:8000/api/auth/login', {
+                fetch('https://renewing-hog-perfect.ngrok-free.app/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("Error de autenticación: Credenciales inválidas.");
+                        }
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(result => {
-                    console.log('Usuario Inicio sesión con exito: ', result);
+                    console.log('Usuario inició sesión con éxito: ', result);
                     localStorage.setItem("emailFromLogin", email);
+                    toastr.success("Inicio de sesión exitoso. Redirigiendo...");
                     setTimeout(function(){
                         window.location.href = 'verification_code.html';
-                    }, 3600)
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Error al iniciar sesión: ', error);
+                    if (error.message.includes("autenticación")) {
+                        toastr.error("Error de autenticación: Credenciales inválidas.");
+                    } else {
+                        toastr.error("Error al iniciar sesión. Verifica la información.");
+                    }
+                    loadingSpinner.style.display = 'none'; // Ocultar el spinner en caso de error
                 });
             });
         </script>
