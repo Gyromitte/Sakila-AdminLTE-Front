@@ -14,6 +14,8 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="dist/css/adminlte.min.css">
         <link rel="stylesheet" href="dist/css/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     </head>
     <body>
         <div class="d-flex justify-content-center align-items-center min-vh-100">
@@ -21,28 +23,32 @@
                 <form>
                     <div class="w-100">
                         <label htmlFor="inputName">Nombre:</label>
-                        <input type="text" class="form-control" id="inputName" ></input>
+                        <input type="text" class="form-control" id="inputName" required></input>
 
                         <label htmlFor="inputLastName" class="mt-3">Apellidos:</label>
-                        <input type="text" class="form-control" id="inputLastName" ></input>
+                        <input type="text" class="form-control" id="inputLastName" required></input>
                         
                         <label htmlFor="inputEmail" class=" mt-3">Correo Electronico:</label>
-                        <input type="email" class="form-control" id="inputEmail" ></input>
+                        <input type="email" class="form-control" id="inputEmail" required></input>
 
                         <label htmlFor="inputUsername" class=" mt-3">Nombre de usuario:</label>
-                        <input type="text" class="form-control" id="inputUsername" ></input>
+                        <input type="text" class="form-control" id="inputUsername" required></input>
                         
                         <label htmlFor="inputPassword" class=" mt-3">Contraseña:</label>
-                        <input type="password" class="form-control" id="inputPassword" ></input>
+                        <input type="password" class="form-control" id="inputPassword" required></input>
                         
                         <div id="loading" style="display: none; position: fixed; top: 50%; left: 50%;">
-                            <div class="spinner-border text-primary" role="status">
+                            <div class="spinner-border text-info" role="status">
                               <span class="visually-hidden"></span>
                             </div>
                         </div>
 
                         <div class="mt-3 text-center w-80">
                             <button type="button" class="btn btn-dark w-100" id="registerUser">Registrar</button>
+                        </div>
+
+                        <div class="mt-3 text-center w-80">
+                            <button type="button" class="btn btn-secondary w-100" id="backToHome">Regresar a inicio</button>
                         </div>
                     </div>
                 </form>
@@ -54,6 +60,7 @@
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <!-- CRUD SCRIPT -->
         <script>
         function checkValidPassword (password) {
@@ -61,11 +68,16 @@
             return regex.test(password);
         }
 
-            document.getElementById("registerUser").addEventListener("click", function(){
+            document.getElementById("backToHome").addEventListener("click", function(){
+                setTimeout(function(){
+                    // Mostrar la animación de carga
+                    const loadingSpinner = document.getElementById('loading');
+                    loadingSpinner.style.display = 'block';
+                    window.location.href = 'index.html';
+                }, 60);
+            });
 
-                // Mostrar la animación de carga
-                const loadingSpinner = document.getElementById('loading');
-                loadingSpinner.style.display = 'block';
+            document.getElementById("registerUser").addEventListener("click", function(){
 
                 // Obtener los valores de los input.
                 const first_name = document.getElementById("inputName").value.trim();
@@ -74,8 +86,19 @@
                 const username = document.getElementById("inputUsername").value.trim();
                 const password = document.getElementById("inputPassword").value.trim();
 
+                if ( !first_name || !last_name || !email || !username || !password ) {
+                    toastr.warning("Por favor completa los campos, ningúno puede estar vacio.");
+                    return ;
+                } else {
+                    toastr.success("Datos enviados correctamente!");
+                }
+
                 const data = {first_name, last_name, email, password, username};
                 console.log("Data to send: " + data);
+
+                // Mostrar la animación de carga
+                const loadingSpinner = document.getElementById('loading');
+                loadingSpinner.style.display = 'block';
                 
                 fetch('http://127.0.0.1:8000/api/auth/register', {
                     method: 'POST',

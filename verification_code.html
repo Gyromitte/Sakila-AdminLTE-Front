@@ -14,6 +14,7 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="dist/css/adminlte.min.css">
         <link rel="stylesheet" href="dist/css/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     </head>
     <body>
         <div class="d-flex justify-content-center align-items-center min-vh-100">
@@ -43,6 +44,7 @@
         <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
         <script src="dist/js/adminlte.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <!-- CRUD SCRIPT -->
         <script>
         function checkValidPassword (password) {
@@ -52,15 +54,22 @@
 
         document.getElementById("verificationCode").addEventListener("click", function(){
 
-            // Mostrar la animación de carga
-            const loadingSpinner = document.getElementById('loading');
-            loadingSpinner.style.display = 'block';
-
             // Campos para el Login.
             const email = localStorage.getItem("emailFromLogin");
             const verification_code = document.getElementById("inputVerificationCode").value.trim();
 
             const data = {email, verification_code};
+
+            if ( !email || !verification_code ){
+                toastr.warning("Es necesario el código de verificación.");
+                return ;
+            } else {
+                toastr.success("Código enviado con exito!")
+            }
+
+            // Mostrar la animación de carga
+            const loadingSpinner = document.getElementById('loading');
+            loadingSpinner.style.display = 'block';
 
             fetch('http://127.0.0.1:8000/api/auth/verify-code', {
                 method: 'POST',
