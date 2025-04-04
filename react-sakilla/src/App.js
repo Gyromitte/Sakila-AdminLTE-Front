@@ -6,12 +6,14 @@ import InventoryPage from "./admin/InventoryPage";
 import 'bootstrap';
 import Login from "./Login";
 import AdminDashboard from "./admin/adminDashboard";
+import Register from "./Register";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route path="/AdminDashboard/*" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>

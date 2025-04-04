@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ReusableTable from "../reusableTable";
+import ReusableTable from "../ReusableTable";
 
 const InventoryPage = () => {
     const [inventory, setInventory] = useState([]);

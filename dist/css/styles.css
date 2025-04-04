@@ -8,3 +8,12 @@ th {
     text-align: center !important;
     vertical-align: middle !important;
 }
+
+.login-form{
+  width: 25% !important;
+  padding: 60px 30px 60px 30px ;
+  /*Esta cosa se maneja de Top, Right, Bottom y left*/
+  background-color: #eaecee;
+  border-radius: 5%;
+
+}

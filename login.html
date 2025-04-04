@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico">
+      
+        <title>Sakila Films</title>
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="dist/css/styles.css">
+    </head>
+    <body>
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="login-form">
+                <form>
+                    <div class="w-100">
+                        <label htmlFor="inputEmail" class="form-label">Correo electronico:</label>
+                        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" required></input>
+                        <div id="emailHelp" class="form-text ">No compartas tu email con nadie.</div>
+                        <label htmlFor="inputPassword" class="form-label mt-3" aria-describedby="passwordHelp">Contraseña:</label>
+                        <input type="password" class="form-control" id="inputPassword" required></input>
+                        
+                        <div id="loading" style="display: none; position: fixed; top: 50%; left: 50%;">
+                            <div class="spinner-border text-primary" role="status">
+                              <span class="visually-hidden"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 text-center w-80">
+                            <button type="button" class="btn btn-dark w-100" id="loginUser">Iniciar sesión</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="dist/js/adminlte.min.js"></script>
+        <!-- CRUD SCRIPT -->
+        <script>
+        function checkValidPassword (password) {
+            const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+            return regex.test(password);
+        }
+            document.getElementById("loginUser").addEventListener("click", function(){
+                // Mostrar la animación de carga
+                const loadingSpinner = document.getElementById('loading');
+                loadingSpinner.style.display = 'block';
+
+                // Campos para el Login.
+                const email = document.getElementById("inputEmail").value.trim();
+                const password = document.getElementById("inputPassword").value.trim();
+
+                const data = {email, password};
+
+                fetch('http://127.0.0.1:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    console.log('Usuario Inicio sesión con exito: ', result);
+                    localStorage.setItem("emailFromLogin", email);
+                    setTimeout(function(){
+                        window.location.href = 'verification_code.html';
+                    }, 3600)
+                })
+                .catch(error => {
+                    console.error('Error al iniciar sesión: ', error);
+                });
+            });
+        </script>
+    </body>
+</html>
