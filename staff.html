@@ -462,25 +462,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             window.location.href = 'index.html';
         }, 600);
       });
-      document
-        .getElementById("backToHome")
-        .addEventListener("click", function () {
-          // Mostrar la animación de carga
-          const loadingSpinner = document.getElementById("loading");
-          const access_token = localStorage.getItem("jwtToken");
-          loadingSpinner.style.display = "block";
-          toastr.success("Sesión cerrada con exito!");
-          fetch("https://renewing-hog-perfect.ngrok-free.app/api/auth/logout", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-              "Content-Type": "application/json",
-            },
-          });
-          setTimeout(function () {
-            window.location.href = "index.html";
-          }, 600);
-        });
 
       document.addEventListener("DOMContentLoaded", function () {
         fetch("http://143.110.198.189/api/staff")
