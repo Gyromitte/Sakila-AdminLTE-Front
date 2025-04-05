@@ -444,27 +444,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-      document.getElementById("backToHome").addEventListener("click", function(){
-        // Mostrar la animación de carga
-        const loadingSpinner = document.getElementById('loading');
-        const access_token = localStorage.getItem('jwtToken');
-        loadingSpinner.style.display = 'block';
-        toastr.success("Sesión cerrada con exito!");
-        fetch("http://127.0.0.1:8000/api/auth/logout",{
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${access_token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        setTimeout(function(){
-            localStorage.removeItem('jwtToken');
-            window.location.href = 'index.html';
-        }, 600);
-      });
+      document
+        .getElementById("backToHome")
+        .addEventListener("click", function () {
+          // Mostrar la animación de carga
+          const loadingSpinner = document.getElementById("loading");
+          const access_token = localStorage.getItem("jwtToken");
+          loadingSpinner.style.display = "block";
+          toastr.success("Sesión cerrada con exito!");
+          fetch("http://127.0.0.1:8000/api/auth/logout", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          });
+          setTimeout(function () {
+            localStorage.removeItem("jwtToken");
+            window.location.href = "index.html";
+          }, 600);
+        });
 
       document.addEventListener("DOMContentLoaded", function () {
-        fetch("http://143.110.198.189/api/staff")
+        const access_token = localStorage.getItem("jwtToken");
+
+        fetch("http://127.0.0.1:8000/api/staff", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        })
           .then((response) => response.json())
           .then((data) => {
             const staffTableBody = document.getElementById("staff-table-body");
@@ -521,8 +531,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         function saveStaff(data) {
           const staffId = data.staff_id;
           const url = staffId
-            ? `http://143.110.198.189/api/staff/${staffId}`
-            : "http://143.110.198.189/api/staff/";
+            ? `http://127.0.0.1:8000/api/staff/${staffId}`
+            : "http://127.0.0.1:8000/api/staff/";
           const method = staffId ? "PUT" : "POST";
 
           fetch(url, {
@@ -557,7 +567,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       }
 
       function editStaff(staffId) {
-        fetch(`http://143.110.198.189/api/staff/${staffId}`)
+        fetch(`http://127.0.0.1:8000/api/staff/${staffId}`)
           .then((response) => response.json())
           .then((staff) => {
             document.getElementById("staff_id").value = staff.staff_id;
@@ -583,7 +593,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "¿Estás seguro de que deseas eliminar este miembro del staff?"
           )
         ) {
-          fetch(`http://143.110.198.189/api/staff/${staffId}`, {
+          fetch(`http://127.0.0.1:8000/api/staff/${staffId}`, {
             method: "DELETE",
           })
             .then((response) => {
