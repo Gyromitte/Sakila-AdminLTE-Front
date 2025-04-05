@@ -499,10 +499,11 @@ $(document).on("click", ".edit-btn", function(){
     var addressId = $("#editAddressId").val();
     var active    = $("#editActive").val();
     console.log("Actualizar cliente:", "CustomerId:", customerId, "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
+    const access_token = localStorage.getItem('jwtToken');
     // Llamada a la API para actualizar (método PUT o PATCH)
-    fetch(`http://143.110.198.189/api/customers/${customerId}`, {
+    fetch(`https://renewing-hog-perfect.ngrok-free.app /api/customers/${customerId}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${access_token}` },
       body: JSON.stringify({ store_id: storeId, first_name: firstName, last_name: lastName, email: email, address_id: addressId, active: active })
     })
       .then(console.log("Customer updated successfully"))
