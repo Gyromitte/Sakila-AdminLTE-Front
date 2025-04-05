@@ -444,24 +444,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-      document.getElementById("backToHome").addEventListener("click", function(){
-        // Mostrar la animación de carga
-        const loadingSpinner = document.getElementById('loading');
-        const access_token = localStorage.getItem('jwtToken');
-        loadingSpinner.style.display = 'block';
-        toastr.success("Sesión cerrada con exito!");
-        fetch("http://127.0.0.1:8000/api/auth/logout",{
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${access_token}`,
-            'Content-Type': 'application/json'
-          }
-        })
-        setTimeout(function(){
-            localStorage.removeItem('jwtToken');
-            window.location.href = 'index.html';
-        }, 600);
-      });
+      document
+        .getElementById("backToHome")
+        .addEventListener("click", function () {
+          // Mostrar la animación de carga
+          const loadingSpinner = document.getElementById("loading");
+          const access_token = localStorage.getItem("jwtToken");
+          loadingSpinner.style.display = "block";
+          toastr.success("Sesión cerrada con exito!");
+          fetch("http://127.0.0.1:8000/api/auth/logout", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          });
+          setTimeout(function () {
+            localStorage.removeItem("jwtToken");
+            window.location.href = "index.html";
+          }, 600);
+        });
       document
         .getElementById("backToHome")
         .addEventListener("click", function () {
@@ -484,43 +486,103 @@ scratch. This page gets rid of all links and provides the needed markup only.
         });
 
       document.addEventListener("DOMContentLoaded", function () {
-        fetch("http://143.110.198.189/api/staff")
+        const baseUrl = "http://127.0.0.1:8000";
+        const access_token = localStorage.getItem("jwtToken");
+        const addStaffButton = document.querySelector(".btn-success");
+        addStaffButton.style.display = "none";
+        let userRoleId = null;
+
+        // Obtener el rol del usuario autenticado
+        fetch(`${baseUrl}/api/auth/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        })
           .then((response) => response.json())
           .then((data) => {
-            const staffTableBody = document.getElementById("staff-table-body");
-            data.data.forEach((staff) => {
-              const row = document.createElement("tr");
-              row.innerHTML = `
-            <td><button class="btn btn-link" onclick="editStaff(${
-              staff.staff_id
-            })">${staff.staff_id}</button></td>
-            <td>${staff.first_name}</td>
-            <td>${staff.last_name}</td>
-            <td>${staff.email}</td>
-            <td>${staff.username}</td>
-            <td>${staff.last_update}</td>
-            <td>
-              ${
-                staff.picture
-                  ? `<button class="btn btn-primary" onclick="showImage('data:image/png;base64,${staff.picture}')"><i class="fas fa-eye"></i></button>`
-                  : "No Image"
-              }
-            </td>
-            <td>
-              <button class="btn btn-danger" onclick="deleteStaff(${
-                staff.staff_id
-              })"><i class="fas fa-trash"></i></button>
-            </td>
-          `;
-              staffTableBody.appendChild(row);
-            });
+            userRoleId = data.role_id;
+
+            // Mostrar u ocultar el botón "Add Staff" según el rol
+            if (userRoleId === 1) {
+              addStaffButton.style.display = "block";
+            } else {
+              // Ocultar la columna "Acciones" si el rol no es 1
+              document
+                .querySelectorAll(
+                  ".table thead th:last-child, .table tbody td:last-child"
+                )
+                .forEach((el) => {
+                  el.style.display = "none";
+                });
+            }
+
+            loadStaffData();
           })
-          .catch((error) => console.error("Error fetching staff data:", error));
+          .catch((error) => {
+            console.error("Error fetching user role:", error);
+            alert("Error al obtener el rol del usuario.");
+          });
+
+        function loadStaffData() {
+          fetch(`${baseUrl}/api/staff`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const staffTableBody =
+                document.getElementById("staff-table-body");
+              staffTableBody.innerHTML = ""; // Limpiar la tabla antes de llenarla
+              data.data.forEach((staff) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${staff.staff_id}</td>
+                  <td>${staff.first_name}</td>
+                  <td>${staff.last_name}</td>
+                  <td>${staff.email}</td>
+                  <td>${staff.username}</td>
+                  <td>${staff.last_update}</td>
+                  <td>
+                    ${
+                      staff.picture
+                        ? `<button class="btn btn-primary" onclick="showImage('data:image/png;base64,${staff.picture}')"><i class="fas fa-eye"></i></button>`
+                        : "No Image"
+                    }
+                  </td>
+                  ${
+                    userRoleId === 1
+                      ? `<td>
+                          <button class="btn btn-link" onclick="editStaff(${staff.staff_id})">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                          <button class="btn btn-danger" onclick="deleteStaff(${staff.staff_id})">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>`
+                      : ""
+                  }
+                `;
+                staffTableBody.appendChild(row);
+              });
+            })
+            .catch((error) =>
+              console.error("Error fetching staff data:", error)
+            );
+        }
 
         document
           .getElementById("create-staff-form")
           .addEventListener("submit", function (event) {
             event.preventDefault();
+            if (userRoleId !== 1) {
+              alert("No tienes permisos para realizar esta acción.");
+              return;
+            }
             const formData = new FormData(event.target);
             const data = Object.fromEntries(formData.entries());
             data.active = formData.get("active") ? 1 : 0;
@@ -541,13 +603,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         function saveStaff(data) {
           const staffId = data.staff_id;
           const url = staffId
-            ? `http://127.0.0.1:8000/api/staff/${staffId}`
-            : "http://127.0.0.1:8000/api/staff/";
+            ? `${baseUrl}/api/staff/${staffId}`
+            : `${baseUrl}/api/staff/`;
           const method = staffId ? "PUT" : "POST";
 
           fetch(url, {
             method: method,
             headers: {
+              Authorization: `Bearer ${access_token}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
@@ -560,7 +623,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               }
               return response.json();
             })
-            .then((data) => {
+            .then(() => {
               alert("Staff guardado exitosamente");
               location.reload();
             })
@@ -569,61 +632,76 @@ scratch. This page gets rid of all links and provides the needed markup only.
               alert("Error guardando staff: " + error.message);
             });
         }
-      });
 
-      function showImage(imageUrl) {
-        document.getElementById("staffImage").src = imageUrl;
-        $("#imageModal").modal("show");
-      }
+        function showImage(imageUrl) {
+          document.getElementById("staffImage").src = imageUrl;
+          $("#imageModal").modal("show");
+        }
 
-      function editStaff(staffId) {
-        fetch(`http://127.0.0.1:8000/api/staff/${staffId}`)
-          .then((response) => response.json())
-          .then((staff) => {
-            document.getElementById("staff_id").value = staff.staff_id;
-            document.getElementById("first_name").value = staff.first_name;
-            document.getElementById("last_name").value = staff.last_name;
-            document.getElementById("address_id").value = staff.address_id;
-            document.getElementById("email").value = staff.email;
-            document.getElementById("store_id").value = staff.store_id;
-            document.getElementById("active").checked = staff.active;
-            document.getElementById("username").value = staff.username;
-            document.getElementById("password").value = ""; // No se muestra la contraseña actual
-            $("#addStaffModal").modal("show");
+        function editStaff(staffId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para editar.");
+            return;
+          }
+          fetch(`${baseUrl}/api/staff/${staffId}`, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
           })
-          .catch((error) => {
-            console.error("Error fetching staff data:", error);
-            alert("Error fetching staff data: " + error.message);
-          });
-      }
-
-      function deleteStaff(staffId) {
-        if (
-          confirm(
-            "¿Estás seguro de que deseas eliminar este miembro del staff?"
-          )
-        ) {
-          fetch(`http://127.0.0.1:8000/api/staff/${staffId}`, {
-            method: "DELETE",
-          })
-            .then((response) => {
-              if (!response.ok) {
-                return response.text().then((text) => {
-                  throw new Error(text);
-                });
-              }
-              return response.json();
-            })
-            .then((data) => {
-              alert("Staff eliminado exitosamente");
-              location.reload();
+            .then((response) => response.json())
+            .then((staff) => {
+              document.getElementById("staff_id").value = staff.staff_id;
+              document.getElementById("first_name").value = staff.first_name;
+              document.getElementById("last_name").value = staff.last_name;
+              document.getElementById("address_id").value = staff.address_id;
+              document.getElementById("email").value = staff.email;
+              document.getElementById("store_id").value = staff.store_id;
+              document.getElementById("active").checked = staff.active;
+              document.getElementById("username").value = staff.username;
+              document.getElementById("password").value = ""; // No se muestra la contraseña actual
+              $("#addStaffModal").modal("show");
             })
             .catch((error) => {
-              console.error("Error eliminando staff:", error);
-              alert("Error eliminando staff: " + error.message);
+              console.error("Error fetching staff data:", error);
+              alert("Error fetching staff data: " + error.message);
             });
         }
-      }
+
+        function deleteStaff(staffId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para eliminar.");
+            return;
+          }
+          if (
+            confirm(
+              "¿Estás seguro de que deseas eliminar este miembro del staff?"
+            )
+          ) {
+            fetch(`${baseUrl}/api/staff/${staffId}`, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  return response.text().then((text) => {
+                    throw new Error(text);
+                  });
+                }
+                return response.json();
+              })
+              .then(() => {
+                alert("Staff eliminado exitosamente");
+                location.reload();
+              })
+              .catch((error) => {
+                console.error("Error eliminando staff:", error);
+                alert("Error eliminando staff: " + error.message);
+              });
+          }
+        }
+      });
     </script>
   </body>
 </html>

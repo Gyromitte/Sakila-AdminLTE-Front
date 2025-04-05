@@ -5,299 +5,694 @@ Use this page to start your new project from scratch.
 This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico">
-  <title>Sakila Inventario</title>
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-</head>
-<body class="hold-transition sidebar-mini dark-mode">
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-          <i class="fas fa-bars"></i>
-        </a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="dist/img/favicon.ico" />
+    <title>Sakila Inventario</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css" />
+  </head>
+  <body class="hold-transition sidebar-mini dark-mode">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+              <i class="fas fa-bars"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <div class="navbar-search-block">
+              <form class="form-inline">
+                <div class="input-group input-group-sm">
+                  <input
+                    class="form-control form-control-navbar"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button
+                      class="btn btn-navbar"
+                      type="button"
+                      data-widget="navbar-search"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="index3.html" class="brand-link">
-      <img src="dist/img/favicon.ico" alt="Sakila Films Logo" class="brand-image" style="opacity: .8">
-      <span class="brand-text font-weight-light">Sakila Films</span>
-    </a>
-    <div class="sidebar">
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">User Name</a>
-        </div>
-      </div>
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">
-          <!--MOVIES-->
-          <li class="nav-item menu">
-            <a href="movies.html" class="nav-link">
-              <i class="nav-icon fas fa-film"></i>
-              <p>Películas</p>
-            </a>
           </li>
-          <!--ACTORS-->
           <li class="nav-item">
-            <a href="actors.html" class="nav-link">
-              <i class="nav-icon fas fa-mask"></i>
-              <p>Actores</p>
-            </a>
-          </li>
-          <!--CLIENTS-->
-          <li class="nav-item">
-            <a href="clients.html" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>Clientes</p>
-            </a>
-          </li>
-          <!--RENTALS-->
-          <li class="nav-item">
-            <a href="rentals.html" class="nav-link">
-              <i class="nav-icon fas fa-money-bill"></i>
-              <p>Rentas</p>
-            </a>
-          </li>
-          <!--INVENTORY-->
-          <li class="nav-item">
-            <a href="inventory.html" class="nav-link active">
-              <i class="nav-icon fas fa-box"></i>
-              <p>Inventario</p>
-            </a>
-          </li>
-          <!--STAFF-->
-          <li class="nav-item">
-            <a href="staff.html" class="nav-link">
-              <i class="nav-icon fas fa-people-arrows"></i>
-              <p>Staff</p>
-            </a>
-          </li>
-          <!--STORES-->
-          <li class="nav-item">
-            <a href="store.html" class="nav-link">
-              <i class="nav-icon fas fa-store"></i>
-              <p>Tiendas</p>
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+              <i class="fas fa-expand-arrows-alt"></i>
             </a>
           </li>
         </ul>
       </nav>
-    </div>
-  </aside>
+      <!-- /.navbar -->
 
-  <!-- Content Wrapper -->
-  <div class="content-wrapper">
-    <!-- Content Header -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6"><h1 class="m-0">Inventario</h1></div>
-          <div class="col-sm-6"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Inventario</h3>
-                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addInventoryModal">Agregar Inventario</button>
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="index3.html" class="brand-link">
+          <img
+            src="dist/img/favicon.ico"
+            alt="Sakila Films Logo"
+            class="brand-image"
+            style="opacity: 0.8"
+          />
+          <span class="brand-text font-weight-light">Sakila Films</span>
+        </a>
+        <div class="sidebar">
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img
+                src="dist/img/user2-160x160.jpg"
+                class="img-circle elevation-2"
+                alt="User Image"
+              />
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">User Name</a>
+            </div>
+          </div>
+          <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+              <input
+                class="form-control form-control-sidebar"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>
               </div>
-              <div class="card-body">
-                <table id="inventoryTable" class="table table-bordered table-striped table-smaller-text">
-                  <thead>
-                    <tr>
-                      <th style="width: 5%;">ID</th>
-                      <th style="width: 25%;">Film ID</th>
-                      <th style="width: 25%;">Store ID</th>
-                      <th style="width: 25%;">Última Actualización</th>
-                      <th style="width: 20%;">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody><!-- Se llenará por AJAX --></tbody>
-                </table>
-                <!-- Paginación -->
-                <div class="row mt-3">
-                  <div class="col-12 d-flex justify-content-center">
-                    <button class="btn btn-sm btn-dark mr-2" id="prevPage">Anterior</button>
-                    <div id="pageInfo" style="margin: 0 10px;" class="align-self-center"></div>
-                    <button class="btn btn-sm btn-dark ml-2" id="nextPage">Siguiente</button>
+            </div>
+          </div>
+          <nav class="mt-2">
+            <ul
+              class="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              data-accordion="false"
+            >
+              <!--MOVIES-->
+              <li class="nav-item menu">
+                <a href="movies.html" class="nav-link">
+                  <i class="nav-icon fas fa-film"></i>
+                  <p>Películas</p>
+                </a>
+              </li>
+              <!--ACTORS-->
+              <li class="nav-item">
+                <a href="actors.html" class="nav-link">
+                  <i class="nav-icon fas fa-mask"></i>
+                  <p>Actores</p>
+                </a>
+              </li>
+              <!--CLIENTS-->
+              <li class="nav-item">
+                <a href="clients.html" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Clientes</p>
+                </a>
+              </li>
+              <!--RENTALS-->
+              <li class="nav-item">
+                <a href="rentals.html" class="nav-link">
+                  <i class="nav-icon fas fa-money-bill"></i>
+                  <p>Rentas</p>
+                </a>
+              </li>
+              <!--INVENTORY-->
+              <li class="nav-item">
+                <a href="inventory.html" class="nav-link active">
+                  <i class="nav-icon fas fa-box"></i>
+                  <p>Inventario</p>
+                </a>
+              </li>
+              <!--STAFF-->
+              <li class="nav-item">
+                <a href="staff.html" class="nav-link">
+                  <i class="nav-icon fas fa-people-arrows"></i>
+                  <p>Staff</p>
+                </a>
+              </li>
+              <!--STORES-->
+              <li class="nav-item">
+                <a href="store.html" class="nav-link">
+                  <i class="nav-icon fas fa-store"></i>
+                  <p>Tiendas</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Content Wrapper -->
+      <div class="content-wrapper">
+        <!-- Content Header -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6"><h1 class="m-0">Inventario</h1></div>
+              <div class="col-sm-6"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Inventario</h3>
+                    <button
+                      class="btn btn-primary float-right"
+                      data-toggle="modal"
+                      data-target="#addInventoryModal"
+                    >
+                      Agregar Inventario
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <table
+                      id="inventoryTable"
+                      class="table table-bordered table-striped table-smaller-text"
+                    >
+                      <thead>
+                        <tr>
+                          <th style="width: 5%">ID</th>
+                          <th style="width: 25%">Film ID</th>
+                          <th style="width: 25%">Store ID</th>
+                          <th style="width: 25%">Última Actualización</th>
+                          <th style="width: 20%">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Se llenará por AJAX -->
+                      </tbody>
+                    </table>
+                    <!-- Paginación -->
+                    <div class="row mt-3">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-sm btn-dark mr-2" id="prevPage">
+                          Anterior
+                        </button>
+                        <div
+                          id="pageInfo"
+                          style="margin: 0 10px"
+                          class="align-self-center"
+                        ></div>
+                        <button class="btn btn-sm btn-dark ml-2" id="nextPage">
+                          Siguiente
+                        </button>
+                      </div>
+                    </div>
+                    <!-- Fin paginación -->
                   </div>
                 </div>
-                <!-- Fin paginación -->
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Add Inventory Modal -->
-    <div class="modal fade" id="addInventoryModal" tabindex="-1" role="dialog" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addInventoryModalLabel">Agregar Inventario</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="addInventoryForm">
-              <div class="form-group">
-                <label for="film_id">Film ID</label>
-                <input type="number" class="form-control" id="film_id" name="film_id" required>
+        <!-- Add Inventory Modal -->
+        <div
+          class="modal fade"
+          id="addInventoryModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="addInventoryModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addInventoryModalLabel">
+                  Agregar Inventario
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="form-group">
-                <label for="store_id">Store ID</label>
-                <input type="number" class="form-control" id="store_id" name="store_id" required>
+              <div class="modal-body">
+                <form id="addInventoryForm">
+                  <div class="form-group">
+                    <label for="film_id">Film ID</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="film_id"
+                      name="film_id"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="store_id">Store ID</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="store_id"
+                      name="store_id"
+                      required
+                    />
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" id="saveInventory">Guardar</button>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="saveInventory"
+                >
+                  Guardar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Edit Inventory Modal -->
-    <div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editInventoryModalLabel">Editar Inventario</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="editInventoryForm">
-              <input type="hidden" id="editInventoryId" name="inventory_id">
-              <div class="form-group">
-                <label for="editFilmId">Film ID</label>
-                <input type="number" class="form-control" id="editFilmId" name="film_id" required>
+        <!-- Edit Inventory Modal -->
+        <div
+          class="modal fade"
+          id="editInventoryModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="editInventoryModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editInventoryModalLabel">
+                  Editar Inventario
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="form-group">
-                <label for="editStoreId">Store ID</label>
-                <input type="number" class="form-control" id="editStoreId" name="store_id" required>
+              <div class="modal-body">
+                <form id="editInventoryForm">
+                  <input
+                    type="hidden"
+                    id="editInventoryId"
+                    name="inventory_id"
+                  />
+                  <div class="form-group">
+                    <label for="editFilmId">Film ID</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="editFilmId"
+                      name="film_id"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="editStoreId">Store ID</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="editStoreId"
+                      name="store_id"
+                      required
+                    />
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" id="updateInventory">Actualizar</button>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  id="updateInventory"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Delete Inventory Modal -->
-    <div class="modal fade" id="deleteInventoryModal" tabindex="-1" role="dialog" aria-labelledby="deleteInventoryModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="deleteInventoryModalLabel">Eliminar Inventario</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>¿Estás seguro de eliminar este inventario?</p>
-            <input type="hidden" id="deleteInventoryId">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            <button type="button" class="btn btn-danger" id="confirmDeleteInventory">Eliminar</button>
+        <!-- Delete Inventory Modal -->
+        <div
+          class="modal fade"
+          id="deleteInventoryModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="deleteInventoryModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteInventoryModalLabel">
+                  Eliminar Inventario
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>¿Estás seguro de eliminar este inventario?</p>
+                <input type="hidden" id="deleteInventoryId" />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="confirmDeleteInventory"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+          <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+          </div>
+        </aside>
       </div>
     </div>
+    <!-- ./wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <div class="p-3">
-        <h5>Title</h5>
-        <p>Sidebar content</p>
-      </div>
-    </aside>
-  </div>
-</div>
-<!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="dist/js/adminlte.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const baseUrl = "http://127.0.0.1:8000";
+        const access_token = localStorage.getItem("jwtToken");
+        const addInventoryButton = document.querySelector(".btn-primary");
+        addInventoryButton.style.display = "none";
+        let userRoleId = null;
 
-<!-- REQUIRED SCRIPTS -->
-<script src="plugins/jquery/jquery.min.js"></script>
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="dist/js/adminlte.min.js"></script>
-<script>
-  let currentPage = 1, lastPage = 1;
-  function loadInventory(){
-    $.ajax({
-      url: 'http://143.110.198.189/api/inventories?page=' + currentPage,
-      method: 'GET',
-      success: function(response) {
-        currentPage = response.inventoriData.current_page;
-        lastPage = response.inventoriData.last_page;
-        var inventory = response.inventoriData.data,
-            tbody = $('#inventoryTable tbody');
-        tbody.empty();
-        $.each(inventory, function(index, item) {
-          var row = `
+        // Obtener el rol del usuario autenticado
+        fetch(`${baseUrl}/api/auth/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            userRoleId = data.role_id;
+
+            // Mostrar u ocultar el botón "Agregar Inventario" según el rol
+            if (userRoleId === 1) {
+              addInventoryButton.style.display = "block";
+            } else {
+              // Ocultar la columna "Acciones" si el rol no es 1
+              document
+                .querySelectorAll(
+                  "#inventoryTable th:last-child, #inventoryTable td:last-child"
+                )
+                .forEach((el) => {
+                  el.style.display = "none";
+                });
+            }
+
+            fetchInventory();
+          })
+          .catch((error) => {
+            console.error("Error fetching user role:", error);
+            alert("Error al obtener el rol del usuario.");
+          });
+
+        function fetchInventory() {
+          fetch(`${baseUrl}/api/inventories`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const tbody = document.querySelector("#inventoryTable tbody");
+              tbody.innerHTML = "";
+              data.forEach((item) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+              <td>${item.inventory_id}</td>
+              <td>${item.film_id}</td>
+              <td>${item.store_id}</td>
+              <td>${item.last_update}</td>
+              ${
+                userRoleId === 1
+                  ? `<td>
+                      <button class="btn btn-sm btn-smaller editInventory" data-id="${item.inventory_id}">
+                        <i class="fas fa-pencil-alt text-light"></i>
+                      </button>
+                      <button class="btn btn-sm btn-smaller deleteInventory" data-id="${item.inventory_id}">
+                        <i class="fas fa-trash text-danger"></i>
+                      </button>
+                    </td>`
+                  : ""
+              }
+            `;
+                tbody.appendChild(row);
+              });
+            })
+            .catch((error) =>
+              console.error("Error fetching inventory:", error)
+            );
+        }
+
+        document
+          .getElementById("inventoryForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+            if (userRoleId !== 1) {
+              alert("No tienes permisos para realizar esta acción.");
+              return;
+            }
+            const inventoryId = document.getElementById("inventory_id").value;
+            if (inventoryId) {
+              updateInventory(inventoryId);
+            } else {
+              const filmId = parseInt(document.getElementById("film_id").value);
+              const storeId = parseInt(
+                document.getElementById("store_id").value
+              );
+              const body = {
+                film_id: filmId,
+                store_id: storeId,
+              };
+              addInventory(body);
+            }
+          });
+
+        function addInventory(body) {
+          fetch(`${baseUrl}/api/inventories`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw new Error(error.message);
+                });
+              }
+              return response.json();
+            })
+            .then(() => {
+              fetchInventory();
+              document.getElementById("inventoryForm").reset();
+              $("#inventoryModal").modal("hide");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(`Error: ${error.message}`);
+            });
+        }
+
+        function editInventory(inventoryId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para editar.");
+            return;
+          }
+          fetch(`${baseUrl}/api/inventories/${inventoryId}`, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((item) => {
+              document.getElementById("inventory_id").value = item.inventory_id;
+              document.getElementById("film_id").value = item.film_id;
+              document.getElementById("store_id").value = item.store_id;
+              $("#inventoryModal").modal("show");
+            })
+            .catch((error) => {
+              console.error("Error fetching inventory data:", error);
+              alert("Error fetching inventory data: " + error.message);
+            });
+        }
+
+        function updateInventory(inventoryId) {
+          const filmId = parseInt(document.getElementById("film_id").value);
+          const storeId = parseInt(document.getElementById("store_id").value);
+
+          fetch(`${baseUrl}/api/inventories/${inventoryId}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              film_id: filmId,
+              store_id: storeId,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw new Error(error.message);
+                });
+              }
+              return response.json();
+            })
+            .then(() => {
+              fetchInventory();
+              document.getElementById("inventoryForm").reset();
+              $("#inventoryModal").modal("hide");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(`Error: ${error.message}`);
+            });
+        }
+
+        function deleteInventory(inventoryId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para eliminar.");
+            return;
+          }
+          if (
+            confirm("¿Estás seguro de que deseas eliminar este inventario?")
+          ) {
+            fetch(`${baseUrl}/api/inventories/${inventoryId}`, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  return response.json().then((error) => {
+                    throw new Error(error.message);
+                  });
+                }
+                return response.json();
+              })
+              .then(() => {
+                fetchInventory();
+              })
+              .catch((error) => {
+                console.error("Error eliminando inventario:", error);
+                alert(
+                  `Error: no puedes eliminar este inventario hasta que no elimines las rentas asociadas a él.`
+                );
+              });
+          }
+        }
+
+        document
+          .querySelector("#inventoryTable")
+          .addEventListener("click", function (event) {
+            if (event.target.closest(".editInventory")) {
+              const inventoryId =
+                event.target.closest(".editInventory").dataset.id;
+              editInventory(inventoryId);
+            } else if (event.target.closest(".deleteInventory")) {
+              const inventoryId =
+                event.target.closest(".deleteInventory").dataset.id;
+              deleteInventory(inventoryId);
+            }
+          });
+      });
+    </script>
+    <script>
+      let currentPage = 1,
+        lastPage = 1;
+      function loadInventory() {
+        $.ajax({
+          url: "http://127.0.0.1:8000/api/inventories?page=" + currentPage,
+          method: "GET",
+          success: function (response) {
+            currentPage = response.inventoriData.current_page;
+            lastPage = response.inventoriData.last_page;
+            var inventory = response.inventoriData.data,
+              tbody = $("#inventoryTable tbody");
+            tbody.empty();
+            $.each(inventory, function (index, item) {
+              var row = `
             <tr>
               <td>${item.inventory_id}</td>
               <td>${item.film_id}</td>
@@ -312,87 +707,115 @@ This page gets rid of all links and provides the needed markup only.
                 </button>
               </td>
             </tr>`;
-          tbody.append(row);
+              tbody.append(row);
+            });
+            $("#pageInfo").text("Página " + currentPage + " de " + lastPage);
+          },
+          error: function (xhr, status, error) {
+            alert("Error al cargar inventario: " + error);
+          },
         });
-        $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
-      },
-      error: function(xhr, status, error) { 
-        alert('Error al cargar inventario: ' + error); 
       }
-    });
-  }
-  $(document).ready(function(){
-    loadInventory();
-    $('#prevPage').click(function(){ if(currentPage>1){ currentPage--; loadInventory(); } });
-    $('#nextPage').click(function(){ if(currentPage<lastPage){ currentPage++; loadInventory(); } });
-    $('#saveInventory').click(function(){
-      var formData = { film_id: $('#film_id').val(), store_id: $('#store_id').val() };
-      $.ajax({
-        url: 'http://143.110.198.189/api/inventories',
-        method: 'POST',
-        data: formData,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        headers: {'Accept':'application/json'},
-        success: function(data){
-          $('#addInventoryModal').modal('hide');
-          $('#addInventoryForm')[0].reset();
-          loadInventory();
-        },
-        error: function(xhr, status, error){ alert('Error al agregar inventario: ID de tienda o de filme fuera del catálogo'); }
+      $(document).ready(function () {
+        loadInventory();
+        $("#prevPage").click(function () {
+          if (currentPage > 1) {
+            currentPage--;
+            loadInventory();
+          }
+        });
+        $("#nextPage").click(function () {
+          if (currentPage < lastPage) {
+            currentPage++;
+            loadInventory();
+          }
+        });
+        $("#saveInventory").click(function () {
+          var formData = {
+            film_id: $("#film_id").val(),
+            store_id: $("#store_id").val(),
+          };
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/inventories",
+            method: "POST",
+            data: formData,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            headers: { Accept: "application/json" },
+            success: function (data) {
+              $("#addInventoryModal").modal("hide");
+              $("#addInventoryForm")[0].reset();
+              loadInventory();
+            },
+            error: function (xhr, status, error) {
+              alert(
+                "Error al agregar inventario: ID de tienda o de filme fuera del catálogo"
+              );
+            },
+          });
+        });
+        $(document).on("click", ".editInventory", function () {
+          var inventoryId = $(this).data("id");
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/inventories/" + inventoryId,
+            method: "GET",
+            success: function (data) {
+              $("#editInventoryId").val(data.inventory_id);
+              $("#editFilmId").val(data.film_id);
+              $("#editStoreId").val(data.store_id);
+              $("#editInventoryModal").modal("show");
+            },
+            error: function (xhr, status, error) {
+              alert("Error al cargar inventario: " + error);
+            },
+          });
+        });
+        $("#updateInventory").click(function () {
+          var inventoryId = $("#editInventoryId").val();
+          var formData = {
+            film_id: $("#editFilmId").val(),
+            store_id: $("#editStoreId").val(),
+          };
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/inventories/" + inventoryId,
+            method: "PUT",
+            data: formData,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            headers: { Accept: "application/json" },
+            success: function (data) {
+              $("#editInventoryModal").modal("hide");
+              loadInventory();
+            },
+            error: function (xhr, status, error) {
+              alert(
+                "Error al actualizar inventario: ID de tienda o de filme fuera del catálogo"
+              );
+            },
+          });
+        });
+        $(document).on("click", ".deleteInventory", function () {
+          $("#deleteInventoryId").val($(this).data("id"));
+          $("#deleteInventoryModal").modal("show");
+        });
+        $("#confirmDeleteInventory").click(function () {
+          var inventoryId = $("#deleteInventoryId").val();
+          $.ajax({
+            url: "http://127.0.0.1:8000/api/inventories/" + inventoryId,
+            method: "DELETE",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            headers: { Accept: "application/json" },
+            success: function (data) {
+              $("#deleteInventoryModal").modal("hide");
+              loadInventory();
+            },
+            error: function (xhr, status, error) {
+              alert("Error al eliminar inventario: " + error);
+            },
+          });
+        });
       });
-    });
-    $(document).on('click','.editInventory', function(){
-      var inventoryId = $(this).data('id');
-      $.ajax({
-        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
-        method: 'GET',
-        success: function(data){
-          $('#editInventoryId').val(data.inventory_id);
-          $('#editFilmId').val(data.film_id);
-          $('#editStoreId').val(data.store_id);
-          $('#editInventoryModal').modal('show');
-        },
-        error: function(xhr, status, error){ alert('Error al cargar inventario: ' + error); }
-      });
-    });
-    $('#updateInventory').click(function(){
-      var inventoryId = $('#editInventoryId').val();
-      var formData = { film_id: $('#editFilmId').val(), store_id: $('#editStoreId').val() };
-      $.ajax({
-        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
-        method: 'PUT',
-        data: formData,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        headers: {'Accept':'application/json'},
-        success: function(data){
-          $('#editInventoryModal').modal('hide');
-          loadInventory();
-        },
-        error: function(xhr, status, error){ alert('Error al actualizar inventario: ID de tienda o de filme fuera del catálogo'); }
-      });
-    });
-    $(document).on('click','.deleteInventory', function(){
-      $('#deleteInventoryId').val($(this).data('id'));
-      $('#deleteInventoryModal').modal('show');
-    });
-    $('#confirmDeleteInventory').click(function(){
-      var inventoryId = $('#deleteInventoryId').val();
-      $.ajax({
-        url: 'http://143.110.198.189/api/inventories/' + inventoryId,
-        method: 'DELETE',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        headers: {'Accept':'application/json'},
-        success: function(data){
-          $('#deleteInventoryModal').modal('hide');
-          loadInventory();
-        },
-        error: function(xhr, status, error){ alert('Error al eliminar inventario: ' + error); }
-      });
-    });
-  });
-</script>
-</body>
+    </script>
+  </body>
 </html>

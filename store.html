@@ -337,12 +337,91 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="dist/js/adminlte.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        fetchStores();
+        const baseUrl = "http://127.0.0.1:8000";
+        const access_token = localStorage.getItem("jwtToken");
+        const addStoreButton = document.querySelector(".btn-primary");
+        addStoreButton.style.display = "none";
+        let userRoleId = null;
+
+        // Obtener el rol del usuario autenticado
+        fetch(`${baseUrl}/api/auth/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            userRoleId = data.role_id;
+
+            // Mostrar u ocultar el botón "Agregar Tienda" según el rol
+            if (userRoleId === 1) {
+              addStoreButton.style.display = "block";
+            } else {
+              // Ocultar la columna "Acciones" si el rol no es 1
+              document
+                .querySelectorAll(
+                  "#storesTable th:last-child, #storesTable td:last-child"
+                )
+                .forEach((el) => {
+                  el.style.display = "none";
+                });
+            }
+
+            fetchStores();
+          })
+          .catch((error) => {
+            console.error("Error fetching user role:", error);
+            alert("Error al obtener el rol del usuario.");
+          });
+
+        function fetchStores() {
+          fetch(`${baseUrl}/api/stores`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const tbody = document.querySelector("#storesTable tbody");
+              tbody.innerHTML = "";
+              data.forEach((store) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+              <td>${store.store_id}</td>
+              <td>${store.manager_staff_id}</td>
+              <td>${store.address_id}</td>
+              <td>${store.last_update}</td>
+              ${
+                userRoleId === 1
+                  ? `<td>
+                      <button class="btn btn-sm btn-smaller editStore" data-id="${store.store_id}">
+                        <i class="fas fa-pencil-alt text-light"></i>
+                      </button>
+                      <button class="btn btn-sm btn-smaller deleteStore" data-id="${store.store_id}">
+                        <i class="fas fa-trash text-danger"></i>
+                      </button>
+                    </td>`
+                  : ""
+              }
+            `;
+                tbody.appendChild(row);
+              });
+            })
+            .catch((error) => console.error("Error fetching stores:", error));
+        }
 
         document
           .getElementById("storeForm")
           .addEventListener("submit", function (event) {
             event.preventDefault();
+            if (userRoleId !== 1) {
+              alert("No tienes permisos para realizar esta acción.");
+              return;
+            }
             const storeId = document.getElementById("store_id").value;
             if (storeId) {
               updateStore(storeId);
@@ -361,6 +440,128 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
           });
 
+        function addStore(body) {
+          fetch(`${baseUrl}/api/stores`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw new Error(error.message);
+                });
+              }
+              return response.json();
+            })
+            .then(() => {
+              fetchStores();
+              document.getElementById("storeForm").reset();
+              $("#storeModal").modal("hide");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(`Error: ${error.message}`);
+            });
+        }
+
+        function editStore(storeId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para editar.");
+            return;
+          }
+          fetch(`${baseUrl}/api/stores/${storeId}`, {
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+            .then((response) => response.json())
+            .then((store) => {
+              document.getElementById("store_id").value = store.store_id;
+              document.getElementById("manager_staff_id").value =
+                store.manager_staff_id;
+              document.getElementById("address_id").value = store.address_id;
+              $("#storeModal").modal("show");
+            })
+            .catch((error) => {
+              console.error("Error fetching store data:", error);
+              alert("Error fetching store data: " + error.message);
+            });
+        }
+
+        function updateStore(storeId) {
+          const managerStaffId = parseInt(
+            document.getElementById("manager_staff_id").value
+          );
+          const addressId = parseInt(
+            document.getElementById("address_id").value
+          );
+
+          fetch(`${baseUrl}/api/stores/${storeId}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${access_token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              manager_staff_id: managerStaffId,
+              address_id: addressId,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw new Error(error.message);
+                });
+              }
+              return response.json();
+            })
+            .then(() => {
+              fetchStores();
+              document.getElementById("storeForm").reset();
+              $("#storeModal").modal("hide");
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(`Error: ${error.message}`);
+            });
+        }
+
+        function deleteStore(storeId) {
+          if (userRoleId !== 1) {
+            alert("No tienes permisos para eliminar.");
+            return;
+          }
+          if (confirm("¿Estás seguro de que deseas eliminar esta tienda?")) {
+            fetch(`${baseUrl}/api/stores/${storeId}`, {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  return response.json().then((error) => {
+                    throw new Error(error.message);
+                  });
+                }
+                return response.json();
+              })
+              .then(() => {
+                fetchStores();
+              })
+              .catch((error) => {
+                console.error("Error eliminando tienda:", error);
+                alert(
+                  `Error: no puedes eliminar esta tienda hasta que no elimines las rentas asociadas a ella.`
+                );
+              });
+          }
+        }
+
         document
           .querySelector("#storesTable")
           .addEventListener("click", function (event) {
@@ -373,144 +574,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
           });
       });
-
-      function fetchStores() {
-        fetch("http://143.110.198.189/api/stores")
-          .then((response) => response.json())
-          .then((data) => {
-            const tbody = document.querySelector("#storesTable tbody");
-            tbody.innerHTML = "";
-            data.forEach((store) => {
-              const row = document.createElement("tr");
-              row.innerHTML = `
-            <td>${store.store_id}</td>
-            <td>${store.manager_staff_id}</td>
-            <td>${store.address_id}</td>
-            <td>${store.last_update}</td>
-            <td>
-              <button class="btn btn-sm btn-smaller editStore" data-id="${store.store_id}">
-                <i class="fas fa-pencil-alt text-light"></i>
-              </button>
-              <button class="btn btn-sm btn-smaller deleteStore" data-id="${store.store_id}">
-                <i class="fas fa-trash text-danger"></i>
-              </button>
-            </td>
-          `;
-              tbody.appendChild(row);
-            });
-          });
-      }
-
-      function addStore(body) {
-        const managerStaffId =
-          document.getElementById("manager_staff_id").value;
-        const addressId = document.getElementById("address_id").value;
-        console.log("method post, body", body);
-
-        fetch("http://143.110.198.189/api/stores", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(body),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              return response.json().then((error) => {
-                throw new Error(error.message);
-              });
-            }
-            return response.json();
-          })
-          .then((data) => {
-            fetchStores();
-            document.getElementById("storeForm").reset();
-            $("#storeModal").modal("hide");
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            if (error.message.includes("SQLSTATE")) {
-              alert(
-                "Error: El ID del gerente ya está en uso. Por favor, elige otro."
-              );
-            } else {
-              alert(`Error: ${error.message}`);
-            }
-          });
-      }
-
-      function editStore(storeId) {
-        fetch(`http://143.110.198.189/api/stores/${storeId}`)
-          .then((response) => response.json())
-          .then((store) => {
-            document.getElementById("store_id").value = store.store_id;
-            document.getElementById("manager_staff_id").value =
-              store.manager_staff_id;
-            document.getElementById("address_id").value = store.address_id;
-            $("#storeModal").modal("show");
-          });
-      }
-
-      function updateStore(storeId) {
-  const managerStaffId = parseInt(
-    document.getElementById("manager_staff_id").value
-  );
-  const addressId = parseInt(document.getElementById("address_id").value);
-  console.log("method put");
-
-  fetch(`http://143.110.198.189/api/stores/${storeId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      manager_staff_id: managerStaffId,
-      address_id: addressId,
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        return response.json().then((error) => {
-          throw new Error(error.message);
-        });
-      }
-      return response.json();
-    })
-    .then((data) => {
-      fetchStores();
-      document.getElementById("storeForm").reset();
-      $("#storeModal").modal("hide");
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert(`Error: ${error.message}`);
-    });
-}
-
-      function deleteStore(storeId) {
-        fetch(`http://143.110.198.189/api/stores/${storeId}`, {
-          method: "DELETE",
-        })
-          .then((response) => {
-            if (!response.ok) {
-              return response.json().then((error) => {
-                throw new Error(error.message);
-              });
-            }
-            return response.json();
-          })
-          .then((data) => {
-            fetchStores();
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert(
-              `Error: no puedes eliminar esta tienda hasta que no elimines las rentas asociadas a ella.`
-            );
-          });
-      }
     </script>
   </body>
 </html>
