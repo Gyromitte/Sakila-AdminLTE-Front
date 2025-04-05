@@ -78,17 +78,38 @@
             })
             .then(response => response.json())
             .then(result => {
-                console.log('Usuario Inicio sesión con exito: ', result);
-                const access_token = result.access_token;
-                localStorage.setItem('jwtToken', access_token);
-                console.log("AccessToken: ", access_token);
-                setTimeout(function(){
-                    window.location.href = 'staff.html';
-                }, 3600)
-                
+                if(result.error === 'Usuario no encontrado'){
+                    toastr.error('Usuario no encontrado');
+                    setTimeout(function(){
+                        window.location.href = 'index.html';
+                    }, 1800);
+                } else if(result.error === 'Código inválido'){
+                        toastr.error('Código inválido');
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1800);
+                } else if(result.error === 'Código expirado'){
+                    toastr.error('Código expirado');
+                    setTimeout(function(){
+                        window.location.href = 'index.html';
+                    }, 1800);
+                } else if(result.error === 'No se pudo crear el token'){
+                    toastr.error('No se pudo crear el token');
+                    setTimeout(function(){
+                        window.location.href = 'index.html';
+                    }, 1800);
+                } else {
+                    console.log('Usuario Inicio sesión con exito: ', result);
+                    const access_token = result.access_token;
+                    localStorage.setItem('jwtToken', access_token);
+                    console.log("AccessToken: ", access_token);
+                    setTimeout(function(){
+                        window.location.href = 'staff.html';
+                    }, 1800)
+                }
             })
             .catch(error => {
-                console.error('Error al iniciar sesión: ', error);
+                console.error('Error al verificar código: ', error);
             });
         });
         </script>

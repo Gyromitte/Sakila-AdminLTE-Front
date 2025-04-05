@@ -75,8 +75,6 @@
                 if ( !email || !password ) {
                     toastr.warning("Por favor completa los campos, ningúno puede estar vacio.");
                     return ;
-                } else {
-                    toastr.success("Datos enviados correctamente!");
                 }
                 const data = {email, password};
 
@@ -91,14 +89,24 @@
                 })
                 .then(response => response.json())
                 .then(result => {
-                    console.log('Usuario Inicio sesión con exito: ', result);
-                    localStorage.setItem("emailFromLogin", email);
-                    setTimeout(function(){
-                        window.location.href = 'verification_code.html';
-                    }, 3600)
+                    if (result.error === 'Credenciales inválidas') {
+                        toastr.error('Credenciales Inválidas');
+                        toastr.warning('Recargando sitio...');
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1800);
+                    } else {
+                        toastr.success('Datos enviados correctamente');
+                        toastr.success('Login correcto');
+                        console.log('Usuario Inicio sesión con exito: ', result);
+                        localStorage.setItem("emailFromLogin", email);
+                        setTimeout(function(){
+                            window.location.href = 'verification_code.html';
+                        }, 1800)
+                    }
                 })
                 .catch(error => {
-                    console.error('Error al iniciar sesión: ', error);
+                    toastr.error('Ha ocurrido un error al iniciar sesión: ' + error);
                 });
             });
         </script>

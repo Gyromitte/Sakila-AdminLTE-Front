@@ -107,13 +107,15 @@
                 })
                 .then(response => response.json())
                 .then(result => {
-                    console.log('Usuario Registrado: ', result);
-                    setTimeout(function(){
-                        window.location.href = 'login.html';
-                    }, 3600);
+                    if(result.message === 'Registro exitoso. Se envió un link de verificación a tu correo.'){
+                        toastr.success('Usuario registrado correctamente!');
+                        setTimeout(function(){
+                            window.location.href = 'login.html';
+                        }, 1800);
+                    }
                 })
                 .catch(error => {
-                    console.error('Error al registrar el usuario: ', error);
+                    toastr.error('Error al registrar el usuario: ', error);
                 });
 
             });

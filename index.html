@@ -49,6 +49,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <!-- CRUD SCRIPT -->
         <script>
+            console.log(localStorage.getItem('jwtToken'));
+            localStorage.removeItem('jwtToken');
             document.getElementById("loginUser").addEventListener("click", function() {
                 // Mostrar la animación de carga
                 const loadingSpinner = document.getElementById('loading');
