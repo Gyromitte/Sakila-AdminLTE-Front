@@ -365,7 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     console.log('UserType: ', localStorage.getItem('userType'));
     let userType = localStorage.getItem('userType');
-    if( userType = 2 ){
+    if( userType === 2 ){
       document.getElementById("clientsItem").classList.add('d-none');
       document.getElementById("rentsItem").classList.add('d-none');
       document.getElementById("staffItem").classList.add('d-none');
@@ -419,6 +419,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             `;
             tbody.insertAdjacentHTML('beforeend', row);
           });
+          if (userType === 3 ){
+          document.querySelectorAll(".editPencilActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+          document.querySelectorAll(".deleteCanActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+        }
         } else {
           console.error('La respuesta de la API no es un arreglo:', response.data);
         }

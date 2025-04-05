@@ -442,7 +442,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
     console.log('UserType: ', localStorage.getItem('userType'));
     let userType = localStorage.getItem('userType');
-    if( userType = 2 ){
+    if( userType === 2 ){
       document.getElementById("clientsItem").classList.add('d-none');
       document.getElementById("rentsItem").classList.add('d-none');
       document.getElementById("staffItem").classList.add('d-none');
@@ -453,7 +453,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   // Load films from the API
   function loadFilms() {
     $.ajax({
-      url: `http://143.110.198.189/api/films?page=${currentPage}`,
+      url: `http://127.0.0.1:8000/api/films?page=${currentPage}`,
       method: 'GET',
       success: function (data) {
         currentPage = data.current_page;
@@ -486,6 +486,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           `;
           tbody.append(row);
         });
+        if (userType === 3 ){
+          document.querySelectorAll(".editPencilActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+          document.querySelectorAll(".deleteCanActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+        }
         $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
       },
       error: function (xhr, status, error) {
@@ -512,7 +520,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     // Function to fetch languages
     function fetchLanguages(dropdownId) {
       return $.ajax({
-        url: 'http://143.110.198.189/api/languages',
+        url: 'http://127.0.0.1:8000/api/languages',
         method: 'GET',
         success: function (data) {
           populateDropdown(dropdownId, data.data, 'language_id', 'name');
@@ -526,7 +534,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     // Function to fetch categories
     function fetchCategories(dropdownId) {
       return $.ajax({
-        url: 'http://143.110.198.189/api/categories',
+        url: 'http://127.0.0.1:8000/api/categories',
         method: 'GET',
         success: function (data) {
           populateDropdown(dropdownId, data.data, 'category_id', 'name');
@@ -591,7 +599,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       console.log('Form data:', formData); // Debugging
 
       $.ajax({
-        url: 'http://143.110.198.189/api/films',
+        url: 'http://127.0.0.1:8000/api/films',
         method: 'POST',
         data: JSON.stringify(formData), // Convert to JSON string
         contentType: 'application/json; charset=UTF-8', // Set content type to JSON
@@ -615,7 +623,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let filmId = $(this).data('id');
 
       $.ajax({
-        url: `http://143.110.198.189/api/films/${filmId}`,
+        url: `http://127.0.0.1:8000/api/films/${filmId}`,
         method: 'GET',
         success: function (film) {
           // Fill the edit modal with the film's data
@@ -674,7 +682,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     console.log('Updated film data:', updatedFilm); // Debugging
 
     $.ajax({
-      url: `http://143.110.198.189/api/films/${filmId}`,
+      url: `http://127.0.0.1:8000/api/films/${filmId}`,
       method: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify(updatedFilm),
@@ -699,7 +707,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     $('#confirmDelete').click(function () {
       let filmId = $('#deleteFilmId').val();
       $.ajax({
-        url: `http://143.110.198.189/api/films/delete_film/${filmId}`,
+        url: `http://127.0.0.1:8000/api/films/delete_film/${filmId}`,
         method: 'POST',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
