@@ -473,7 +473,7 @@ This page gets rid of all links and provides the needed markup only.
                 });
             }
 
-            fetchInventory();
+            // fetchInventory();
           })
           .catch((error) => {
             console.error("Error fetching user role:", error);
@@ -490,34 +490,39 @@ This page gets rid of all links and provides the needed markup only.
           })
             .then((response) => response.json())
             .then((data) => {
+              console.log(data); // Inspecciona la estructura de la respuesta
               const tbody = document.querySelector("#inventoryTable tbody");
               tbody.innerHTML = "";
-              data.forEach((item) => {
+
+              // Si la respuesta tiene una propiedad `data`, úsala
+              const inventory = Array.isArray(data) ? data : data.data || [];
+              inventory.forEach((item) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-              <td>${item.inventory_id}</td>
-              <td>${item.film_id}</td>
-              <td>${item.store_id}</td>
-              <td>${item.last_update}</td>
-              ${
-                userRoleId === 1
-                  ? `<td>
-                      <button class="btn btn-sm btn-smaller editInventory" data-id="${item.inventory_id}">
-                        <i class="fas fa-pencil-alt text-light"></i>
-                      </button>
-                      <button class="btn btn-sm btn-smaller deleteInventory" data-id="${item.inventory_id}">
-                        <i class="fas fa-trash text-danger"></i>
-                      </button>
-                    </td>`
-                  : ""
-              }
-            `;
+                  <td>${item.inventory_id}</td>
+                  <td>${item.film_id}</td>
+                  <td>${item.store_id}</td>
+                  <td>${item.last_update}</td>
+                  ${
+                    userRoleId === 1
+                      ? `<td>
+                          <button class="btn btn-sm btn-smaller editInventory" data-id="${item.inventory_id}">
+                            <i class="fas fa-pencil-alt text-light"></i>
+                          </button>
+                          <button class="btn btn-sm btn-smaller deleteInventory" data-id="${item.inventory_id}">
+                            <i class="fas fa-trash text-danger"></i>
+                          </button>
+                        </td>`
+                      : ""
+                  }
+                `;
                 tbody.appendChild(row);
               });
             })
-            .catch((error) =>
-              console.error("Error fetching inventory:", error)
-            );
+            .catch((error) => {
+              console.error("Error fetching inventory:", error);
+              alert("Error al cargar el inventario.");
+            });
         }
 
         document
