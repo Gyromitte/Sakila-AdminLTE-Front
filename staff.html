@@ -444,7 +444,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-      console.log('UserType: ', localStorage.getItem('userType'));
       document.getElementById("backToHome").addEventListener("click", function(){
         // Mostrar la animación de carga
         const loadingSpinner = document.getElementById('loading');
@@ -479,12 +478,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             },
           });
           setTimeout(function () {
+            localStorage.removeItem("jwtToken");
             window.location.href = "index.html";
           }, 600);
         });
 
       document.addEventListener("DOMContentLoaded", function () {
-        fetch("http://127.0.0.1:8000/api/staff")
+        fetch("http://143.110.198.189/api/staff")
           .then((response) => response.json())
           .then((data) => {
             const staffTableBody = document.getElementById("staff-table-body");
