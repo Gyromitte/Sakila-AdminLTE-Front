@@ -60,22 +60,67 @@ This page gets rid of all links and provides the needed markup only.
           <div class="input-group-append"><button class="btn btn-sidebar"><i class="fas fa-search fa-fw"></i></button></div>
         </div>
       </div>
+      <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
           <!--MOVIES-->
-          <li class="nav-item menu"><a href="movies.html" class="nav-link"><i class="nav-icon fas fa-film"></i><p>Películas</p></a></li>
+          <li class="nav-item menu" id="moviesItem">
+            <a href="movies.html" class="nav-link">
+              <i class="nav-icon fas fa-film"></i>
+              <p>Películas</p>
+            </a>
+          </li>
+
           <!--ACTORS-->
-          <li class="nav-item"><a href="actors.html" class="nav-link active"><i class="nav-icon fas fa-mask"></i><p>Actores</p></a></li>
+          <li class="nav-item" id="actorsItem">
+            <a href="actors.html" class="nav-link">
+              <i class="nav-icon fas fa-mask"></i>
+              <p>Actores</p>
+            </a>
+          </li>
+
           <!--CLIENTS-->
-          <li class="nav-item"><a href="clients.html" class="nav-link"><i class="nav-icon fas fa-users"></i><p>Clientes</p></a></li>
+          <li class="nav-item" id="clientsItem">
+            <a href="clients.html" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Clientes</p>
+            </a>
+          </li>
+
           <!--RENTALS-->
-          <li class="nav-item"><a href="rentals.html" class="nav-link"><i class="nav-icon fas fa-money-bill"></i><p>Rentas</p></a></li>
+          <li class="nav-item" id="rentsItem">
+            <a href="rentals.html" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>Rentas</p>
+            </a>
+          </li>
+
           <!--INVENTORY-->
-          <li class="nav-item"><a href="inventory.html" class="nav-link"><i class="nav-icon fas fa-box"></i><p>Inventario</p></a></li>
+          <li class="nav-item" id="inventoryItem">
+            <a href="inventory.html" class="nav-link">
+              <i class="nav-icon fas fa-box"></i>
+              <p>Inventario</p>
+            </a>
+          </li>
+
           <!--STAFF-->
-          <li class="nav-item"><a href="staff.html" class="nav-link"><i class="nav-icon fas fa-people-arrows"></i><p>Staff</p></a></li>
+          <li class="nav-item" id="staffItem">
+            <a href="staff.html" class="nav-link">
+              <i class="nav-icon fas fa-people-arrows"></i>
+              <p>Staff</p>
+            </a>
+          </li>
+
           <!--STORES-->
-          <li class="nav-item"><a href="store.html" class="nav-link"><i class="nav-icon fas fa-store"></i><p>Tiendas</p></a></li>
+          <li class="nav-item" id="storeItem">
+            <a href="store.html" class="nav-link">
+              <i class="nav-icon fas fa-store"></i>
+              <p>Tiendas</p>
+            </a>
+          </li>
+
         </ul>
       </nav>
     </div>
@@ -212,7 +257,7 @@ This page gets rid of all links and provides the needed markup only.
 <script>
     console.log('UserType: ', localStorage.getItem('userType'));
     let userType = localStorage.getItem('userType');
-    if( userType = 2 ){
+    if( userType === 2 ){
       document.getElementById("clientsItem").classList.add('d-none');
       document.getElementById("rentsItem").classList.add('d-none');
       document.getElementById("staffItem").classList.add('d-none');
@@ -221,7 +266,7 @@ This page gets rid of all links and provides the needed markup only.
   let currentPage = 1, lastPage = 1;
   function loadActors(){
     $.ajax({
-      url: 'http://143.110.198.189/api/actors?page=' + currentPage,
+      url: 'http://127.0.0.1:8000/api/actors?page=' + currentPage,
       method: 'GET',
       success: function(data) {
         currentPage = data.current_page;
@@ -236,21 +281,30 @@ This page gets rid of all links and provides the needed markup only.
               <td>${actor.last_name}</td>
               <td>${actor.last_update}</td>
               <td>
-                <button class="btn btn-sm btn-smaller editActor" data-id="${actor.actor_id}">
+                <button class="btn btn-sm btn-smaller editActor editPencilActor" data-id="${actor.actor_id}">
                   <i class="fas fa-pencil-alt text-light"></i>
                 </button>
-                <button class="btn btn-sm btn-smaller deleteActor" data-id="${actor.actor_id}">
+                <button class="btn btn-sm btn-smaller deleteActor deleteCanActor" data-id="${actor.actor_id}">
                   <i class="fas fa-trash text-danger"></i>
                 </button>
               </td>
             </tr>`;
           tbody.append(row);
         });
+        if (userType === 3 ){
+          document.querySelectorAll(".editPencilActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+          document.querySelectorAll(".deleteCanActor").forEach(element => {
+            element.classList.add('d-none');
+          })
+        }
         $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
       },
       error: function(xhr, status, error) { alert('Error al cargar actores: ' + error); }
     });
   }
+  
   $(document).ready(function(){
     loadActors();
     $('#prevPage').click(function(){ if(currentPage>1){currentPage--;loadActors();} });
@@ -258,7 +312,7 @@ This page gets rid of all links and provides the needed markup only.
     $('#saveActor').click(function(){
       var formData = {first_name: $('#first_name').val(), last_name: $('#last_name').val()};
       $.ajax({
-        url: 'http://143.110.198.189/api/actors',
+        url: 'http://127.0.0.1:8000/api/actors',
         method: 'POST',
         data: formData,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -275,7 +329,7 @@ This page gets rid of all links and provides the needed markup only.
     $(document).on('click','.editActor', function(){
       var actorId = $(this).data('id');
       $.ajax({
-        url: 'http://143.110.198.189/api/actors/'+actorId,
+        url: 'http://127.0.0.1:8000/api/actors/'+actorId,
         method: 'GET',
         success: function(data){
           $('#editActorId').val(data.actor_id);
@@ -290,7 +344,7 @@ This page gets rid of all links and provides the needed markup only.
       var actorId = $('#editActorId').val();
       var formData = { first_name: $('#editFirstName').val(), last_name: $('#editLastName').val() };
       $.ajax({
-        url: 'http://143.110.198.189/api/actors/'+actorId,
+        url: 'http://127.0.0.1:8000/api/actors/'+actorId,
         method: 'PUT',
         data: formData,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -310,7 +364,7 @@ This page gets rid of all links and provides the needed markup only.
     $('#confirmDeleteActor').click(function(){
       var actorId = $('#deleteActorId').val();
       $.ajax({
-        url: 'http://143.110.198.189/api/actors/'+actorId,
+        url: 'http://127.0.0.1:8000/api/actors/'+actorId,
         method: 'DELETE',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
