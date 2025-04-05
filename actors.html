@@ -210,6 +210,14 @@ This page gets rid of all links and provides the needed markup only.
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
 <script>
+    console.log('UserType: ', localStorage.getItem('userType'));
+    let userType = localStorage.getItem('userType');
+    if( userType = 2 ){
+      document.getElementById("clientsItem").classList.add('d-none');
+      document.getElementById("rentsItem").classList.add('d-none');
+      document.getElementById("staffItem").classList.add('d-none');
+      document.getElementById("storeItem").classList.add('d-none');
+    }
   let currentPage = 1, lastPage = 1;
   function loadActors(){
     $.ajax({

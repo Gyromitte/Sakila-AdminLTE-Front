@@ -98,7 +98,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <!--MOVIES-->
-          <li class="nav-item menu">
+          <li class="nav-item menu" id="moviesItem">
             <a href="movies.html" class="nav-link">
               <i class="nav-icon fas fa-film"></i>
               <p>Películas</p>
@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--ACTORS-->
-          <li class="nav-item">
+          <li class="nav-item" id="actorsItem">
             <a href="actors.html" class="nav-link">
               <i class="nav-icon fas fa-mask"></i>
               <p>Actores</p>
@@ -114,7 +114,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--CLIENTS-->
-          <li class="nav-item">
+          <li class="nav-item" id="clientsItem">
             <a href="clients.html" class="nav-link active">
               <i class="nav-icon fas fa-users"></i>
               <p>Clientes</p>
@@ -122,7 +122,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--RENTALS-->
-          <li class="nav-item">
+          <li class="nav-item" id="rentsItem">
             <a href="rentals.html" class="nav-link">
               <i class="nav-icon fas fa-money-bill"></i>
               <p>Rentas</p>
@@ -130,7 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--INVENTORY-->
-          <li class="nav-item">
+          <li class="nav-item" id="inventoryItem">
             <a href="inventory.html" class="nav-link">
               <i class="nav-icon fas fa-box"></i>
               <p>Inventario</p>
@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--STAFF-->
-          <li class="nav-item">
+          <li class="nav-item" id="staffItem">
             <a href="staff.html" class="nav-link">
               <i class="nav-icon fas fa-people-arrows"></i>
               <p>Staff</p>
@@ -146,7 +146,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <!--STORES-->
-          <li class="nav-item">
+          <li class="nav-item" id="storeItem">
             <a href="store.html" class="nav-link">
               <i class="nav-icon fas fa-store"></i>
               <p>Tiendas</p>
@@ -363,11 +363,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- SCRIPT PARA CONSUMIR LA API Y MANEJAR LOS MODALES -->
 <script>
+    console.log('UserType: ', localStorage.getItem('userType'));
+    let userType = localStorage.getItem('userType');
+    if( userType = 2 ){
+      document.getElementById("clientsItem").classList.add('d-none');
+      document.getElementById("rentsItem").classList.add('d-none');
+      document.getElementById("staffItem").classList.add('d-none');
+      document.getElementById("storeItem").classList.add('d-none');
+    }
   // Función para obtener los clientes de la API y generar las filas en la tabla
   let currentPage = 1;
   let lastPage = 1;
   function fetchCustomers(){
-    fetch("http://143.110.198.189/api/customers?page=" + currentPage)
+    fetch("http://127.0.0.1:8000/api/customers?page=" + currentPage)
       .then(response => {
         if(!response.ok){
           throw new Error("Error en la respuesta de la API");
@@ -433,7 +441,7 @@ $(document).on("click", ".edit-btn", function(){
   console.log(customerId)
   
   $.ajax({
-    url: "http://143.110.198.189/api/customers/" + customerId, // Ruta para obtener el cliente
+    url: "http://127.0.0.1:8000/api/customers/" + customerId, // Ruta para obtener el cliente
     method: "GET",
     success: function(data) {
       console.log(data.first_name)
@@ -483,7 +491,7 @@ $(document).on("click", ".edit-btn", function(){
     var customerId = $("#deleteCustomerId").val();
     console.log("Eliminar cliente con id:", customerId);
     // Llamada a la API para eliminar (método DELETE)
-    fetch(`http://143.110.198.189/api/customers/delete_customer/${customerId}`, { method: 'POST' })
+    fetch(`http://127.0.0.1:8000/api/customers/delete_customer/${customerId}`, { method: 'POST' })
       .then(console.log("User deleted successfully"))
       .catch(error => console.error("Error at deleting user"));
     $("#deleteCustomerModal").modal("hide");
@@ -501,7 +509,7 @@ $(document).on("click", ".edit-btn", function(){
     console.log("Actualizar cliente:", "CustomerId:", customerId, "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
     const access_token = localStorage.getItem('jwtToken');
     // Llamada a la API para actualizar (método PUT o PATCH)
-    fetch(`https://renewing-hog-perfect.ngrok-free.app /api/customers/${customerId}`, {
+    fetch(`http://127.0.0.1:8000/api/customers/${customerId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${access_token}` },
       body: JSON.stringify({ store_id: storeId, first_name: firstName, last_name: lastName, email: email, address_id: addressId, active: active })
@@ -521,7 +529,7 @@ $(document).on("click", ".edit-btn", function(){
     var active    = $("#addActive").val();
     console.log("Agregar cliente:", "StoreId:", storeId, "FirstName", firstName, "LastName", lastName, "Email", email, "AddressId", addressId, "Active", active);
     // Llamada a la API para agregar (método POST)
-    fetch("http://143.110.198.189/api/customers", {
+    fetch("http://127.0.0.1:8000/api/customers", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ store_id: storeId, first_name: firstName, last_name: lastName, email: email, address_id: addressId, active: active })
