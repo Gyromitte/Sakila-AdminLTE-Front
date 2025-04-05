@@ -71,7 +71,7 @@
             const loadingSpinner = document.getElementById('loading');
             loadingSpinner.style.display = 'block';
 
-            fetch('http://127.0.0.1:8000/api/auth/verify-code', {
+            fetch('https://renewing-hog-perfect.ngrok-free.app/api/auth/verify-code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

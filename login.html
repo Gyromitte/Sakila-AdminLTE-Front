@@ -40,10 +40,15 @@
                         <div class="mt-3 text-center w-80">
                             <button type="button" class="btn btn-secondary w-100" id="backToHome">Regresar a inicio</button>
                         </div>
+
+                        <div class="mt-3 text-center w-80">
+                            <a href="recover_password_step1.html" class="btn btn-link w-100">¿Olvidaste tu contraseña?</a>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
+
         <!-- jQuery -->
         <script src="plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
@@ -82,12 +87,20 @@
                 const loadingSpinner = document.getElementById('loading');
                 loadingSpinner.style.display = 'block';
 
-                fetch('http://127.0.0.1:8000/api/auth/login', {
+                fetch('https://renewing-hog-perfect.ngrok-free.app/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            throw new Error("Error de autenticación: Credenciales inválidas.");
+                        }
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(result => {
                     if (result.error === 'Credenciales inválidas') {
                         toastr.error('Credenciales Inválidas');
