@@ -393,12 +393,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="dist/js/adminlte.min.js"></script>
 <!-- CRUD SCRIPT -->
 <script>
+    console.log('UserType: ', localStorage.getItem('userType'));
+    let userType = localStorage.getItem('userType');
+    if( userType === 2 ){
+      document.getElementById("clientsItem").classList.add('d-none');
+      document.getElementById("rentsItem").classList.add('d-none');
+      document.getElementById("staffItem").classList.add('d-none');
+      document.getElementById("storeItem").classList.add('d-none');
+    }
   let currentPage = 1, lastPage =1;
 
   // Load rentals from the API
   function loadRentals() {
     $.ajax({
-        url: `http://143.110.198.189/api/rentals?page=${currentPage}`,
+        url: `http://127.0.0.1:8000/api/rentals?page=${currentPage}`,
         method: 'GET',
         success: function (data) {
             currentPage = data.current_page;
@@ -428,6 +436,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 `;
                 tbody.append(row);
             });
+            if (userType === 3 ){
+            document.querySelectorAll(".editPencilActor").forEach(element => {
+              element.classList.add('d-none');
+            })
+            document.querySelectorAll(".deleteCanActor").forEach(element => {
+              element.classList.add('d-none');
+            })
+          }
 
             $('#pageInfo').text('Página ' + currentPage + ' de ' + lastPage);
         },
@@ -456,7 +472,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     // Function to fecth customers
     function fetchCustomers(dropdownId){
       return $.ajax({
-        url: 'http://143.110.198.189/api/customers',
+        url: 'http://127.0.0.1:8000/api/customers',
         method: 'GET',
         success: function (data) {
           populateDropdown(dropdownId, data.data, 'customer_id', 'email');
@@ -469,7 +485,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     function fetchInventories(dropdownId){
       return $.ajax({
-        url: 'http://143.110.198.189/api/inventories',
+        url: 'http://127.0.0.1:8000/api/inventories',
         method: 'GET',
         success: function (data) {
           populateDropdown(dropdownId, data.inventoriData.data, 'inventory_id', 'inventory_id');
@@ -482,7 +498,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     function fetchStaff(dropdownId){
       return $.ajax({
-        url: 'http://143.110.198.189/api/staff',
+        url: 'http://127.0.0.1:8000/api/staff',
         method: 'GET',
         success: function (data) {
           populateDropdown(dropdownId, data.data, 'staff_id', 'first_name');
@@ -541,7 +557,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         };
 
         $.ajax({
-            url: 'http://143.110.198.189/api/rentals',
+            url: 'http://127.0.0.1:8000/api/rentals',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(rentalData),
@@ -562,7 +578,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let rentalId = $(this).data('id');
 
       $.ajax({
-        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        url: `http://127.0.0.1:8000/api/rentals/${rentalId}`,
         method: 'GET',
         success: function (rental) {
           // Fill the edit modal with the rental's data
@@ -615,7 +631,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       console.log('Updated rental data:', updatedRental); // Debugging
 
       $.ajax({
-        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        url: `http://127.0.0.1:8000/api/rentals/${rentalId}`,
         method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(updatedRental),
@@ -641,7 +657,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       let rentalId = $('#deleteRentalId').val();
 
       $.ajax({
-        url: `http://143.110.198.189/api/rentals/${rentalId}`,
+        url: `http://127.0.0.1:8000/api/rentals/${rentalId}`,
         method: 'DELETE',
         success: function () {
           $('#deleteRentalModal').modal('hide'); // Close modal
